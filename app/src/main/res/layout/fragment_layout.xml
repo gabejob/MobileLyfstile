@@ -7,16 +7,18 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+<!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/master_border"
         android:text="" />
+-->
 
     <RelativeLayout
+        android:id="@+id/Welcome_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Welcome_group">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/to"
@@ -52,17 +54,21 @@
         <TextView
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:layout_below="@id/to"
 
 
-            android:layout_marginStart="124dp"
+            android:layout_alignParentStart="true"
 
-            android:layout_marginEnd="76dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="130dp"
             android:fontFamily="@font/segoe"
             android:text="Lyfstile"
             android:textAlignment="center"
             android:textSize="50dp" />
+
 
 
     </RelativeLayout>
@@ -82,8 +88,43 @@
         android:background="@color/Button_color"
         android:backgroundTint="@color/Button_color"
         android:fontFamily="@font/segoe"
+        android:text="Log in"
         android:textColor="@color/black"
-        android:textSize="22dp"
-        android:text="Log in"></Button>
+        android:textSize="22dp"></Button>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/new_user"
+        android:layout_width="150dp"
+        android:layout_height="59dp"
+        android:layout_below="@+id/Welcome_group"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="219dp"
+
+
+        android:layout_marginEnd="135dp"
+        android:background="@drawable/master_border"
+
+
+        android:fontFamily="@font/segoe"
+        android:text="Create Account"
+        android:textColor="@color/black"
+        android:textSize="15dp"></androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Welcome_group"
+        android:id="@+id/forgot_pass"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="292dp"
+        android:layout_marginEnd="135dp"
+        android:background="#00FFFFFF"
+        android:text="Forgot Password?"></androidx.appcompat.widget.AppCompatButton>
 
 </RelativeLayout>

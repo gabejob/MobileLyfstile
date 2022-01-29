@@ -7,17 +7,15 @@
     android:background="@color/BG_color"
     android:id="@+id/layout_frags"
     tools:context=".MainActivity"
-    >
+    android:orientation="horizontal">
 
- //MUST PUT ALL CODE INSIDE HERE!
+
  <fragment
      android:layout_width="match_parent"
      android:layout_height="match_parent"
      android:layout_weight="2"
      android:name="com.example.lyfstile.LayoutFragment"
      android:layout_below="@+id/layout_frags"
-
-
      />
 
 </LinearLayout>

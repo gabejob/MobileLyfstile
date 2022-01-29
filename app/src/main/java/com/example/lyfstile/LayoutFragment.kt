@@ -1,10 +1,13 @@
 package com.example.lyfstile
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,11 +19,40 @@ private const val ARG_PARAM2 = "param2"
  * Use the [LayoutFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class LayoutFragment : Fragment() {
+public class LayoutFragment : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var forgotpass: Button? = null
+    var dataPass : LayoutFragment.OnDataPass? = null
 
+    override fun onClick(view: View?) {
+        when(view?.id)
+        {
+            R.id.forgot_pass -> Toast.makeText(
+                activity,
+                "working",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
+    }
+
+    public interface OnDataPass{
+        fun onDataPass(data : Array<String>)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try
+        {
+            dataPass = context as OnDataPass
+        } catch(e : ClassCastException)
+        {
+            throw ClassCastException("$context must implement OnDataPass")
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,7 +66,14 @@ class LayoutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_layout, container, false)
+
+        var view : View = inflater.inflate(R.layout.fragment_layout,container,false)
+
+        forgotpass = view.findViewById(R.id.forgot_pass) as Button
+        forgotpass!!.setOnClickListener(this);
+
+
+        return view
     }
 
     companion object {
