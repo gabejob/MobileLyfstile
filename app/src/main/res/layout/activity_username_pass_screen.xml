@@ -1,9 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UsernamePassScreen">
+    android:layout_height="wrap_content"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/master_border"
+        android:text="" />
+
+    <RelativeLayout
+        android:id="@+id/welcome_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/account_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="97dp"
+            android:layout_marginLeft="102dp"
+            android:layout_marginTop="61dp"
+            android:layout_marginEnd="105dp"
+
+            android:fontFamily="@font/segoe"
+            android:text="Account"
+            android:textAlignment="center"
+            android:textSize="50dp" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/email_text"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome_group"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="93dp"
+
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="94dp"
+        android:fontFamily="@font/segoe"
+        android:text="Enter Email"
+        android:textAlignment="center"
+        android:textSize="40dp" />
+
+    <EditText
+        android:id="@+id/email_enter_box"
+        android:layout_width="193dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/email_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="108dp"
+        android:background="@color/white"></EditText>
+
+    <EditText
+        android:id="@+id/password_enter_box"
+        android:layout_width="193dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/confirm_password_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="-100dp"
+        android:layout_marginEnd="109dp"
+        android:background="@color/white"></EditText>
+
+    <TextView
+        android:id="@+id/confirm_password_text"
+        android:layout_width="253dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome_group"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="81dp"
+
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="343dp"
+        android:layout_marginEnd="77dp"
+        android:fontFamily="@font/segoe"
+        android:text="Confirm Password"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+    <EditText
+        android:id="@+id/password_confirm_enter_box"
+        android:layout_width="193dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/confirm_password_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="109dp"
+        android:background="@color/white"></EditText>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome_group"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="454dp"
+
+
+        android:layout_marginEnd="131dp"
+        android:background="@color/Button_color"
+        android:backgroundTint="@color/Button_color"
+        android:fontFamily="@font/segoe"
+        android:text="Next"
+        android:textColor="@color/black"
+        android:textSize="22dp"></Button>
+
+    <TextView
+        android:id="@+id/enter_password_text"
+        android:layout_width="209dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome_group"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="101dp"
+
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="228dp"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/segoe"
+        android:text="Enter Password"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+</RelativeLayout>
