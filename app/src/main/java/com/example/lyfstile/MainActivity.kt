@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
+import org.w3c.dom.Text
 
 
 
-class MainActivity : AppCompatActivity(), LayoutFragment.OnDataPass, View.OnClickListener {
+
+class MainActivity : AppCompatActivity(),  View.OnClickListener, TextSubmitFragment.PassData {
 
 
 
@@ -16,8 +19,16 @@ class MainActivity : AppCompatActivity(), LayoutFragment.OnDataPass, View.OnClic
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val beginAccCreation = findViewById<View>(R.id.new_user) as Button
-        beginAccCreation.setOnClickListener(this);
+        //val beginAccCreation = findViewById<View>(R.id.new_user) as Button
+       // beginAccCreation.setOnClickListener(this);
+
+        var subfrag = TextSubmitFragment()
+
+        var fragTrans = supportFragmentManager.beginTransaction();
+
+        fragTrans.replace(R.id.text_frag_container,subfrag,"subfrag")
+        fragTrans.commit()
+
 
     }
 
@@ -26,15 +37,20 @@ class MainActivity : AppCompatActivity(), LayoutFragment.OnDataPass, View.OnClic
         when(view.id) {
             R.id.new_user ->
             {
-                val accountCreation = Intent(this, NewUserStepOne::class.java)
-                startActivity(accountCreation);
+                //val accountCreation = Intent(this, NewUserStepOne::class.java)
+                //startActivity(accountCreation);
+
 
             }
         }
     }
 
+    override fun onDataPass(data: Data) {
 
-    override fun onDataPass(data: Array<String>) {
-
+        //Reward them for submitting their names
+        val toast = Toast.makeText(this, data.data["frag"], Toast.LENGTH_SHORT)
+        toast.show()
     }
+
+
 }

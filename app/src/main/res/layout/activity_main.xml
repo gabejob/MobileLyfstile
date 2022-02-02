@@ -70,7 +70,11 @@
       android:textSize="50dp" />
 
 
-
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/text_frag_container"
+      />
  </RelativeLayout>
 
  <Button
