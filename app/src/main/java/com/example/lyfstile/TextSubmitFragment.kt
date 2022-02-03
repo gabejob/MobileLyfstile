@@ -18,37 +18,14 @@ import javax.crypto.BadPaddingException
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TextSubmitFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 
 
-/**
- *
- * Class representing data to be passed between fragments/activities
- *
- * MUST USE SENDER!
- *
- */
-public class Data(_sender: String,_data: Map<String,String>)
-{
-    var sender: String = _sender
+class TextSubmitFragment : Fragment(), View.OnClickListener{
 
-    var data: Map<String, String> = _data
+    lateinit var dataPasser: PassData;
+    var enter_email : EditText ?= null;
+    var next : Button?= null;
 
-}
-
-class TextSubmitFragment : Fragment(), View.OnClickListener {
-
-    var dataPasser : PassData ?= null;
-    var editText : EditText ?= null;
-    var submit : Button?= null;
-
-    public interface PassData{
-        fun onDataPass(data: Data)
-    }
 
 
     //Associate the callback with this Fragment
@@ -57,7 +34,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener {
         try {
             dataPasser = context as PassData
         } catch (e: ClassCastException) {
-            throw ClassCastException("$context must implement OnDataPass")
+           // throw ClassCastException("$context must implement OnDataPass")
         }
     }
 
@@ -67,9 +44,9 @@ class TextSubmitFragment : Fragment(), View.OnClickListener {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_text_submit, container, false)
-        submit = view.findViewById(R.id.button_submit) as Button
-        editText = view.findViewById(R.id.frag_submit) as EditText
-        submit!!.setOnClickListener(this)
+        next = view.findViewById(R.id.next_button) as Button
+        enter_email = view.findViewById(R.id.enter_box) as EditText
+        next!!.setOnClickListener(this)
 
         return view
     }
@@ -94,13 +71,18 @@ class TextSubmitFragment : Fragment(), View.OnClickListener {
             }
     }
 
+
+
+
     override fun onClick(view: View?) {
 
+            val frag = childFragmentManager.fragments
+
         when(view?.id) {
-            R.id.button_submit ->
+            R.id.next_button ->
             {
-                val text = editText?.text.toString()
-                val data = Data("frag_test", mapOf("frag" to text))
+                val text = enter_email?.text.toString()
+                val data = Data(text, mapOf("frag" to text))
 
                 print(data.data)
                 dataPasser?.onDataPass(data)
@@ -108,4 +90,8 @@ class TextSubmitFragment : Fragment(), View.OnClickListener {
             }
     }
 }
+
+     fun onDataPass(data: Data) {
+
+    }
 }

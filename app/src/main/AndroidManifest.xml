@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lyfstile">
         <activity
+            android:name=".UsernamePassScreen"
+            android:exported="false" />
+        <activity
             android:name=".NewUserStepOne"
             android:exported="false" />
         <activity
