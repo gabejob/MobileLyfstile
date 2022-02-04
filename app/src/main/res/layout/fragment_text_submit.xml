@@ -1,23 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout class="androidx.appcompat.app.AlertController$RecycleListView" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <EditText
-        android:id="@+id/frag_submit"
-        android:layout_width="173dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="11dp"
-        android:layout_toStartOf="@+id/button_submit"
-        android:layout_weight="1" />
+        android:id="@+id/enter_box"
+        android:layout_width="193dp"
+        android:layout_height="34dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="81dp"
+        android:layout_marginLeft="100dp"
+
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="152dp"
+        android:background="@color/white"></EditText>
 
     <Button
-        android:id="@+id/button_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/next_button"
+        android:layout_width="78dp"
+        android:layout_height="38dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="134dp"
-        android:text="Submit" />
-
-
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="65dp"
+        android:background="@color/black"
+        android:text="test_button"></Button>
 </RelativeLayout>
