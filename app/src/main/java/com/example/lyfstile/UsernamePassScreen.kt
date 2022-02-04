@@ -11,19 +11,26 @@ private const val ARG_PARAM2 = "param2"
 
 class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
-    var data : Data ?= null
+    var dataList = ArrayList<Data>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username_pass_screen)
 
-        //Replace the fragment container
+        //Replace the fragment container(s)
+        //Each of these represents a single fragment, so be careful about duplicate tags
+        var emailEnterFragment = TextSubmitFragment()
+        var passwordEnterFragment = TextSubmitFragment()
+        var confirmPasswordEnterFragment = TextSubmitFragment()
 
-        var fragment1 = TextSubmitFragment()
         val fragtrans = supportFragmentManager.beginTransaction()
-       fragtrans.replace(R.id.test,fragment1,"Test")
-       fragtrans.commit()
+
+        fragtrans.replace(R.id.email_enter_box,emailEnterFragment,"Email_box")
+        fragtrans.replace(R.id.password_enter_box,passwordEnterFragment,"Password_box")
+        fragtrans.replace(R.id.confirm_password_enter_box,confirmPasswordEnterFragment,"Confirm_password_box")
+
+        fragtrans.commit()
 
         val next_button = findViewById<Button>(R.id.next_button)
         next_button.setOnClickListener(this)
@@ -52,10 +59,25 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
     override fun onClick(view: View?) {
 
+        var message = ""
+        var entries = dataList.toArray()
+        if (entries != null) {
+            for (entry in entries) {
+               var temp = entry as Data
+                message += temp.getData(entry.sender)
+            }
+        }
+
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
     }
 
-    override fun onDataPass(data: Data) {
-        Toast.makeText(this, data.sender, Toast.LENGTH_SHORT).show()
+    override fun onDataPass(_data: Data) {
+        Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
+
+        var senderKey = _data.sender
+        /*data?.appendData(senderKey,_data.getData(senderKey))*/
+        dataList.add(_data)
     }
 
 }

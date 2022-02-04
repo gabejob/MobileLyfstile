@@ -13,9 +13,19 @@ public class Data(_sender: String,_data: Map<String,String>)
 
     var data: Map<String, String> = _data
 
+public fun appendData(key : String, value : String)
+{
+    data.map { key to value }
 
+}
 
+ public fun getAll(): Set<Map.Entry<String, String>> {
+     return data.entries
+ }
+public fun getData(key : String): String {
 
+    return data.getValue(key)
+}
 
 }
 
