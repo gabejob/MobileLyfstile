@@ -60,23 +60,47 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     override fun onClick(view: View?) {
 
         var message = ""
-        var entries = dataList.toArray()
-        if (entries != null) {
-            for (entry in entries) {
+
+
+
+        if (dataList != null && allBoxesEntered()) {
+            for (entry in dataList) {
                var temp = entry as Data
                 message += temp.getData(entry.sender)
             }
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+        }else
+        {
+            Toast.makeText(this,"Please enter all forms!", Toast.LENGTH_SHORT).show()
+
         }
 
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
     }
 
+    private fun allBoxesEntered(): Boolean {
+        var senders = ArrayList<String>()
+
+
+        if (dataList != null) {
+            for (entry in dataList) {
+                var temp = entry as Data
+                senders.add(temp.sender)
+
+            }
+        }
+
+        if(senders.contains("Email_box") && senders.contains("Password_box") && senders.contains("Confirm_password_box"))
+            return true
+
+       return false
+    }
+
+
+
     override fun onDataPass(_data: Data) {
         Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
-
-        var senderKey = _data.sender
-        /*data?.appendData(senderKey,_data.getData(senderKey))*/
         dataList.add(_data)
     }
 

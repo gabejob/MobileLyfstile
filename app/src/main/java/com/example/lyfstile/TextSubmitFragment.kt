@@ -1,8 +1,11 @@
 package com.example.lyfstile
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,17 @@ import androidx.fragment.app.FragmentManager
 import java.lang.AssertionError
 import java.lang.ClassCastException
 import javax.crypto.BadPaddingException
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethod
+import android.view.inputmethod.InputMethodManager
+
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
+
+
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,8 +38,8 @@ private const val ARG_PARAM2 = "param2"
 class TextSubmitFragment : Fragment(), View.OnClickListener{
 
     lateinit var dataPasser: PassData;
-    var enter_email : EditText ?= null;
-    var next : Button?= null;
+    var enter_txt : EditText ?= null;
+    //var next : Button?= null;
     var fragment_tag : String ?= null
 
 
@@ -45,10 +59,23 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_text_submit, container, false)
-        next = view.findViewById(R.id.next_button) as Button
-        enter_email = view.findViewById(R.id.enter_box) as EditText
-        next!!.setOnClickListener(this)
+       // next = view.findViewById(R.id.next_button) as Button
+        enter_txt = view.findViewById(R.id.enter_box) as EditText
 
+        enter_txt?.setOnEditorActionListener(OnEditorActionListener { view, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_SEND || keyEvent.keyCode == KEYCODE_ENTER){
+                val text = enter_txt?.text.toString()
+                val data = Data(fragment_tag.toString(), mapOf(fragment_tag.toString() to text))
+
+                print(data.data)
+                dataPasser?.onDataPass(data)
+
+                var keyboard = getContext()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboard.hideSoftInputFromWindow(enter_txt?.windowToken,0)
+
+            }
+            false
+        })
         fragment_tag = tag
         return view
     }
@@ -83,7 +110,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
         when(view?.id) {
             R.id.next_button ->
             {
-                val text = enter_email?.text.toString()
+                val text = enter_txt?.text.toString()
                 val data = Data(fragment_tag.toString(), mapOf(fragment_tag.toString() to text))
 
                 print(data.data)
@@ -96,4 +123,5 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
      fun onDataPass(data: Data) {
 
     }
+
 }
