@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.FragmentManager
 import java.lang.AssertionError
 import java.lang.ClassCastException
 import javax.crypto.BadPaddingException
@@ -25,7 +26,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
     lateinit var dataPasser: PassData;
     var enter_email : EditText ?= null;
     var next : Button?= null;
-
+    var fragment_tag : String ?= null
 
 
     //Associate the callback with this Fragment
@@ -48,6 +49,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
         enter_email = view.findViewById(R.id.enter_box) as EditText
         next!!.setOnClickListener(this)
 
+        fragment_tag = tag
         return view
     }
 
@@ -82,7 +84,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
             R.id.next_button ->
             {
                 val text = enter_email?.text.toString()
-                val data = Data(text, mapOf("frag" to text))
+                val data = Data(fragment_tag.toString(), mapOf(fragment_tag.toString() to text))
 
                 print(data.data)
                 dataPasser?.onDataPass(data)
