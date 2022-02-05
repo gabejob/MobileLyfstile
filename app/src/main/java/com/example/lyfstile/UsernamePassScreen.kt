@@ -2,6 +2,7 @@ package com.example.lyfstile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -13,7 +14,7 @@ private const val ARG_PARAM2 = "param2"
 class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
     var dataList = ArrayList<Data>()
-
+    var emailEnterFragment : TextSubmitFragment ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,20 +22,21 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
         //Replace the fragment container(s)
         //Each of these represents a single fragment, so be careful about duplicate tags
-        var emailEnterFragment = TextSubmitFragment()
-        var passwordEnterFragment = TextSubmitFragment()
-        var confirmPasswordEnterFragment = TextSubmitFragment()
+        emailEnterFragment = TextSubmitFragment(false)
+        var passwordEnterFragment = TextSubmitFragment(true)
+
+        var confirmPasswordEnterFragment = TextSubmitFragment(true)
 
         val fragtrans = supportFragmentManager.beginTransaction()
 
-        fragtrans.replace(R.id.email_enter_box,emailEnterFragment,"Email_box")
+        fragtrans.replace(R.id.email_enter_box, emailEnterFragment!!,"Email_box")
         fragtrans.replace(R.id.password_enter_box,passwordEnterFragment,"Password_box")
         fragtrans.replace(R.id.confirm_password_enter_box,confirmPasswordEnterFragment,"Confirm_password_box")
 
         fragtrans.commit()
 
-        val next_button = findViewById<Button>(R.id.next_button)
-        next_button.setOnClickListener(this)
+        val nextButton = findViewById<Button>(R.id.next_button)
+        nextButton.setOnClickListener(this)
     }
 
 
@@ -50,7 +52,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            TextSubmitFragment().apply {
+            TextSubmitFragment(true).apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -61,8 +63,6 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     override fun onClick(view: View?) {
 
         var message = ""
-
-
 
         if (dataList != null && allBoxesEntered()) {
             for (entry in dataList) {
@@ -99,10 +99,32 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
        return false
     }
 
+    private fun CharSequence?.isValidEmail() : Boolean
+    {
+
+        if(!isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches())
+            return true
+        return false
+
+    }
 
 
     override fun onDataPass(_data: Data) {
         Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
+
+        if(_data.sender=="Email_box")
+        {
+            var email = _data.getData(_data.sender)
+            if(email.isValidEmail())
+            {
+
+            }
+            else{ Toast.makeText(this,"Not a valid email!", Toast.LENGTH_SHORT).show()
+                emailEnterFragment?.enterTxt?.error = "Invalid Email!!"
+            }
+
+        }
+
         dataList.add(_data)
         // not sure if this will be kept here, but ill use it to move to the next frag for now...
 /*        val fnPassScreen = Intent(this, FnPassScreen::class.java)

@@ -3,7 +3,6 @@ package com.example.lyfstile
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -33,8 +32,8 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
         //Replace the fragment container(s)
         //Each of these represents a single fragment, so be careful about duplicate tags
-        var fnEnterFragment = TextSubmitFragment()
-        var lnEnterFragment = TextSubmitFragment()
+        var fnEnterFragment = TextSubmitFragment(true)
+        var lnEnterFragment = TextSubmitFragment(true)
 /*
         var confirmPasswordEnterFragment = TextSubmitFragment()
 */
@@ -70,7 +69,7 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            TextSubmitFragment().apply {
+            TextSubmitFragment(true).apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

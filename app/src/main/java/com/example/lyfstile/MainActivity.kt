@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity(),  View.OnClickListener, PassData {
 
         var createAccountButton = findViewById<Button>(R.id.new_user)
         createAccountButton.setOnClickListener(this)
-
+        var existingAccountButton = findViewById<Button>(R.id.Log_in)
+        existingAccountButton.setOnClickListener(this)
     }
 
      override fun onClick(view : View)
@@ -24,10 +25,14 @@ class MainActivity : AppCompatActivity(),  View.OnClickListener, PassData {
         when(view.id) {
             R.id.new_user ->
             {
-
-
                 val usernamePassScreen = Intent(this, UsernamePassScreen::class.java)
                 this.startActivity(usernamePassScreen)
+
+            }
+            R.id.Log_in ->
+            {
+                val existingUserScreen = Intent(this,LoginExistingAccount::class.java)
+                this.startActivity(existingUserScreen)
 
             }
         }
