@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -73,7 +74,8 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         }else
         {
             Toast.makeText(this,"Please enter all forms!", Toast.LENGTH_SHORT).show()
-
+            val fnPassScreen = Intent(this, FnPassScreen::class.java)
+            this.startActivity(fnPassScreen)
         }
 
 
@@ -102,6 +104,9 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     override fun onDataPass(_data: Data) {
         Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
         dataList.add(_data)
+        // not sure if this will be kept here, but ill use it to move to the next frag for now...
+/*        val fnPassScreen = Intent(this, FnPassScreen::class.java)
+        this.startActivity(fnPassScreen)*/
     }
 
 }
