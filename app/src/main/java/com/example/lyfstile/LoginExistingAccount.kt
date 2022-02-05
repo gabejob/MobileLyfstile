@@ -8,8 +8,8 @@ import android.widget.Toast
 
 class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData {
 
-    private var dataList = ArrayList<Data>()
-
+    private var dataList = HashMap<String, Data>()
+    private var login : Button ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +25,12 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
 
         fragtrans.commit()
 
-        val login = findViewById<Button>(R.id.Login_button)
+        login = findViewById<Button>(R.id.Login_button)
+        login?.isEnabled = false
+
         val forgot = findViewById<Button>(R.id.forgot_pass)
         forgot.setOnClickListener(this)
-        login.setOnClickListener(this)
+        login?.setOnClickListener(this)
 
 
 
@@ -64,13 +66,13 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
               //Make sure everything has been entered/initialized
               if (dataList != null && allBoxesEntered()) {
 
-                  var username = dataList[0].data
-                  var password = dataList[1].data
+                  var username = dataList["Email_box"]?.data
+                  var password = dataList["Password_box"]?.data
 
-                  if(verifyCredentials(username,password)) {
+                  if(verifyCredentials(username.toString(),password.toString())) {
 
                       for (entry in dataList) {
-                          message += entry.data
+                          message += entry.value.data
                       }
                       Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                   }
@@ -111,6 +113,22 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
 
     override fun onDataPass(_data: Data) {
         Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
-        dataList.add(_data)
+
+        if(_data.data.isEmpty()) {
+            dataList.remove(_data.sender)
+        }
+        else
+        {
+            dataList[_data.sender] = _data
+
+            if(dataList.size == 2) {
+                login?.isEnabled = true
+            }
+        }
+
+
+
     }
-}
+
+
+    }
