@@ -2,11 +2,14 @@ package com.example.lyfstile
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.w3c.dom.Text
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -14,7 +17,10 @@ private const val ARG_PARAM2 = "param2"
 class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
     var dataList = ArrayList<Data>()
-    var emailEnterFragment : TextSubmitFragment ?= null
+    private var emailEnterFragment : TextSubmitFragment ?= null
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +28,13 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
         //Replace the fragment container(s)
         //Each of these represents a single fragment, so be careful about duplicate tags
-        emailEnterFragment = TextSubmitFragment(false)
-        var passwordEnterFragment = TextSubmitFragment(true)
+        emailEnterFragment = TextSubmitFragment()
 
-        var confirmPasswordEnterFragment = TextSubmitFragment(true)
+
+
+
+        var passwordEnterFragment = TextSubmitFragment()
+        var confirmPasswordEnterFragment = TextSubmitFragment()
 
         val fragtrans = supportFragmentManager.beginTransaction()
 
@@ -52,7 +61,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            TextSubmitFragment(true).apply {
+            TextSubmitFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -99,14 +108,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
        return false
     }
 
-    private fun CharSequence?.isValidEmail() : Boolean
-    {
 
-        if(!isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches())
-            return true
-        return false
-
-    }
 
 
     override fun onDataPass(_data: Data) {
@@ -114,14 +116,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
         if(_data.sender=="Email_box")
         {
-            var email = _data.getData(_data.sender)
-            if(email.isValidEmail())
-            {
 
-            }
-            else{ Toast.makeText(this,"Not a valid email!", Toast.LENGTH_SHORT).show()
-                emailEnterFragment?.enterTxt?.error = "Invalid Email!!"
-            }
 
         }
 

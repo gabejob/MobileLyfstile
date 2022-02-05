@@ -8,15 +8,15 @@ import android.widget.Toast
 
 class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData {
 
-    var dataList = ArrayList<Data>()
+    private var dataList = ArrayList<Data>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_existing_account)
 
-        var emailEnterFragment = TextSubmitFragment(false)
-        var passwordEnterFragment = TextSubmitFragment(true)
+        var emailEnterFragment = TextSubmitFragment()
+        var passwordEnterFragment = TextSubmitFragment()
 
         val fragtrans = supportFragmentManager.beginTransaction()
 
