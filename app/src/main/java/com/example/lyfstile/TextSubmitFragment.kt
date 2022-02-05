@@ -31,7 +31,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
 
     lateinit var dataPasser: PassData;
     var enterTxt : EditText ?= null;
-
+    var isValid = false
 
     //Really should only need to touch afterTextChanged -> Checks for valid email
     private val watcher = object : TextWatcher {
@@ -42,14 +42,18 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
             if (email.isValidEmail() && email?.length!! > 0)
             {
                 //Need to look for some sort of success library here...
+                isValid = true
             }
             else
             {
                 enterTxt?.error = "Invalid Email!";
+                isValid = false
             }
         }
 
     }
+
+
 
 
     //Associate the callback with this Fragment
@@ -72,27 +76,27 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
 
 
         //Check for special input types
-        if(tag?.contains("Password_box") == true)
+        if(tag?.lowercase()?.contains("Password_box".lowercase()) == true)
             enterTxt?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        if(tag?.contains("Email_box") == true)
+        if(tag?.lowercase()?.contains("Email_box".lowercase()) == true)
             enterTxt?.addTextChangedListener(watcher)
 
 
         //May look to move this into its own function for readability,
         //Makes keyboard disappear when enter/submit is fixed, still a little buggy
-        enterTxt?.setOnEditorActionListener(OnEditorActionListener { view, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_SEND || keyEvent.keyCode == KEYCODE_ENTER){
+        enterTxt?.setOnEditorActionListener { view, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_SEND || keyEvent.keyCode == KEYCODE_ENTER) {
                 val text = enterTxt?.text.toString()
-                val data = Data(tag.toString(), mapOf(tag.toString() to text))
+                val data = Data(tag.toString(), text)
                 print(data.data)
                 dataPasser?.onDataPass(data)
 
-                var keyboard = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                keyboard.hideSoftInputFromWindow(enterTxt?.windowToken,0)
-
+                var keyboard =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboard.hideSoftInputFromWindow(enterTxt?.windowToken, 0)
             }
             false
-        })
+        }
 
         return view
     }
@@ -120,7 +124,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
             R.id.next_button ->
             {
                 val text = enterTxt?.text.toString()
-                val data = Data(tag.toString(), mapOf(tag.toString() to text))
+                val data = Data(tag.toString(), text)
 
                 print(data.data)
                 dataPasser?.onDataPass(data)
@@ -128,6 +132,8 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
             }
     }
 }
+
+
 
      fun onDataPass(data: Data) {
 

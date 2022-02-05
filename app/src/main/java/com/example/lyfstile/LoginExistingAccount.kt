@@ -26,7 +26,10 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
         fragtrans.commit()
 
         val login = findViewById<Button>(R.id.Login_button)
+        val forgot = findViewById<Button>(R.id.forgot_pass)
+        forgot.setOnClickListener(this)
         login.setOnClickListener(this)
+
 
 
 
@@ -61,13 +64,13 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
               //Make sure everything has been entered/initialized
               if (dataList != null && allBoxesEntered()) {
 
-                  var username = dataList[0].getData("Email_box")
-                  var password = dataList[1].getData("Password_box")
+                  var username = dataList[0].data
+                  var password = dataList[1].data
 
                   if(verifyCredentials(username,password)) {
 
                       for (entry in dataList) {
-                          message += entry.getData(entry.sender)
+                          message += entry.data
                       }
                       Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                   }

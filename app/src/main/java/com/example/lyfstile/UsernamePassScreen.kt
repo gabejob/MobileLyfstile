@@ -2,23 +2,20 @@ package com.example.lyfstile
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.w3c.dom.Text
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
-    var dataList = ArrayList<Data>()
+    private var dataList = HashMap<String, Data>()
     private var emailEnterFragment : TextSubmitFragment ?= null
-
+    private var nextButton : Button ?= null
 
 
 
@@ -29,8 +26,6 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         //Replace the fragment container(s)
         //Each of these represents a single fragment, so be careful about duplicate tags
         emailEnterFragment = TextSubmitFragment()
-
-
 
 
         var passwordEnterFragment = TextSubmitFragment()
@@ -44,8 +39,9 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
         fragtrans.commit()
 
-        val nextButton = findViewById<Button>(R.id.next_button)
-        nextButton.setOnClickListener(this)
+        nextButton = findViewById<Button>(R.id.next_button)
+        nextButton?.setOnClickListener(this)
+        nextButton?.isEnabled = false
     }
 
 
@@ -73,18 +69,24 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
         var message = ""
 
-        if (dataList != null && allBoxesEntered()) {
-            for (entry in dataList) {
-               var temp = entry as Data
-                message += temp.getData(entry.sender)
-            }
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        if (dataList.size==3) {
 
-        }else
+            if(doPasswordsMatch()) {
+                for (entry in dataList) {
+                    var temp = entry as Data
+                    message += temp.data
+                }
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                val fnPassScreen = Intent(this, FnPassScreen::class.java)
+                this.startActivity(fnPassScreen)
+            }else
+            {
+                Toast.makeText(this,"Passwords do not match!", Toast.LENGTH_SHORT).show()
+            }
+            }else
         {
             Toast.makeText(this,"Please enter all forms!", Toast.LENGTH_SHORT).show()
-            val fnPassScreen = Intent(this, FnPassScreen::class.java)
-            this.startActivity(fnPassScreen)
+
         }
 
 
@@ -108,22 +110,41 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
        return false
     }
 
+    /*
+        Warning: dataList is deprecated, should probably use a map
+     */
+    private fun doPasswordsMatch() : Boolean
+    {
+        var passField = dataList["Password_box"]?.data
+        var confirmPassField = dataList["Confirm_password_box"]?.data
 
+        if (passField == confirmPassField)
+            return true
+
+        return false
+    }
 
 
     override fun onDataPass(_data: Data) {
         Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
 
-        if(_data.sender=="Email_box")
+
+        if(_data.data.isEmpty())
         {
-
-
+            dataList.remove(_data.sender)
+            nextButton?.isEnabled = false
         }
+        else {
+            dataList[_data.sender] = _data
 
-        dataList.add(_data)
+            if (dataList.size == 3) {
+                nextButton?.isEnabled = true
+            }
+        }
+    }
+
         // not sure if this will be kept here, but ill use it to move to the next frag for now...
 /*        val fnPassScreen = Intent(this, FnPassScreen::class.java)
         this.startActivity(fnPassScreen)*/
     }
 
-}

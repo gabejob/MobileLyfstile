@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(),  View.OnClickListener, PassData {
         when(data?.sender) {
             "frag" -> {
                 //Reward them for submitting their names
-                val toast = Toast.makeText(this, data.data["frag"], Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(this, data.data, Toast.LENGTH_SHORT)
                 toast.show()
             }
         }

@@ -86,7 +86,7 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         if (dataList != null && allBoxesEntered()) {
             for (entry in dataList) {
                 var temp = entry
-                message += temp.getData(entry.sender)
+                message += temp.data
             }
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
@@ -124,7 +124,7 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
 
     override fun onDataPass(_data: Data) {
-        Toast.makeText(this, "Came from: " + _data.sender + " Data is: " + _data.getAll(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Came from: " + _data.sender + " Data is: " + _data.getAll(), Toast.LENGTH_SHORT).show()
         dataList.add(_data)
         print("in the datapass")
 
