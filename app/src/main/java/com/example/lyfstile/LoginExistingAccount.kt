@@ -64,7 +64,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
 
           R.id.Login_button -> {
               //Make sure everything has been entered/initialized
-              if (dataList != null && allBoxesEntered()) {
+              if (dataList.size == 2) {
 
                   var username = dataList["Email_box"]?.data
                   var password = dataList["Password_box"]?.data
@@ -116,6 +116,8 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
 
         if(_data.data.isEmpty()) {
             dataList.remove(_data.sender)
+            login?.isEnabled = false
+
         }
         else
         {
@@ -124,6 +126,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
             if(dataList.size == 2) {
                 login?.isEnabled = true
             }
+
         }
 
 
