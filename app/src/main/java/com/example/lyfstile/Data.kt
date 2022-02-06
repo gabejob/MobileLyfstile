@@ -6,16 +6,13 @@ package com.example.lyfstile
  *
  * MUST USE SENDER!
  *
- * CAUTION WITH USE!!! WILL BE CHANGING!!!
+ *
  *
  */
 public class Data(_sender: String,_data: String)
 {
     var sender: String = _sender
-
     var data : String = _data
-
-
 }
 
 public interface PassData{

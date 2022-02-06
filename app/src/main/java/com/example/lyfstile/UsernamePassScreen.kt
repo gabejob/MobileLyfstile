@@ -72,11 +72,6 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         if (dataList.size==3) {
 
             if(doPasswordsMatch()) {
-                for (entry in dataList) {
-                    var temp = entry as Data
-                    message += temp.data
-                }
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                 val fnPassScreen = Intent(this, FnPassScreen::class.java)
                 this.startActivity(fnPassScreen)
             }else
