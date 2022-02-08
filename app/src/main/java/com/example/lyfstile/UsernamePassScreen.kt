@@ -86,7 +86,6 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
             }else
         {
             Toast.makeText(this,"Please enter all forms!", Toast.LENGTH_SHORT).show()
-
         }
 
 
