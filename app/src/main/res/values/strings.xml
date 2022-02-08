@@ -5,4 +5,5 @@
     <string name="height">Height</string>
     <string name="tell_us_about_you">Tell us about you</string>
     <string name="weight">Weight</string>
+    <string name="bmi">BMI: %1$d </string>
 </resources>

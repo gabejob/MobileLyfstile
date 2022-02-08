@@ -74,7 +74,12 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
                       for (entry in dataList) {
                           message += entry.value.data
                       }
-                      Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                      //launch next activity
+
+
+
+
+
                   }
                   else
                   {
