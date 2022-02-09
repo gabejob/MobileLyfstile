@@ -7,16 +7,15 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-
 class MainActivity : AppCompatActivity(),  View.OnClickListener, PassData {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var createAccountButton = findViewById<Button>(R.id.new_user)
+        val createAccountButton = findViewById<Button>(R.id.new_user)
         createAccountButton.setOnClickListener(this)
-        var existingAccountButton = findViewById<Button>(R.id.Log_in)
+        val existingAccountButton = findViewById<Button>(R.id.Log_in)
         existingAccountButton.setOnClickListener(this)
     }
 
@@ -27,13 +26,11 @@ class MainActivity : AppCompatActivity(),  View.OnClickListener, PassData {
             {
                 val usernamePassScreen = Intent(this, UsernamePassScreen::class.java)
                 this.startActivity(usernamePassScreen)
-
             }
             R.id.Log_in ->
             {
                 val existingUserScreen = Intent(this,LoginExistingAccount::class.java)
                 this.startActivity(existingUserScreen)
-
             }
         }
     }

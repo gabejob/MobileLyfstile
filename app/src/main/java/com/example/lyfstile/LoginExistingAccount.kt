@@ -31,10 +31,6 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
         val forgot = findViewById<Button>(R.id.forgot_pass)
         forgot.setOnClickListener(this)
         login?.setOnClickListener(this)
-
-
-
-
     }
 
 

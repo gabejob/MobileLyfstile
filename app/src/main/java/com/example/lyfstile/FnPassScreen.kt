@@ -14,10 +14,11 @@ private val textView2 = ""
 private val textBox1 = ""
 private val textBox2 = ""
 
-class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
+class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     var dataList = ArrayList<Data>()
     private var currentScreen = 1
+
     // Hardcode initial values
     private val screenPrompts = arrayListOf<Array<String>>(
         arrayOf("What's your name?", "First Name", "Last Name"),
@@ -40,8 +41,8 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
         val fragtrans = supportFragmentManager.beginTransaction()
 
-        fragtrans.replace(R.id.fn_enter_box,fnEnterFragment,"First_Name_box")
-        fragtrans.replace(R.id.ln_enter_box,lnEnterFragment,"Last_Name_box")
+        fragtrans.replace(R.id.fn_enter_box, fnEnterFragment, "First_Name_box")
+        fragtrans.replace(R.id.ln_enter_box, lnEnterFragment, "Last_Name_box")
 /*
         fragtrans.replace(R.id.confirm_password_enter_box,confirmPasswordEnterFragment,"Confirm_password_box")
 */
@@ -90,9 +91,8 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
             }
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-        }else
-        {
-            Toast.makeText(this,"Please enter all forms!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Please enter all forms!", Toast.LENGTH_SHORT).show()
             // This will need to be moved to the place after the data is saved
             currentScreen++
             findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
@@ -115,12 +115,11 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
             }
         }
 
-        if(senders.contains("First_Name_box") && senders.contains("First_Name_box"))
+        if (senders.contains("First_Name_box") && senders.contains("First_Name_box"))
             return true
 
         return false
     }
-
 
 
     override fun onDataPass(_data: Data) {
@@ -133,7 +132,7 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     /*
     * Save data to map for later usage
     */
-    private fun saveData(_data: Map<String, String>){
+    private fun saveData(_data: Map<String, String>) {
 
     }
 
