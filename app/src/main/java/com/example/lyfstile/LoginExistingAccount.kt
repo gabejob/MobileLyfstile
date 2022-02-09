@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -77,7 +78,8 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
                       //launch next activity
 
 
-
+                      val homeScreen = Intent(this, HomeScreen::class.java)
+                      this.startActivity(homeScreen)
 
 
                   }

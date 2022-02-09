@@ -4,6 +4,7 @@ import android.icu.util.MeasureUnit
 import android.icu.util.MeasureUnit.*
 import android.os.Build
 import android.os.Bundle
+import android.text.Spanned
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
+import kotlin.math.pow
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,15 +38,15 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
     //User input --> Maybe we don't have people enter in custom height, so no entry fields
     //Some of these may be unused, but left in for simplicity
 
-        private var feet = 5.0
-        private var inches = 4.0
+        private var feet = 6.0
+        private var inches = 1.1
 
         private var meters = 5.0
         private var km = 5.0
 
 
-        private var pounds = 4.0
-        private var ounces = 4.0
+        private var pounds = 181.0
+        private var ounces = 0.0
 
         private var kg = 4.0
         private var grams = 4.0
@@ -86,7 +89,7 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
     */
     private fun calculateBMI(weight : Double, height : Double, bmiFactor : Int) : Double
     {
-        return (weight/(height*height))*bmiFactor
+        return (weight / height.pow(2.0)) *bmiFactor
     }
 
     /*
@@ -146,7 +149,11 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
 * */
     private fun crunchImperialWeight(pounds : Double, ounces : Double) : Double
     {
-        return ((ounces/16)+pounds)
+        return if(ounces>0)
+            ((ounces/16)+pounds)
+        else
+            (pounds)
+
     }
     /*
 *
@@ -167,11 +174,27 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
             var newBMI = calculateBMI(crunchImperialWeight(pounds,ounces),
                 crunchImperialHeight(feet,inches),bmiFactorImperial)
 
-            bmiBox?.text = getString(R.string.bmi,newBMI)
+
+
+            bmiBox?.text = getBMIIndicator(newBMI)
         }
 
 
     }
+
+    private fun getBMIIndicator(newBMI: Double): Spanned {
+
+        if(newBMI<18.5)
+            return  HtmlCompat.fromHtml(getString(R.string.bmi_underweight, newBMI), HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+        if(newBMI>18.5 && newBMI < 25)
+            return  HtmlCompat.fromHtml(getString(R.string.bmi_normal, newBMI), HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+        if(newBMI>25 && newBMI<30)
+            return  HtmlCompat.fromHtml(getString(R.string.bmi_overweight, newBMI), HtmlCompat.FROM_HTML_MODE_COMPACT)
+        return  HtmlCompat.fromHtml(getString(R.string.bmi_obese, newBMI), HtmlCompat.FROM_HTML_MODE_COMPACT)
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
