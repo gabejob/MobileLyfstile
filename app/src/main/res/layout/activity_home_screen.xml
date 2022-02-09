@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/master_border"
+        android:text="" />
+
+    <RelativeLayout
+        android:id="@+id/bmi_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="-3dp"></RelativeLayout>
+
+    <TextView
+        android:id="@+id/account_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="233dp"
+        android:layout_marginEnd="29dp"
+        android:fontFamily="@font/segoe"
+        android:text="THIS IS A DUMMY HOMESCREEN"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/Login_button"
+        android:layout_width="173dp"
+        android:layout_height="80dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="530dp"
+        android:layout_marginEnd="107dp"
+        android:background="@color/Button_color"
+        android:backgroundTint="@color/Button_color"
+        android:fontFamily="@font/segoe"
+        android:text="Login"
+        android:textColor="@color/black"
+        android:textSize="22dp"></Button>
+
+    <Button
+        android:id="@+id/forgot_pass"
+        android:layout_width="214dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Login_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="101dp"
+        android:background="@color/BG_color"
+        android:text="Forgot Password"
+        android:textAlignment="center"
+        android:textColor="@color/Border_color"></Button>
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

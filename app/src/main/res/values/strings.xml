@@ -5,4 +5,10 @@
     <string name="height">Height</string>
     <string name="tell_us_about_you">Tell us about you</string>
     <string name="weight">Weight</string>
+    <string name="bmi">BMI: %1$.2f </string>
+    <string name="bmi_underweight"><![CDATA[Your BMI is <b><i>%1$.2f</i></b>, which is <b><font color=red> below</font></b> average.]]></string>
+    <string name="bmi_normal"><![CDATA[Your BMI is <b><i>%1$.2f</i></b>, which is <b><font color=green> average</font></b>.]]></string>
+    <string name="bmi_overweight"><![CDATA[Your BMI is <b><i>%1$.2f</i></b>, which is <b><font color=red> above</font></b> average.]]></string>
+    <string name="bmi_obese"><![CDATA[Your BMI is <b><i>%1$.2f</i></b>, which is <b><font color=red> much-above</font></b> average.]]></string>
+
 </resources>

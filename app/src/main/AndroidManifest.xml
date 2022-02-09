@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lyfstile">
         <activity
+            android:name=".HomeScreen"
+            android:exported="false" />
+        <activity
             android:name=".LoginExistingAccount"
             android:exported="false" />
         <activity
@@ -24,9 +27,11 @@
         <activity
             android:name=".FnPassScreen"
             android:exported="false" />
-<!--        <activity
+        <!--
+        <activity
             android:name=".NewUserStepOne"
-            android:exported="false" />-->
+            android:exported="false" />
+        -->
         <activity
             android:name=".MainActivity"
             android:exported="true">

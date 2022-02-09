@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -70,7 +71,13 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
                       for (entry in dataList) {
                           message += entry.value.data
                       }
-                      Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                      //launch next activity
+
+
+                      val homeScreen = Intent(this, HomeScreen::class.java)
+                      this.startActivity(homeScreen)
+
+
                   }
                   else
                   {
