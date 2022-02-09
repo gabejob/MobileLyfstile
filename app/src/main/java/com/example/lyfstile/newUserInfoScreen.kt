@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -29,7 +30,7 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.first_last_name)
+        setContentView(R.layout.new_user_info)
 
         //Replace the fragment container(s)
         //Each of these represents a single fragment, so be careful about duplicate tags
@@ -82,25 +83,30 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         var message = ""
 
-
-
-        if (dataList != null && allBoxesEntered()) {
-            for (entry in dataList) {
-                var temp = entry
-                message += temp.data
-            }
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-
-        } else {
-            Toast.makeText(this, "Please enter all forms!", Toast.LENGTH_SHORT).show()
-            // This will need to be moved to the place after the data is saved
-            currentScreen++
-            findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
-            findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
-            findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
+        if(currentScreen + 1 >= screenPrompts.size){
+            val cameraScrn = Intent(this, CameraScreen::class.java)
+            this.startActivity(cameraScrn)
         }
+        else {
+            if (dataList != null && allBoxesEntered()) {
+                for (entry in dataList) {
+                    var temp = entry
+                    message += temp.data
+                }
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
+            } else {
+                Toast.makeText(this, "Please enter all forms!", Toast.LENGTH_SHORT).show()
+                // This will need to be moved to the place after the data is saved
+                currentScreen++
+                findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
+                findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
+                findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
+                // again, this needs to be moved, be called after all information screens have
+                // been prompted for
 
+            }
+        }
     }
 
     private fun allBoxesEntered(): Boolean {
