@@ -39,7 +39,7 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
     //Some of these may be unused, but left in for simplicity
 
         private var feet = 6.0
-        private var inches = 1.1
+        private var inches = 1.0
 
         private var meters = 5.0
         private var km = 5.0
