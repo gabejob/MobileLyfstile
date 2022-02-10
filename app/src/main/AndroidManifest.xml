@@ -25,7 +25,7 @@
             android:name=".UsernamePassScreen"
             android:exported="false" />
         <activity
-            android:name=".newUserInfoScreen"
+            android:name=".NewUserInfoScreen"
             android:exported="false" />
         <activity
             android:name=".ReviewInfoScreen"

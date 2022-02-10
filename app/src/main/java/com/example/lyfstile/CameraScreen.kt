@@ -19,10 +19,14 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
     val REQUEST_IMAGE_CAPTURE = 1
     var profileImage: Bitmap? = null
+    private var dataList = HashMap<String, Data>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.take_profile_pic)
+
+        var extras = intent.extras
+        dataList = extras?.get("usr_data") as HashMap<String, Data>
 
         val takePictureButton = findViewById<Button>(R.id.Camera)
         takePictureButton.setOnClickListener(this)
@@ -54,8 +58,7 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
                     toast.show()
                 } else {
                     val reviewscreen = Intent(this, ReviewInfoScreen::class.java)
-                    val infoArr: ArrayList<String>? = intent.getStringArrayListExtra("info_array")
-                    reviewscreen.putExtra("info_array", infoArr)
+                    reviewscreen.putExtra("usr_data", dataList)
                     reviewscreen.putExtra("profile_pic", profileImage)
                     this.startActivity(reviewscreen)
                 }

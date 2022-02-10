@@ -86,7 +86,9 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     }
 
     private fun startNextActivity() {
-        val fnPassScreen = Intent(this, newUserInfoScreen::class.java)
+
+        val fnPassScreen = Intent(this, NewUserInfoScreen::class.java)
+        fnPassScreen.putExtra("usr_data",dataList)
         this.startActivity(fnPassScreen)
     }
 
@@ -136,7 +138,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
             if (dataList.size == 3) {
                 nextButton?.isEnabled = true
-                startNextActivity()
+
             }
         }
     }
