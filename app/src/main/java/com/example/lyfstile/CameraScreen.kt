@@ -7,10 +7,12 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginTop
 import java.lang.Exception
 
 class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
@@ -32,11 +34,26 @@ class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
             {
                 try {
                     startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_IMAGE_CAPTURE)
+                    addNextButton();
                 } catch (e: Exception){
                     throw Exception("Unable to start the camera")
                 }
             }
+            R.id.next_button ->
+            {
+                // if(picture has not been taken)
+//                val toast = Toast.makeText(this, "No photo was taken, please take a photo", Toast.LENGTH_SHORT)
+//                toast.show()
+                //else {
+/*                val reviewscreen = Intent(this, reviewScreen::class.java)
+                this.startActivity(reviewscreen)*/
+            }
         }
+    }
+
+    private fun addNextButton() {
+        findViewById<Button>(R.id.Camera).text = "Retake Photo"
+        findViewById<Button>(R.id.next_button).visibility = View.VISIBLE
     }
 
     override fun onDataPass(data: Data) {
@@ -56,6 +73,8 @@ class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
             val profileImage = extras.get("data") as Bitmap
             val mIvPic = findViewById<ImageView>(R.id.iv_pic)
             mIvPic.setImageBitmap(profileImage)
+
+
         }
     }
 }
