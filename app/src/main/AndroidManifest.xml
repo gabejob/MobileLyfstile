@@ -25,13 +25,11 @@
             android:name=".UsernamePassScreen"
             android:exported="false" />
         <activity
-            android:name=".FnPassScreen"
+            android:name=".newUserInfoScreen"
             android:exported="false" />
-        <!--
         <activity
-            android:name=".NewUserStepOne"
+            android:name=".ReviewInfoScreen"
             android:exported="false" />
-        -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
