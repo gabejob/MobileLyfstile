@@ -15,7 +15,7 @@ private val textView2 = ""
 private val textBox1 = ""
 private val textBox2 = ""
 
-class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
+class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     var dataList = ArrayList<Data>()
     private var currentScreen = 1

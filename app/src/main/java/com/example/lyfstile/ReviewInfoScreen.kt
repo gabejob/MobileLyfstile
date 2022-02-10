@@ -12,6 +12,7 @@ class ReviewInfoScreen : AppCompatActivity(),  View.OnClickListener, PassData{
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.review_info)
     }
 
     override fun onClick(p0: View?) {

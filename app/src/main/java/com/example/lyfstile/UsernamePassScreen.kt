@@ -86,7 +86,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     }
 
     private fun startNextActivity() {
-        val fnPassScreen = Intent(this, FnPassScreen::class.java)
+        val fnPassScreen = Intent(this, newUserInfoScreen::class.java)
         this.startActivity(fnPassScreen)
     }
 
@@ -125,7 +125,6 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
     override fun onDataPass(_data: Data) {
         //Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
-
 
         if(_data.data.isEmpty())
         {

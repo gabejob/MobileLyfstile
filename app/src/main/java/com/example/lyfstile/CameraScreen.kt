@@ -25,6 +25,9 @@ class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
 
         val takePictureButton = findViewById<Button>(R.id.Camera)
         takePictureButton.setOnClickListener(this)
+
+        val next_button = findViewById<Button>(R.id.next_button)
+        next_button.setOnClickListener(this)
     }
 
      override fun onClick(view : View)
@@ -45,8 +48,8 @@ class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
 //                val toast = Toast.makeText(this, "No photo was taken, please take a photo", Toast.LENGTH_SHORT)
 //                toast.show()
                 //else {
-/*                val reviewscreen = Intent(this, reviewScreen::class.java)
-                this.startActivity(reviewscreen)*/
+                val reviewscreen = Intent(this, ReviewInfoScreen::class.java)
+                this.startActivity(reviewscreen)
             }
         }
     }
