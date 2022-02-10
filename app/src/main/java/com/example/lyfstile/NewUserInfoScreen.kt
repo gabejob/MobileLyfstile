@@ -10,16 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private val textView1 = ""
-private val textView2 = ""
-private val textBox1 = ""
-private val textBox2 = ""
 
-class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
+class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
-    var dataList = ArrayList<Data>()
+    private var dataList = HashMap<String, Data>()
     private var currentScreen = 1
-    var info = ArrayList<String>()
+
+    var nextButton : Button ?= null
 
     // Hardcode initial values
     private val screenPrompts = arrayListOf<Array<String>>(
@@ -33,26 +30,26 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_user_info)
 
+        //Get Bundle intent
+        //****NOTE**** DO NOT CHANGE KEY FROM "usr_data" WHEN PASSING INTENTS!! ****NOTE****
+        var extras = intent.extras
+        dataList = extras?.get("usr_data") as HashMap<String, Data>
+
+
         //Replace the fragment container(s)
         //Each of these represents a single fragment, so be careful about duplicate tags
         var fnEnterFragment = TextSubmitFragment()
         var lnEnterFragment = TextSubmitFragment()
-/*
-        var confirmPasswordEnterFragment = TextSubmitFragment()
-*/
 
         val fragtrans = supportFragmentManager.beginTransaction()
 
-        fragtrans.replace(R.id.fn_enter_box, fnEnterFragment, "First_Name_box")
-        fragtrans.replace(R.id.ln_enter_box, lnEnterFragment, "Last_Name_box")
-/*
-        fragtrans.replace(R.id.confirm_password_enter_box,confirmPasswordEnterFragment,"Confirm_password_box")
-*/
+        fragtrans.replace(R.id.fn_enter_box, fnEnterFragment, "First_box")
+        fragtrans.replace(R.id.ln_enter_box, lnEnterFragment, "Second_box")
 
         fragtrans.commit()
 
-        val next_button = findViewById<Button>(R.id.next_button)
-        next_button.setOnClickListener(this)
+        nextButton = findViewById<Button>(R.id.next_button)
+        nextButton?.setOnClickListener(this)
     }
 
     private fun generateScreenPromptVals() {
@@ -85,22 +82,15 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         var message = ""
 
         if(currentScreen + 1 >= screenPrompts.size){
+
             val cameraScrn = Intent(this, CameraScreen::class.java)
-            cameraScrn.putExtra("new_user_values", info)
+            cameraScrn.putExtra("usr_data", dataList)
             this.startActivity(cameraScrn)
         }
         else {
-            if (dataList != null && allBoxesEntered()) {
-                for (entry in dataList) {
-                    var temp = entry
-                    message += temp.data
-                }
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-            } else {
-                Toast.makeText(this, "Please enter all forms!", Toast.LENGTH_SHORT).show()
                 // This will need to be moved to the place after the data is saved
-                saveData()
+                //saveData(3)
                 currentScreen++
                 findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
                 findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
@@ -108,7 +98,7 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                 // again, this needs to be moved, be called after all information screens have
                 // been prompted for
 
-            }
+
         }
     }
 
@@ -118,13 +108,13 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         if (dataList != null) {
             for (entry in dataList) {
-                var temp = entry
+                var temp = entry as Data
                 senders.add(temp.sender)
 
             }
         }
 
-        if (senders.contains("First_Name_box") && senders.contains("First_Name_box"))
+        if(dataList.size==9)
             return true
 
         return false
@@ -132,23 +122,28 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
 
     override fun onDataPass(_data: Data) {
-        //Toast.makeText(this, "Came from: " + _data.sender + " Data is: " + _data.getAll(), Toast.LENGTH_SHORT).show()
-        //dataList.add(_data)
-        //print("in the datapass")
-        saveData()
+
+        saveData(_data)
     }
 
     /*
     * Save data for later usage
     */
-    private fun saveData() {
-        val inf = findViewById<TextView>(R.id.fn_enter_box).text
-        val inf2 = findViewById<TextView>(R.id.ln_enter_box).text
+    private fun saveData(_data: Any) {
+        _data as Data
+        if(_data.data.isEmpty())
+        {
+            dataList.remove(_data.sender + currentScreen)
+            nextButton?.isEnabled = false
+        }
+        else {
+            dataList[_data.sender+currentScreen] = _data
 
-/*        val d0 = Data(currentScreen.toString(), inf)
-        val d1 = Data(currentScreen.toString() + 1, inf2)*/
-        info.add(inf as String)
-        info.add(inf2 as String)
+            if (dataList.size == 2) {
+                nextButton?.isEnabled = true
+            }
+        }
+
     }
 
 
