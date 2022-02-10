@@ -15,9 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginTop
 import java.lang.Exception
 
-class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
+class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
     val REQUEST_IMAGE_CAPTURE = 1
+    var profileImage: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,26 +31,34 @@ class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
         next_button.setOnClickListener(this)
     }
 
-     override fun onClick(view : View)
-    {
-        when(view.id) {
-            R.id.Camera ->
-            {
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.Camera -> {
                 try {
-                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_IMAGE_CAPTURE)
+                    startActivityForResult(
+                        Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                        REQUEST_IMAGE_CAPTURE
+                    )
                     addNextButton();
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     throw Exception("Unable to start the camera")
                 }
             }
-            R.id.next_button ->
-            {
-                // if(picture has not been taken)
-//                val toast = Toast.makeText(this, "No photo was taken, please take a photo", Toast.LENGTH_SHORT)
-//                toast.show()
-                //else {
-                val reviewscreen = Intent(this, ReviewInfoScreen::class.java)
-                this.startActivity(reviewscreen)
+            R.id.next_button -> {
+                if (profileImage == null) {
+                    val toast = Toast.makeText(
+                        this,
+                        "No photo was taken, please take a photo",
+                        Toast.LENGTH_SHORT
+                    )
+                    toast.show()
+                } else {
+                    val reviewscreen = Intent(this, ReviewInfoScreen::class.java)
+                    val infoArr: ArrayList<String>? = intent.getStringArrayListExtra("info_array")
+                    reviewscreen.putExtra("info_array", infoArr)
+                    reviewscreen.putExtra("profile_pic", profileImage)
+                    this.startActivity(reviewscreen)
+                }
             }
         }
     }
@@ -60,7 +69,7 @@ class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
     }
 
     override fun onDataPass(data: Data) {
-        when(data.sender) {
+        when (data.sender) {
             "frag" -> {
                 //Reward them for submitting their names
                 val toast = Toast.makeText(this, data.data, Toast.LENGTH_SHORT)
@@ -71,9 +80,9 @@ class CameraScreen : AppCompatActivity(),  View.OnClickListener, PassData {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val extras = data?.extras as Bundle
-            val profileImage = extras.get("data") as Bitmap
+            profileImage = extras.get("data") as Bitmap
             val mIvPic = findViewById<ImageView>(R.id.iv_pic)
             mIvPic.setImageBitmap(profileImage)
 

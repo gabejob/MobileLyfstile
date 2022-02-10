@@ -19,6 +19,7 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     var dataList = ArrayList<Data>()
     private var currentScreen = 1
+    var info = ArrayList<String>()
 
     // Hardcode initial values
     private val screenPrompts = arrayListOf<Array<String>>(
@@ -85,6 +86,7 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         if(currentScreen + 1 >= screenPrompts.size){
             val cameraScrn = Intent(this, CameraScreen::class.java)
+            cameraScrn.putExtra("new_user_values", info)
             this.startActivity(cameraScrn)
         }
         else {
@@ -98,6 +100,7 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             } else {
                 Toast.makeText(this, "Please enter all forms!", Toast.LENGTH_SHORT).show()
                 // This will need to be moved to the place after the data is saved
+                saveData()
                 currentScreen++
                 findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
                 findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
@@ -130,16 +133,22 @@ class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     override fun onDataPass(_data: Data) {
         //Toast.makeText(this, "Came from: " + _data.sender + " Data is: " + _data.getAll(), Toast.LENGTH_SHORT).show()
-        dataList.add(_data)
-        print("in the datapass")
-
+        //dataList.add(_data)
+        //print("in the datapass")
+        saveData()
     }
 
     /*
-    * Save data to map for later usage
+    * Save data for later usage
     */
-    private fun saveData(_data: Map<String, String>) {
+    private fun saveData() {
+        val inf = findViewById<TextView>(R.id.fn_enter_box).text
+        val inf2 = findViewById<TextView>(R.id.ln_enter_box).text
 
+/*        val d0 = Data(currentScreen.toString(), inf)
+        val d1 = Data(currentScreen.toString() + 1, inf2)*/
+        info.add(inf as String)
+        info.add(inf2 as String)
     }
 
 
