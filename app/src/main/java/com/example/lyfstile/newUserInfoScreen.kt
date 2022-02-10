@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -14,10 +15,11 @@ private val textView2 = ""
 private val textBox1 = ""
 private val textBox2 = ""
 
-class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
+class newUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     var dataList = ArrayList<Data>()
     private var currentScreen = 1
+    var info = ArrayList<String>()
 
     // Hardcode initial values
     private val screenPrompts = arrayListOf<Array<String>>(
@@ -29,7 +31,7 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.first_last_name)
+        setContentView(R.layout.new_user_info)
 
         //Replace the fragment container(s)
         //Each of these represents a single fragment, so be careful about duplicate tags
@@ -82,25 +84,32 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         var message = ""
 
-
-
-        if (dataList != null && allBoxesEntered()) {
-            for (entry in dataList) {
-                var temp = entry
-                message += temp.data
-            }
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-
-        } else {
-            Toast.makeText(this, "Please enter all forms!", Toast.LENGTH_SHORT).show()
-            // This will need to be moved to the place after the data is saved
-            currentScreen++
-            findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
-            findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
-            findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
+        if(currentScreen + 1 >= screenPrompts.size){
+            val cameraScrn = Intent(this, CameraScreen::class.java)
+            cameraScrn.putExtra("new_user_values", info)
+            this.startActivity(cameraScrn)
         }
+        else {
+            if (dataList != null && allBoxesEntered()) {
+                for (entry in dataList) {
+                    var temp = entry
+                    message += temp.data
+                }
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
+            } else {
+                Toast.makeText(this, "Please enter all forms!", Toast.LENGTH_SHORT).show()
+                // This will need to be moved to the place after the data is saved
+                saveData()
+                currentScreen++
+                findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
+                findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
+                findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
+                // again, this needs to be moved, be called after all information screens have
+                // been prompted for
 
+            }
+        }
     }
 
     private fun allBoxesEntered(): Boolean {
@@ -124,16 +133,22 @@ class FnPassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     override fun onDataPass(_data: Data) {
         //Toast.makeText(this, "Came from: " + _data.sender + " Data is: " + _data.getAll(), Toast.LENGTH_SHORT).show()
-        dataList.add(_data)
-        print("in the datapass")
-
+        //dataList.add(_data)
+        //print("in the datapass")
+        saveData()
     }
 
     /*
-    * Save data to map for later usage
+    * Save data for later usage
     */
-    private fun saveData(_data: Map<String, String>) {
+    private fun saveData() {
+        val inf = findViewById<TextView>(R.id.fn_enter_box).text
+        val inf2 = findViewById<TextView>(R.id.ln_enter_box).text
 
+/*        val d0 = Data(currentScreen.toString(), inf)
+        val d1 = Data(currentScreen.toString() + 1, inf2)*/
+        info.add(inf as String)
+        info.add(inf2 as String)
     }
 
 

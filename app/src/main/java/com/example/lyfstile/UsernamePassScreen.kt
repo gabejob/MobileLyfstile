@@ -72,8 +72,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         if (dataList.size==3) {
 
             if(doPasswordsMatch()) {
-                val fnPassScreen = Intent(this, FnPassScreen::class.java)
-                this.startActivity(fnPassScreen)
+                startNextActivity()
             }else
             {
                 Toast.makeText(this,"Passwords do not match!", Toast.LENGTH_SHORT).show()
@@ -84,6 +83,11 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
         }
 
 
+    }
+
+    private fun startNextActivity() {
+        val fnPassScreen = Intent(this, newUserInfoScreen::class.java)
+        this.startActivity(fnPassScreen)
     }
 
     private fun allBoxesEntered(): Boolean {
@@ -120,8 +124,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
 
     override fun onDataPass(_data: Data) {
-        Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
-
+        //Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
 
         if(_data.data.isEmpty())
         {
@@ -133,9 +136,11 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
             if (dataList.size == 3) {
                 nextButton?.isEnabled = true
+                startNextActivity()
             }
         }
     }
+
 
         // not sure if this will be kept here, but ill use it to move to the next frag for now...
 /*        val fnPassScreen = Intent(this, FnPassScreen::class.java)

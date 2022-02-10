@@ -4,22 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Lyfstile/app/src/main/res/drawable/master_border.xml" value="0.20104166666666667" />
-        <entry key="..\:/Lyfstile/app/src/main/res/layout/activity_home_screen.xml" value="0.24270833333333333" />
-        <entry key="..\:/Lyfstile/app/src/main/res/layout/activity_login_existing_account.xml" value="0.3" />
         <entry key="..\:/Lyfstile/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Lyfstile/app/src/main/res/layout/activity_username_pass_screen.xml" value="0.22" />
-        <entry key="..\:/Lyfstile/app/src/main/res/layout/first_last_name.xml" value="0.3" />
-        <entry key="..\:/Lyfstile/app/src/main/res/layout/fragment_bmi.xml" value="0.303125" />
         <entry key="..\:/Lyfstile/app/src/main/res/layout/fragment_layout.xml" value="0.22" />
-        <entry key="..\:/Lyfstile/app/src/main/res/layout/fragment_new_user_step_one.xml" value="0.3359375" />
-        <entry key="..\:/Lyfstile/app/src/main/res/layout/fragment_text_submit.xml" value="0.16" />
+        <entry key="..\:/Lyfstile/app/src/main/res/layout/fragment_text_submit.xml" value="0.3359375" />
         <entry key="..\:/Lyfstile/app/src/main/res/layout/text_submit_fragmet.xml" value="0.16979166666666667" />
-        <entry key="app/src/main/res/layout/activity_login_existing_account.xml" value="0.22056159420289856" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_username_pass_screen.xml" value="0.18115942028985507" />
-        <entry key="app/src/main/res/layout/first_last_name.xml" value="0.22056159420289856" />
-        <entry key="app/src/main/res/layout/fragment_text_submit.xml" value="0.18115942028985507" />
-        <entry key="app/src/main/res/layout/take_profile_pic.xml" value="0.3161334936169611" />
+        <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/activity_login_existing_account.xml" value="0.3671875" />
+        <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/activity_username_pass_screen.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/fragment_text_submit.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/new_user_info.xml" value="0.3671875" />
+        <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/review_info.xml" value="0.3671875" />
+        <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/take_profile_pic.xml" value="0.20572916666666666" />
       </map>
     </option>
   </component>

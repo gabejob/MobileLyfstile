@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,30 +44,15 @@
 
     <RelativeLayout
         android:id="@+id/fn_enter_box"
-        android:layout_width="match_parent"
-        android:layout_height="111dp"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
         android:layout_below="@+id/fn_textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:background="@color/white"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp" >
-
-<!--        <EditText
-            android:id="@+id/fn_editText"
-            android:layout_width="218dp"
-            android:layout_height="34dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="104dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="89dp"
-            android:background="@color/white"
-            android:imeOptions="actionSend"
-            android:inputType="text"
-            android:singleLine="true"></EditText>-->
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="15dp"
+        android:background="@color/white">
     </RelativeLayout>
 
     <TextView
@@ -87,16 +73,17 @@
 
     <RelativeLayout
         android:id="@+id/ln_enter_box"
-        android:layout_width="match_parent"
-        android:layout_height="111dp"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
         android:layout_below="@+id/ln_textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:background="@color/white"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp" >
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="15dp"
+        android:background="@color/white">
 
-<!--        <EditText
+        <!--        <EditText
             android:id="@+id/ln_editText"
             android:layout_width="218dp"
             android:layout_height="34dp"
