@@ -15,9 +15,9 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
     private var currentScreen = 1
-    private var user : User ?= null
+    private var user: User? = null
 
-    var nextButton : Button ?= null
+    var nextButton: Button? = null
 
     // Hardcode initial values
     private val screenPrompts = arrayListOf<Array<String>>(
@@ -34,7 +34,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         //Get Bundle intent
         //****NOTE**** DO NOT CHANGE KEY FROM "usr_data" WHEN PASSING INTENTS!! ****NOTE****
         var extras = intent.extras
-         user = extras?.get("usr_data") as User
+        user = extras?.get("usr_data") as User
 
 
         //Replace the fragment container(s)
@@ -82,25 +82,38 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         var message = ""
 
-        if(currentScreen  == 4){
+        if (currentScreen == 4) {
 
             addToUserProfile()
 
             val cameraScrn = Intent(this, CameraScreen::class.java)
             cameraScrn.putExtra("usr_data", user)
             this.startActivity(cameraScrn)
-        }
-        else {
+            finish()
 
-                // This will need to be moved to the place after the data is saved
-                //saveData(3)
+        } else {
 
-                findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
-                findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
-                findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
-             currentScreen++
-                // again, this needs to be moved, be called after all information screens have
-                // been prompted for
+            // This will need to be moved to the place after the data is saved
+            //saveData(3)
+
+            findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
+            findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
+            findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
+            currentScreen++
+
+            // Erase values from text edits
+            var EnterFragment = TextSubmitFragment()
+            var EnterFragment2 = TextSubmitFragment()
+
+            val fragtrans = supportFragmentManager.beginTransaction()
+
+            fragtrans.replace(R.id.fn_enter_box, EnterFragment, "First_box")
+            fragtrans.replace(R.id.ln_enter_box, EnterFragment2, "Second_box")
+
+            fragtrans.commit()
+
+            // again, this needs to be moved, be called after all information screens have
+            // been prompted for
 
 
         }
@@ -118,7 +131,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             }
         }
 
-        if(dataList.size==9)
+        if (dataList.size == 9)
             return true
 
         return false
@@ -128,14 +141,15 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         saveData(_data)
     }
 
-    private fun addToUserProfile()
-    {
+    private fun addToUserProfile() {
         //First and last name
         user?.firstName = dataList["First_box1"]?.data.toString()
         user?.lastName = dataList["Second_box1"]?.data.toString()
 
         //Age and Sex
         //user?.birthday = dataList["First_box2"].toString()
+        // just age and not DOB for now
+        user?.birthday = dataList["First_box2"]?.data.toString().toInt()
         user?.sex = dataList["Second_box2"]?.data.toString()
 
         //Height and Weight
@@ -146,18 +160,17 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         user?.country = dataList["First_box4"]?.data.toString()
         user?.city = dataList["Second_box4"]?.data.toString()
     }
+
     /*
     * Save data for later usage
     */
     private fun saveData(_data: Any) {
         _data as Data
-        if(_data.data.isEmpty())
-        {
+        if (_data.data.isEmpty()) {
             dataList.remove(_data.sender + currentScreen)
             nextButton?.isEnabled = false
-        }
-        else {
-            dataList[_data.sender+currentScreen] = _data
+        } else {
+            dataList[_data.sender + currentScreen] = _data
 
             if (dataList.size == 2) {
                 nextButton?.isEnabled = true

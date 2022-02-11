@@ -61,6 +61,7 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
                     val reviewScreen = Intent(this, ReviewInfoScreen::class.java)
                     reviewScreen.putExtra("usr_data", user)
                     reviewScreen.putExtra("profile_pic", profileImage)
+                    finish()
                     this.startActivity(reviewScreen)
                 }
             }

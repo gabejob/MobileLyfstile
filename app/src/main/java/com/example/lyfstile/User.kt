@@ -12,12 +12,12 @@ import java.util.*
 *
 * */
 class User constructor(_firstname : String, _lastname : String, _email : String,
-           _password : String, _birthday : Date,_sex: String, _height : String,
+           _password : String, _birthday : Int,_sex: String, _height : String,
            _weight : String, _country : String, _city : String, _pfp : Any) : Parcelable {
 
 
     constructor() : this("","","",
-        "",Date(0),"","","","","","")
+        "",-1,"","","","","","")
     {
 
     }
@@ -26,7 +26,7 @@ class User constructor(_firstname : String, _lastname : String, _email : String,
     var lastName : String = _lastname
     var email : String = _email
     var password : String = _password
-    var birthday : Date = _birthday
+    var birthday : Int = _birthday
     var height : String = _height
     var weight : String = _weight
     var country : String = _country
@@ -36,7 +36,7 @@ class User constructor(_firstname : String, _lastname : String, _email : String,
 
     constructor(parcel: Parcel) : this(
         _firstname = "", _lastname = "", _email = "",
-        _password = "", _birthday = Date(0), _sex = "", _height = "", _weight = "", _country = "", _city = "", _pfp = ""
+        _password = "", _birthday = -1, _sex = "", _height = "", _weight = "", _country = "", _city = "", _pfp = ""
     ) {
         firstName = parcel.readString().toString()
         lastName = parcel.readString().toString()
@@ -47,6 +47,7 @@ class User constructor(_firstname : String, _lastname : String, _email : String,
         country = parcel.readString().toString()
         city = parcel.readString().toString()
         sex = parcel.readString().toString()
+        birthday = parcel.readInt()
     }
 
 
@@ -60,6 +61,7 @@ class User constructor(_firstname : String, _lastname : String, _email : String,
         out?.writeString(country)
         out?.writeString(city)
         out?.writeString(sex)
+        out?.writeInt(birthday)
     }
 
     override fun describeContents(): Int {
