@@ -6,14 +6,14 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/bmi_text"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
+        android:layout_width="124dp"
+        android:layout_height="125dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="22dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginEnd="257dp"
         android:fontFamily="@font/segoe"
         android:text="BMI"
         android:textSize="20dp" />
@@ -26,9 +26,9 @@
 
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="239dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="284dp"
         android:text="Go">
 
 
