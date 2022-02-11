@@ -25,7 +25,7 @@ class HomeScreen : AppCompatActivity() {
 
         val fragtrans = supportFragmentManager.beginTransaction()
         fragtrans.replace(R.id.bmi_frag,bmgFragment,"bmi_box")
-        fragtrans.replace(R.id.action_bar_container,actionbarFragment,"action_bar")
+        fragtrans.replace(R.id.action_bar_fragment,actionbarFragment,"action_bar")
         fragtrans.commit()
         findViewById<ImageView>(R.id.pfp_box)?.setImageBitmap(profilePic)
 
