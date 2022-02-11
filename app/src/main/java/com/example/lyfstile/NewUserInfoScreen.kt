@@ -15,6 +15,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
     private var currentScreen = 1
+    private var user : User ?= null
 
     var nextButton : Button ?= null
 
@@ -33,7 +34,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         //Get Bundle intent
         //****NOTE**** DO NOT CHANGE KEY FROM "usr_data" WHEN PASSING INTENTS!! ****NOTE****
         var extras = intent.extras
-        dataList = extras?.get("usr_data") as HashMap<String, Data>
+         user = extras?.get("usr_data") as User
 
 
         //Replace the fragment container(s)
@@ -81,20 +82,23 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         var message = ""
 
-        if(currentScreen + 1 >= screenPrompts.size){
+        if(currentScreen  == 4){
+
+            addToUserProfile()
 
             val cameraScrn = Intent(this, CameraScreen::class.java)
-            cameraScrn.putExtra("usr_data", dataList)
+            cameraScrn.putExtra("usr_data", user)
             this.startActivity(cameraScrn)
         }
         else {
 
                 // This will need to be moved to the place after the data is saved
                 //saveData(3)
-                currentScreen++
+
                 findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
                 findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
                 findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
+             currentScreen++
                 // again, this needs to be moved, be called after all information screens have
                 // been prompted for
 
@@ -120,12 +124,28 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         return false
     }
 
-
     override fun onDataPass(_data: Data) {
-
         saveData(_data)
     }
 
+    private fun addToUserProfile()
+    {
+        //First and last name
+        user?.firstName = dataList["First_box1"]?.data.toString()
+        user?.lastName = dataList["Second_box1"]?.data.toString()
+
+        //Age and Sex
+        //user?.birthday = dataList["First_box2"].toString()
+        user?.sex = dataList["Second_box2"]?.data.toString()
+
+        //Height and Weight
+        user?.height = dataList["First_box3"]?.data.toString()
+        user?.weight = dataList["Second_box3"]?.data.toString()
+
+        //Country and City
+        user?.country = dataList["First_box4"]?.data.toString()
+        user?.city = dataList["Second_box4"]?.data.toString()
+    }
     /*
     * Save data for later usage
     */
