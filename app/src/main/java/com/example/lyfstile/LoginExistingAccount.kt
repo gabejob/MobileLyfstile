@@ -115,7 +115,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
 
 
     override fun onDataPass(_data: Data) {
-        Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
 
         if(_data.data.isEmpty()) {
             dataList.remove(_data.sender)

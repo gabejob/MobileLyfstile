@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +21,11 @@ class ActionbarFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+/*    var settingsButton: Button = null
+    var weatherButton: Button? = null
+    var hikerButton: Button? = null
+    var healthButton: Button? = null*/
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +39,19 @@ class ActionbarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val root = inflater.inflate(R.layout.fragment_actionbar, container, false)
+
+        val settingsButton = root.findViewById<Button>(R.id.settings) as Button
+        settingsButton?.setOnClickListener { this }
+        val weatherButton = root.findViewById<Button>(R.id.weather) as Button
+        weatherButton?.setOnClickListener{ this }
+        val hikerButton = root.findViewById<Button>(R.id.hiker) as Button
+        hikerButton?.setOnClickListener{ this }
+        val healthButton = root.findViewById<Button>(R.id.health) as Button
+        healthButton?.setOnClickListener{this}
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_actionbar, container, false)
+        return root
     }
 
     companion object {
