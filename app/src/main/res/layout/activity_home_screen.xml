@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,9 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="-3dp"></RelativeLayout>
+        android:layout_alignParentEnd="true">
+</RelativeLayout>
 
     <TextView
         android:id="@+id/account_text"
@@ -34,48 +35,28 @@
         android:textAlignment="center"
         android:textSize="30dp" />
 
-    <Button
-        android:id="@+id/Login_button"
-        android:layout_width="173dp"
-        android:layout_height="80dp"
+    <ImageView
+        android:id="@+id/pfp_box"
+        android:layout_width="138dp"
+        android:layout_height="142dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
+    <RelativeLayout
+        android:id="@+id/action_bar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="530dp"
-        android:layout_marginEnd="107dp"
-        android:background="@color/Button_color"
-        android:backgroundTint="@color/Button_color"
-        android:fontFamily="@font/segoe"
-        android:text="Login"
-        android:textColor="@color/black"
-        android:textSize="22dp"></Button>
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="648dp"
+        android:layout_marginEnd="-1dp">
 
-    <Button
-        android:id="@+id/forgot_pass"
-        android:layout_width="214dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Login_button"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="101dp"
-        android:background="@color/BG_color"
-        android:text="Forgot Password"
-        android:textAlignment="center"
-        android:textColor="@color/Border_color"></Button>
-
-
-
-
-
-
-
-
-
-
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 private const val ARG_PARAM1 = "param1"
@@ -16,7 +19,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     private var dataList = HashMap<String, Data>()
     private var emailEnterFragment : TextSubmitFragment ?= null
     private var nextButton : Button ?= null
-
+    private var user : User ?= User()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,9 +89,18 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
     }
 
     private fun startNextActivity() {
-        val fnPassScreen = Intent(this, newUserInfoScreen::class.java)
+        addToUserProfile()
+        val fnPassScreen = Intent(this, NewUserInfoScreen::class.java)
+        fnPassScreen.putExtra("usr_data",user)
         this.startActivity(fnPassScreen)
     }
+
+    private fun addToUserProfile()
+    {
+        user?.email = dataList["Email_box"]?.data.toString()
+        user?.email = dataList["Confirm_password_box"]?.data.toString()
+    }
+
 
     private fun allBoxesEntered(): Boolean {
         var senders = ArrayList<String>()
@@ -136,7 +148,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
             if (dataList.size == 3) {
                 nextButton?.isEnabled = true
-                startNextActivity()
+
             }
         }
     }
