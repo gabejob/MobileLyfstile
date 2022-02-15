@@ -28,7 +28,6 @@ private const val ARG_PARAM2 = "param2"
 
 
 class TextSubmitFragment : Fragment(), View.OnClickListener{
-
     lateinit var dataPasser: PassData;
     var enterTxt : EditText ?= null;
     var isValid = false

@@ -2,8 +2,6 @@ package com.example.lyfstile
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.*
-
 
 /*
 *
@@ -11,32 +9,44 @@ import java.util.*
 * MAJOR NOTE: PASSWORDS SHOULD NEVER BE STORED HERE! THIS IS TEMPORARY!
 *
 * */
-class User constructor(_firstname : String, _lastname : String, _email : String,
-           _password : String, _birthday : Int,_sex: String, _height : String,
-           _weight : String, _country : String, _city : String, _pfp : Any) : Parcelable {
+class User constructor(
+    _firstname: String, _lastname: String, _email: String,
+    _password: String, _birthday: Int, _sex: String, _height: String,
+    _weight: String, _country: String, _city: String, _pfp: Any
+) : Parcelable {
 
 
-    constructor() : this("","","",
-        "",-1,"","","","","","")
-    {
+    constructor() : this(
+        "", "", "",
+        "", -1, "", "", "", "", "", ""
+    ) {
 
     }
 
-    var firstName : String = _firstname
-    var lastName : String = _lastname
-    var email : String = _email
-    var password : String = _password
-    var birthday : Int = _birthday
-    var height : String = _height
-    var weight : String = _weight
-    var country : String = _country
-    var city :  String = _city
-    var pfp : Any = _pfp
-    var sex : String = _sex
+    var firstName: String = _firstname
+    var lastName: String = _lastname
+    var email: String = _email
+    var password: String = _password
+    var birthday: Int = _birthday
+    var height: String = _height
+    var weight: String = _weight
+    var country: String = _country
+    var city: String = _city
+    var pfp: Any = _pfp
+    var sex: String = _sex
 
     constructor(parcel: Parcel) : this(
-        _firstname = "", _lastname = "", _email = "",
-        _password = "", _birthday = -1, _sex = "", _height = "", _weight = "", _country = "", _city = "", _pfp = ""
+        _firstname = "",
+        _lastname = "",
+        _email = "",
+        _password = "",
+        _birthday = -1,
+        _sex = "",
+        _height = "",
+        _weight = "",
+        _country = "",
+        _city = "",
+        _pfp = ""
     ) {
         firstName = parcel.readString().toString()
         lastName = parcel.readString().toString()
@@ -77,6 +87,4 @@ class User constructor(_firstname : String, _lastname : String, _email : String,
             return arrayOfNulls(size)
         }
     }
-
-
 }

@@ -1,51 +1,44 @@
 package com.example.lyfstile
 
 import android.content.Intent
+import java.lang.Exception
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
-    private var currentScreen = 1
+    private var currentScreen = "first_last_name"
+    private var tag1 = ""
+    private var tag2 = ""
     private var user: User? = null
-
-    var nextButton: Button? = null
+    private var nextButton: Button? = null
 
     // Hardcode initial values
-    private val screenPrompts = arrayListOf<Array<String>>(
-        arrayOf("What's your name?", "First Name", "Last Name"),
-        arrayOf("Tell us about you", "Age", "Sex"),
-        arrayOf("Tell us about you", "Height", "Weight"),
-        arrayOf("Where are you from?", "Country", "City"),
+    private val screenPrompts = mapOf(
+        FIRST_LAST_NAME_SCREEN to arrayOf("What's your name?", FIRST_NAME, LAST_NAME),
+        AGE_SEX_SCREEN to arrayOf("Tell us about you", AGE, SEX),
+        HEIGHT_WEIGHT_SCREEN to arrayOf("Tell us about you", HEIGHT, WEIGHT),
+        COUNTRY_CITY_SCREEN to arrayOf("Where are you from?", COUNTRY, CITY)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_user_info)
 
-        //Get Bundle intent
-        //****NOTE**** DO NOT CHANGE KEY FROM "usr_data" WHEN PASSING INTENTS!! ****NOTE****
-        var extras = intent.extras
+        val extras = intent.extras
         user = extras?.get("usr_data") as User
 
-
-        //Replace the fragment container(s)
-        //Each of these represents a single fragment, so be careful about duplicate tags
-        var fnEnterFragment = TextSubmitFragment()
-        var lnEnterFragment = TextSubmitFragment()
+        val fnEnterFragment = TextSubmitFragment()
+        val lnEnterFragment = TextSubmitFragment()
 
         val fragtrans = supportFragmentManager.beginTransaction()
 
-        fragtrans.replace(R.id.fn_enter_box, fnEnterFragment, "First_box")
-        fragtrans.replace(R.id.ln_enter_box, lnEnterFragment, "Second_box")
+        fragtrans.replace(R.id.fn_enter_box, fnEnterFragment, FIRST_NAME)
+        fragtrans.replace(R.id.ln_enter_box, lnEnterFragment, LAST_NAME)
 
         fragtrans.commit()
 
@@ -53,131 +46,75 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         nextButton?.setOnClickListener(this)
     }
 
-    private fun generateScreenPromptVals() {
-        TODO("Not yet implemented")
-    }
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TextSubmitFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TextSubmitFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
-
     override fun onClick(view: View?) {
-
-        var message = ""
-
-        if (currentScreen == 4) {
-
-            addToUserProfile()
-
-            val cameraScrn = Intent(this, CameraScreen::class.java)
-            cameraScrn.putExtra("usr_data", user)
-            this.startActivity(cameraScrn)
-            finish()
-
-        } else {
-
-            // This will need to be moved to the place after the data is saved
-            //saveData(3)
-
-            findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[currentScreen][0]
-            findViewById<TextView>(R.id.fn_textView).text = screenPrompts[currentScreen][1]
-            findViewById<TextView>(R.id.ln_textView).text = screenPrompts[currentScreen][2]
-            currentScreen++
-
-            // Erase values from text edits
-            var EnterFragment = TextSubmitFragment()
-            var EnterFragment2 = TextSubmitFragment()
-
-            val fragtrans = supportFragmentManager.beginTransaction()
-
-            fragtrans.replace(R.id.fn_enter_box, EnterFragment, "First_box")
-            fragtrans.replace(R.id.ln_enter_box, EnterFragment2, "Second_box")
-
-            fragtrans.commit()
-
-            // again, this needs to be moved, be called after all information screens have
-            // been prompted for
-
-
-        }
-    }
-
-    private fun allBoxesEntered(): Boolean {
-        var senders = ArrayList<String>()
-
-
-        if (dataList != null) {
-            for (entry in dataList) {
-                var temp = entry as Data
-                senders.add(temp.sender)
-
+        when (currentScreen) {
+            FIRST_LAST_NAME_SCREEN -> {
+                changeScreen(currentScreen)
+                currentScreen = AGE_SEX_SCREEN
+                tag1 = AGE
+                tag2 = SEX
+            }
+            AGE_SEX_SCREEN -> {
+                changeScreen(currentScreen)
+                currentScreen = HEIGHT_WEIGHT_SCREEN
+                tag1 = HEIGHT
+                tag2 = WEIGHT
+            }
+            HEIGHT_WEIGHT_SCREEN -> {
+                changeScreen(currentScreen)
+                currentScreen = COUNTRY_CITY_SCREEN
+                tag1 = COUNTRY
+                tag2 = CITY
+            }
+            COUNTRY_CITY_SCREEN -> {
+                addToUserProfile()
+                val cameraScrn = Intent(this, CameraScreen::class.java)
+                cameraScrn.putExtra("usr_data", user)
+                this.startActivity(cameraScrn)
+                finish()
             }
         }
+        val enterFragment = TextSubmitFragment()
+        val enterFragment2 = TextSubmitFragment()
 
-        if (dataList.size == 9)
-            return true
+        val fragtrans = supportFragmentManager.beginTransaction()
 
-        return false
+        fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
+        fragtrans.replace(R.id.ln_enter_box, enterFragment2, tag2)
     }
 
-    override fun onDataPass(_data: Data) {
-        saveData(_data)
-    }
-
-    private fun addToUserProfile() {
-        //First and last name
-        user?.firstName = dataList["First_box1"]?.data.toString()
-        user?.lastName = dataList["Second_box1"]?.data.toString()
-
-        //Age and Sex
-        //user?.birthday = dataList["First_box2"].toString()
-        // just age and not DOB for now
-        user?.birthday = dataList["First_box2"]?.data.toString().toInt()
-        user?.sex = dataList["Second_box2"]?.data.toString()
-
-        //Height and Weight
-        user?.height = dataList["First_box3"]?.data.toString()
-        user?.weight = dataList["Second_box3"]?.data.toString()
-
-        //Country and City
-        user?.country = dataList["First_box4"]?.data.toString()
-        user?.city = dataList["Second_box4"]?.data.toString()
-    }
-
-    /*
-    * Save data for later usage
-    */
-    private fun saveData(_data: Any) {
-        _data as Data
-        if (_data.data.isEmpty()) {
-            dataList.remove(_data.sender + currentScreen)
+    override fun onDataPass(data: Data) {
+        data as Data
+        if (data.data.isEmpty()) {
+            dataList.remove(data.sender + currentScreen)
             nextButton?.isEnabled = false
         } else {
-            dataList[_data.sender + currentScreen] = _data
+            dataList[data.sender + currentScreen] = data
 
             if (dataList.size == 2) {
                 nextButton?.isEnabled = true
             }
         }
-
     }
 
+    private fun changeScreen(screenName: String) {
+        try {
+            findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[screenName]?.get(0)
+            findViewById<TextView>(R.id.fn_textView).text = screenPrompts[screenName]?.get(1)
+            findViewById<TextView>(R.id.ln_textView).text = screenPrompts[screenName]?.get(2)
+        } catch (e: Exception) {
+            throw Exception("Unable to load next screen")
+        }
+    }
 
+    private fun addToUserProfile() {
+        user?.firstName = dataList[FIRST_NAME]?.data.toString()
+        user?.lastName = dataList[LAST_NAME]?.data.toString()
+        user?.birthday = dataList[AGE]?.data.toString().toInt()
+        user?.sex = dataList[SEX]?.data.toString()
+        user?.height = dataList[HEIGHT]?.data.toString()
+        user?.weight = dataList[WEIGHT]?.data.toString()
+        user?.country = dataList[COUNTRY]?.data.toString()
+        user?.city = dataList[CITY]?.data.toString()
+    }
 }
