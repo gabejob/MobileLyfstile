@@ -75,9 +75,9 @@ class TextSubmitFragment : Fragment(), View.OnClickListener{
 
 
         //Check for special input types
-        if(tag?.lowercase()?.contains("Password_box".lowercase()) == true)
+        if(tag?.lowercase()?.contains(PASSWORD.lowercase()) == true)
             enterTxt?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        if(tag?.lowercase()?.contains("Email_box".lowercase()) == true)
+        if(tag?.lowercase()?.contains(EMAIL.lowercase()) == true)
             enterTxt?.addTextChangedListener(watcher)
 
 
