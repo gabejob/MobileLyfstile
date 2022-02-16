@@ -32,14 +32,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, PassData {
     }
 
     override fun onDataPass(data: Data) {
-//        when (data?.sender) {
-//            "frag" -> {
-//                //Reward them for submitting their names
-//                val toast = Toast.makeText(this, data.data, Toast.LENGTH_SHORT)
-//                toast.show()
-//            }
-//        }
     }
-
-
 }

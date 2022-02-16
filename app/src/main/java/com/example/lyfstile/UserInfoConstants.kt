@@ -1,5 +1,8 @@
 package com.example.lyfstile
 
+const val EMAIL = "email"
+const val PASSWORD = "password"
+const val PASSWORD_CONFIRMED = "password_confirmed"
 const val FIRST_NAME = "first_name"
 const val LAST_NAME = "last_name"
 const val AGE = "age"

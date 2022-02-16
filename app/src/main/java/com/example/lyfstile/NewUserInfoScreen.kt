@@ -16,8 +16,6 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     private var tag2 = ""
     private var user: User? = null
     private var nextButton: Button? = null
-
-    // Hardcode initial values
     private val screenPrompts = mapOf(
         FIRST_LAST_NAME_SCREEN to arrayOf("What's your name?", FIRST_NAME, LAST_NAME),
         AGE_SEX_SCREEN to arrayOf("Tell us about you", AGE, SEX),
@@ -32,37 +30,29 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         val extras = intent.extras
         user = extras?.get("usr_data") as User
 
-        val fnEnterFragment = TextSubmitFragment()
-        val lnEnterFragment = TextSubmitFragment()
-
-        val fragtrans = supportFragmentManager.beginTransaction()
-
-        fragtrans.replace(R.id.fn_enter_box, fnEnterFragment, FIRST_NAME)
-        fragtrans.replace(R.id.ln_enter_box, lnEnterFragment, LAST_NAME)
-
-        fragtrans.commit()
-
+        fragTrans(FIRST_NAME, LAST_NAME)
         nextButton = findViewById<Button>(R.id.next_button)
         nextButton?.setOnClickListener(this)
+        nextButton?.isEnabled = false
     }
 
     override fun onClick(view: View?) {
         when (currentScreen) {
             FIRST_LAST_NAME_SCREEN -> {
-                changeScreen(currentScreen)
                 currentScreen = AGE_SEX_SCREEN
+                changeScreen(currentScreen)
                 tag1 = AGE
                 tag2 = SEX
             }
             AGE_SEX_SCREEN -> {
-                changeScreen(currentScreen)
                 currentScreen = HEIGHT_WEIGHT_SCREEN
+                changeScreen(currentScreen)
                 tag1 = HEIGHT
                 tag2 = WEIGHT
             }
             HEIGHT_WEIGHT_SCREEN -> {
-                changeScreen(currentScreen)
                 currentScreen = COUNTRY_CITY_SCREEN
+                changeScreen(currentScreen)
                 tag1 = COUNTRY
                 tag2 = CITY
             }
@@ -74,27 +64,8 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                 finish()
             }
         }
-        val enterFragment = TextSubmitFragment()
-        val enterFragment2 = TextSubmitFragment()
-
-        val fragtrans = supportFragmentManager.beginTransaction()
-
-        fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
-        fragtrans.replace(R.id.ln_enter_box, enterFragment2, tag2)
-    }
-
-    override fun onDataPass(data: Data) {
-        data as Data
-        if (data.data.isEmpty()) {
-            dataList.remove(data.sender + currentScreen)
-            nextButton?.isEnabled = false
-        } else {
-            dataList[data.sender + currentScreen] = data
-
-            if (dataList.size == 2) {
-                nextButton?.isEnabled = true
-            }
-        }
+        fragTrans(tag1, tag2)
+        nextButton?.isEnabled = false
     }
 
     private fun changeScreen(screenName: String) {
@@ -107,6 +78,18 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         }
     }
 
+    private fun fragTrans(tag1: String, tag2: String) {
+        val enterFragment = TextSubmitFragment()
+        val enterFragment2 = TextSubmitFragment()
+
+        val fragtrans = supportFragmentManager.beginTransaction()
+
+        fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
+        fragtrans.replace(R.id.ln_enter_box, enterFragment2, tag2)
+
+        fragtrans.commit()
+    }
+
     private fun addToUserProfile() {
         user?.firstName = dataList[FIRST_NAME]?.data.toString()
         user?.lastName = dataList[LAST_NAME]?.data.toString()
@@ -117,4 +100,17 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         user?.country = dataList[COUNTRY]?.data.toString()
         user?.city = dataList[CITY]?.data.toString()
     }
+
+    override fun onDataPass(data: Data) {
+        if (data.data.isEmpty()) {
+            dataList.remove(data.sender)
+            nextButton?.isEnabled = false
+        } else {
+            dataList[data.sender] = data
+            if (dataList.size % 2 == 0) {
+                nextButton?.isEnabled = true
+            }
+        }
+    }
+
 }
