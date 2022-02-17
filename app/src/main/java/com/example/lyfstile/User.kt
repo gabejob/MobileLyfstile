@@ -2,6 +2,7 @@ package com.example.lyfstile
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.util.*
 
 /*
 *
@@ -11,14 +12,14 @@ import android.os.Parcelable
 * */
 class User constructor(
     _firstname: String, _lastname: String, _email: String,
-    _password: String, _birthday: Int, _sex: String, _height: String,
+    _password: String, _birthday: String, _sex: String, _height: String,
     _weight: String, _country: String, _city: String, _pfp: Any
 ) : Parcelable {
 
 
     constructor() : this(
         "", "", "",
-        "", -1, "", "", "", "", "", ""
+        "", "", "", "", "", "", "", ""
     ) {
 
     }
@@ -27,7 +28,7 @@ class User constructor(
     var lastName: String = _lastname
     var email: String = _email
     var password: String = _password
-    var birthday: Int = _birthday
+    var birthday: String = _birthday
     var height: String = _height
     var weight: String = _weight
     var country: String = _country
@@ -40,7 +41,7 @@ class User constructor(
         _lastname = "",
         _email = "",
         _password = "",
-        _birthday = -1,
+        _birthday = "",
         _sex = "",
         _height = "",
         _weight = "",
@@ -57,7 +58,7 @@ class User constructor(
         country = parcel.readString().toString()
         city = parcel.readString().toString()
         sex = parcel.readString().toString()
-        birthday = parcel.readInt()
+        birthday = parcel.readString().toString()
     }
 
 
@@ -71,7 +72,7 @@ class User constructor(
         out?.writeString(country)
         out?.writeString(city)
         out?.writeString(sex)
-        out?.writeInt(birthday)
+        out?.writeString(birthday)
     }
 
     override fun describeContents(): Int {
