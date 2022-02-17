@@ -13,8 +13,12 @@
         <entry key="..\:/MobileLyfstile/app/src/main/res/drawable/settings_button.xml" value="0.35625" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/activity_home_screen.xml" value="0.3359375" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/activity_username_pass_screen.xml" value="0.31614583333333335" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout/dialog.xml" value="0.3359375" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout/edit_review_info.xml" value="0.3359375" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_actionbar.xml" value="0.3359375" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_bmi.xml" value="0.3359375" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_picker.xml" value="0.25" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_text_submit.xml" value="0.21875" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/new_user_info.xml" value="0.31614583333333335" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/review_info.xml" value="0.29375" />
         <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/activity_login_existing_account.xml" value="0.3671875" />
@@ -23,17 +27,6 @@
         <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/new_user_info.xml" value="0.3671875" />
         <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/review_info.xml" value="0.3671875" />
         <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/take_profile_pic.xml" value="0.20572916666666666" />
-        <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.22418478260869565" />
-        <entry key="app/src/main/res/layout/activity_login_existing_account.xml" value="0.18297101449275363" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18297101449275363" />
-        <entry key="app/src/main/res/layout/activity_username_pass_screen.xml" value="0.18297101449275363" />
-        <entry key="app/src/main/res/layout/edit_review_info.xml" value="0.3847637010657269" />
-        <entry key="app/src/main/res/layout/fragment_actionbar.xml" value="0.22418478260869565" />
-        <entry key="app/src/main/res/layout/fragment_bmi.xml" value="0.22418478260869565" />
-        <entry key="app/src/main/res/layout/fragment_text_submit.xml" value="0.18297101449275363" />
-        <entry key="app/src/main/res/layout/new_user_info.xml" value="0.22418478260869565" />
-        <entry key="app/src/main/res/layout/review_info.xml" value="0.22418478260869565" />
-        <entry key="app/src/main/res/layout/take_profile_pic.xml" value="0.14209726443768997" />
       </map>
     </option>
   </component>

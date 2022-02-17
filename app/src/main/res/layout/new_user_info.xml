@@ -33,10 +33,10 @@
         android:layout_below="@+id/wyn_textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="57dp"
+        android:layout_marginStart="60dp"
         android:layout_marginLeft="102dp"
         android:layout_marginTop="49dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="61dp"
         android:fontFamily="@font/segoe"
         android:text="First Name"
         android:textAlignment="center"
@@ -44,15 +44,14 @@
 
     <RelativeLayout
         android:id="@+id/fn_enter_box"
-        android:layout_width="252dp"
-        android:layout_height="33dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/fn_textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="60dp"
-        android:background="@color/white"></RelativeLayout>
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="78dp"></RelativeLayout>
 
     <TextView
         android:id="@+id/ln_textView"
@@ -72,31 +71,15 @@
 
     <RelativeLayout
         android:id="@+id/ln_enter_box"
-        android:layout_width="252dp"
-        android:layout_height="33dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/ln_textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="61dp"
-        android:background="@color/white">
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="80dp">
 
-        <!--        <EditText
-            android:id="@+id/ln_editText"
-            android:layout_width="218dp"
-            android:layout_height="34dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="104dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="89dp"
-            android:background="@color/white"
-            android:imeOptions="actionSend"
-            android:inputType="text"
-            android:singleLine="true"></EditText>-->
     </RelativeLayout>
 
     <Button
@@ -108,8 +91,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="132dp"
         android:layout_marginTop="101dp"
-
-
         android:layout_marginEnd="129dp"
         android:background="@color/Button_color"
         android:backgroundTint="@color/Button_color"

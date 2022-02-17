@@ -64,6 +64,13 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        var bundle = this.arguments
+        var height = bundle?.getString("height")
+        var weight = bundle?.getString("weight")
+        if (height != null && weight != null) {
+            parseBundleData(height,weight)
+        }
         var view = inflater.inflate(R.layout.fragment_bmi, container, false)
         var goButton = view.findViewById<Button>(R.id.go_button)
 
@@ -73,7 +80,18 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
         return view
     }
 
+    private fun parseBundleData(height : String, weight : String)
+    {
+        var heightSplit = height.split(' ')
+        var weightSplit = weight.split(' ')
 
+        feet = heightSplit[0].toDouble()
+        inches = heightSplit[2].toDouble()
+
+        pounds = weightSplit[0].toDouble()
+        ounces = weightSplit[2].toDouble()
+
+    }
 
     override fun onDataPass(data: Data) {
         TODO("Not yet implemented")
