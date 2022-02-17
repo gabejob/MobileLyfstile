@@ -23,6 +23,11 @@ class HomeScreen : AppCompatActivity() {
         var bmgFragment = BMIFragment()
         var actionbarFragment = ActionbarFragment()
 
+        var bundle = Bundle()
+        bundle.putString("height",user?.height)
+        bundle.putString("weight",user?.weight)
+
+        bmgFragment.arguments = bundle
         val fragtrans = supportFragmentManager.beginTransaction()
         fragtrans.replace(R.id.bmi_frag,bmgFragment,"bmi_box")
         fragtrans.replace(R.id.action_bar_fragment,actionbarFragment,"action_bar")

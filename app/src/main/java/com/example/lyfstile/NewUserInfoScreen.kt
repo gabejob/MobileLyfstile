@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 
 //@todo *******We really need to re-evaluate how this works... back button takes you to user/pass screen*********
 class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
@@ -40,6 +41,9 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     override fun onClick(view: View?) {
 
+        if(dataList[FIRST_NAME]?.equals("") == true)
+            nextButton?.isEnabled = false
+
         when(view?.id) {
             //Each time the next button is pressed, change tags and replace text fragments...
                 R.id.next_button -> {
@@ -71,7 +75,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                         }
                     }
                     fragTrans(tag1, tag2)
-                    nextButton?.isEnabled = false
+
                 }
 
         }
@@ -89,12 +93,6 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             findViewById<TextView>(R.id.wyn_textView).text = screenPrompts[screenName]?.get(0)
             findViewById<TextView>(R.id.fn_textView).text = screenPrompts[screenName]?.get(1)
             findViewById<TextView>(R.id.ln_textView).text = screenPrompts[screenName]?.get(2)
-
-
-
-
-
-
         } catch (e: Exception) {
             throw Exception("Unable to load next screen")
         }
@@ -107,35 +105,19 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     */
     private fun fragTrans(tag1 : String, tag2 : String) {
 
-        var enterFragment : Any;
+
         val fragtrans = supportFragmentManager.beginTransaction()
-        when(tag1) {
 
-            AGE ->
-            {
-                enterFragment = TextSubmitFragment();
-                fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
 
-            }
-            FIRST_NAME, LAST_NAME ->
-            {
-                enterFragment = TextSubmitFragment()
-                fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
-
-            }
-            else ->
-            {
-                enterFragment = TextSubmitFragment()
-                fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
-
-            }
-        }
+        var enterFragment = TextSubmitFragment();
         val enterFragment2 = TextSubmitFragment()
 
-
+        fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
         fragtrans.replace(R.id.ln_enter_box, enterFragment2, tag2)
 
+        enterFragment.requestFocus()
         fragtrans.commit()
+
     }
 
     /**
@@ -145,16 +127,23 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
      *
      */
     private fun addToUserProfile() {
-        user?.firstName = dataList[FIRST_NAME]?.data.toString()
-        user?.lastName = dataList[LAST_NAME]?.data.toString()
-        user?.birthday = dataList[AGE]?.data.toString()
-        user?.sex = dataList[SEX]?.data.toString()
-        user?.height = dataList[HEIGHT]?.data.toString()
-        user?.weight = dataList[WEIGHT]?.data.toString()
-        user?.country = dataList[COUNTRY]?.data.toString()
-        user?.city = dataList[CITY]?.data.toString()
+
+        user?.firstName = checkVal(FIRST_NAME)
+        user?.lastName = checkVal(LAST_NAME)
+        user?.birthday = checkVal(AGE)
+        user?.sex = checkVal(SEX)
+        user?.height = checkVal(HEIGHT)
+        user?.weight = checkVal(WEIGHT)
+        user?.country = checkVal(COUNTRY)
+        user?.city = checkVal(CITY)
     }
 
+    private fun checkVal(tag : String) : String
+    {
+        if(dataList[tag]?.data.isNullOrEmpty())
+            return "Not Provided"
+        return dataList[tag]?.data.toString()
+    }
     override fun onDataPass(data: Data) {
         if (data.data.isEmpty()) {
             dataList.remove(data.sender)
