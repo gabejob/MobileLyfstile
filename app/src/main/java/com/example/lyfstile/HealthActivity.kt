@@ -138,6 +138,7 @@ class HealthActivity : AppCompatActivity(),
         ) { _, _ -> }
         builder.setNegativeButton("Cancel", null)
 
+
         pullExistingOptions()
         builder.show()
     }
@@ -145,6 +146,8 @@ class HealthActivity : AppCompatActivity(),
     private fun pullExistingOptions() {
         if(currVal != null)
             numberPicker?.value = currVal as Int
+        else
+            numberPicker?.value = 0
         if(currGoal != null)
         {
             when(currGoal)
@@ -156,18 +159,23 @@ class HealthActivity : AppCompatActivity(),
                 "Gain" ->
                 {
                     radioGroupGoal?.check(R.id.radio_gw)
+                    numberPicker?.visibility = View.VISIBLE
+
                 }
-                "Lost" ->
+                "Lose" ->
                 {
                     radioGroupGoal?.check(R.id.radio_lw)
+                    numberPicker?.visibility = View.VISIBLE
                 }
             }
+            currVal?.let { updateDialogGoalText(it, currGoal.toString()) }
         }
         else
         {
-            updateDialogGoalText(0,"Maintain")
+             updateDialogGoalText(0, "")
 
         }
+
 
     }
 
