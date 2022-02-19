@@ -18,20 +18,20 @@
         android:text="BMI"
         android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/go_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bmi_text"
+    <!--    <Button
+            android:id="@+id/go_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bmi_text"
 
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="284dp"
-        android:text="Go">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="284dp"
+            android:text="Go">
 
 
-    </Button>
+        </Button>-->
 
 </RelativeLayout>

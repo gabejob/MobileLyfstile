@@ -1,12 +1,12 @@
 package com.example.lyfstile
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.RadioButton
+import androidx.fragment.app.DialogFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -15,18 +15,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ActionbarFragment.newInstance] factory method to
+ * Use the [ModifyGoalsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ActionbarFragment : Fragment(), View.OnClickListener {
+class ModifyGoalsFragment : DialogFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-/*    var settingsButton: Button = null
-    var weatherButton: Button? = null
-    var hikerButton: Button? = null
-    var healthButton: Button? = null*/
-   var clickInterface: ClickInterface ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,20 +35,10 @@ class ActionbarFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_actionbar, container, false)
-
-        val settingsButton = root.findViewById<Button>(R.id.settings)
-        settingsButton?.setOnClickListener(this)
-        val weatherButton = root.findViewById<Button>(R.id.weather)
-        weatherButton?.setOnClickListener(this)
-        val hikerButton = root.findViewById<Button>(R.id.hiker)
-        hikerButton?.setOnClickListener(this)
-        val healthButton = root.findViewById<Button>(R.id.health)
-        healthButton?.setOnClickListener(this)
-
         // Inflate the layout for this fragment
-        return root
+        return inflater.inflate(R.layout.fragment_modify_goals, container, false)
     }
+
 
     companion object {
         /**
@@ -62,42 +47,16 @@ class ActionbarFragment : Fragment(), View.OnClickListener {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ActionbarFragment.
+         * @return A new instance of fragment ModifyGoalsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ActionbarFragment().apply {
+            ModifyGoalsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
     }
-
-    interface ClickInterface
-    {
-        fun actionButtonClicked(id : Int);
-    }
-
-    fun bindClickInterface(inter : ClickInterface)
-    {
-        clickInterface=inter
-    }
-
-    override fun onClick(view: View?) {
-        when(view?.id)
-        {
-            R.id.health ->
-            {
-                clickInterface?.actionButtonClicked(R.id.health)
-
-            }
-
-
-
-        }
-    }
-
-
 }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModifyGoalsFragment"
+    android:layout_gravity="center"
+>
+
+    <RadioGroup
+        android:id="@+id/radio_group_goal"
+
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_lw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/lose_weight"
+            android:textSize="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_mw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/maintain_weight"
+            android:textSize="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_gw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/gain_weight"
+
+            android:textSize="10dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio_group_activity"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="277dp"
+        android:layout_marginEnd="43dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_not_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="1" />
+
+        <RadioButton
+            android:id="@+id/radio_mildly_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="2" />
+
+        <RadioButton
+            android:id="@+id/radio_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="3" />
+
+        <RadioButton
+            android:id="@+id/radio_very_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="4" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/goalText"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="376dp"
+        android:text="@string/goal_option"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    <NumberPicker
+        android:id="@+id/number_picker_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="411dp"
+        android:layout_marginEnd="106dp"></NumberPicker>
+
+    <TextView
+        android:id="@+id/goalHeader"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="48dp"
+        android:text="Choose Goal"
+        android:textAlignment="center"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/activity_level_header"
+
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="227dp"
+        android:singleLine="true"
+        android:text="Choose Activity Level"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+
+</RelativeLayout>

@@ -38,18 +38,18 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
     //User input --> Maybe we don't have people enter in custom height, so no entry fields
     //Some of these may be unused, but left in for simplicity
 
-        private var feet = 6.0
-        private var inches = 1.1
+    private var feet = 0.0
+    private var inches = 0.0
 
-        private var meters = 5.0
-        private var km = 5.0
+    private var meters = 0.0
+    private var km = 0.0
 
 
-        private var pounds = 181.0
-        private var ounces = 0.0
+    private var pounds = 0.0
+    private var ounces = 0.0
 
-        private var kg = 4.0
-        private var grams = 4.0
+    private var kg = 0.0
+    private var grams = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,14 +68,15 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
         var bundle = this.arguments
         var height = bundle?.getString("height")
         var weight = bundle?.getString("weight")
-        if (height != null && weight != null) {
+        if (height != null && weight != null && height != "Not Provided"&& weight != "Not Provided") {
             parseBundleData(height,weight)
         }
         var view = inflater.inflate(R.layout.fragment_bmi, container, false)
-        var goButton = view.findViewById<Button>(R.id.go_button)
+        //var goButton = view.findViewById<Button>(R.id.go_button)
 
-        goButton.setOnClickListener(this)
+        // goButton.setOnClickListener(this)
         bmiBox = view.findViewById<TextView>(R.id.bmi_text)
+        update()
 
         return view
     }
@@ -118,7 +119,7 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
 
     private fun weightToImperial(kg : Double, grams : Double) : Double
     {
-      return (((kg*1000)+grams)*28.35)
+        return (((kg*1000)+grams)*28.35)
     }
     /*
     *
@@ -184,18 +185,29 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
 
     }
 
+    fun update()
+    {
+
+        var newBMI = calculateBMI(crunchImperialWeight(pounds,ounces),
+            crunchImperialHeight(feet,inches),bmiFactorImperial)
+
+
+
+        bmiBox?.text = getBMIIndicator(newBMI)
+
+    }
 
     override fun onClick(view: View?) {
 
-        if(view?.id == R.id.go_button)
-        {
-            var newBMI = calculateBMI(crunchImperialWeight(pounds,ounces),
-                crunchImperialHeight(feet,inches),bmiFactorImperial)
+        /* if(view?.id == R.id.go_button)
+         {
+             var newBMI = calculateBMI(crunchImperialWeight(pounds,ounces),
+                 crunchImperialHeight(feet,inches),bmiFactorImperial)
 
 
 
-            bmiBox?.text = getBMIIndicator(newBMI)
-        }
+             bmiBox?.text = getBMIIndicator(newBMI)
+         }*/
 
 
     }
@@ -210,7 +222,10 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
 
         if(newBMI>25 && newBMI<30)
             return  HtmlCompat.fromHtml(getString(R.string.bmi_overweight, newBMI), HtmlCompat.FROM_HTML_MODE_COMPACT)
-        return  HtmlCompat.fromHtml(getString(R.string.bmi_obese, newBMI), HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+        if(newBMI>30)
+            return  HtmlCompat.fromHtml(getString(R.string.bmi_obese, newBMI), HtmlCompat.FROM_HTML_MODE_COMPACT)
+        return  HtmlCompat.fromHtml(getString(R.string.not_provided), HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 
     companion object {
