@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     >
 
@@ -11,41 +12,64 @@
         android:background="@drawable/master_border"
         android:text="" />
 
-    <TextView
-        android:id="@+id/currentGoal"
-        android:layout_width="273dp"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/pfp_box"
+        android:layout_width="138dp"
+        android:layout_height="142dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="128dp"
-        android:text="@string/current_goal"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/currentGoal"
+        android:layout_width="141dp"
+        android:layout_height="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="241dp"
         android:fontFamily="@font/segoe"
-        android:textSize="30dp"></TextView>
+        android:text="Current Goal:"
+        android:textSize="17dp"></TextView>
 
     <TextView
         android:id="@+id/calorieGoal"
-        android:layout_width="331dp"
+        android:layout_width="match_parent"
         android:layout_height="98dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="181dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginTop="233dp"
+        android:layout_marginEnd="5dp"
         android:fontFamily="@font/segoe"
-        android:text="@string/calorie_goal"
-        android:textSize="35dp"></TextView>
+        android:text="Calorie Goal:"
+        android:textAlignment="center"
+        android:textSize="27dp"></TextView>
 
     <TextView
         android:id="@+id/activityGoal"
-        android:layout_width="331dp"
+        android:layout_width="match_parent"
         android:layout_height="98dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="295dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginTop="371dp"
         android:fontFamily="@font/segoe"
-        android:text="@string/activity_goal"
-        android:textSize="35dp"></TextView>
+        android:text="Activity Goal:"
+        android:textAlignment="center"
+        android:textSize="27dp"></TextView>
+
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="193dp"
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="103dp"
+        android:layout_marginEnd="196dp"
+        android:fontFamily="@font/segoe"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="17dp"></TextView>
 
     <Button
         android:id="@+id/modifyGoalsButton"
@@ -54,7 +78,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="480dp"
-        android:layout_marginEnd="124dp"
+        android:layout_marginEnd="118dp"
         android:text="Modify Goals"></Button>
 
     <Button
@@ -64,7 +88,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="575dp"
-        android:layout_marginEnd="125dp"
+        android:layout_marginEnd="119dp"
         android:text="Modify Height/Weight"></Button>
 
     <RelativeLayout

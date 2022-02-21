@@ -6,12 +6,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
     private var login : Button ?= null
-
+    private var testLogin : User ?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_existing_account)
@@ -75,6 +78,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
 
 
                       val homeScreen = Intent(this, HomeScreen::class.java)
+                      homeScreen.putExtra("usr_data",testLogin)
                       this.startActivity(homeScreen)
 
 
@@ -107,9 +111,17 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     * */
     private fun verifyCredentials(email : String, password : String) : Boolean
     {
-        if (email == "123" && password == "123")
+        if (email == "123" && password == "123") {
+         var gabe = User()
+            gabe.firstName="gabe"
+            gabe.lastName="gabe"
+            gabe.birthday= "2/2/1998"
+            gabe.sex="Male"
+            gabe.height="6 ft, 1 in."
+            gabe.weight="181 lbs, 0 oz"
+            testLogin = gabe
             return true
-
+        }
         return false
     }
 

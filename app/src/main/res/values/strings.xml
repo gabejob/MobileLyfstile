@@ -16,12 +16,14 @@
     <!--Health stuffs-->
 
     <string name="current_goal">Current goal: %1$s</string>
-    <string name="calorie_goal">Calorie Goal: %1$d/day</string>
-    <string name="activity_goal">Activity Goal: %1$s/day</string>
+    <string name="calorie_goal">Calorie Goal: %1$.2f calories/day</string>
+    <string name="activity_goal">Activity Goal: Exercise %1$s/day</string>
     <string name="goal_option">%1$s : %2$d pounds/week</string>
     <string name="lose_weight">Lose Weight</string>
     <string name="maintain_weight">Maintain Weight</string>
     <string name="gain_weight">Gain Weight</string>
+    <string name="warning_losing"><![CDATA[<font color=red>Losing %2$d lbs a week is a lot,\n please consult your physician</font>]]></string>
+    <string name="warning_gaining"><![CDATA[<font color=red>Gaining %2$d lbs a week is a lot,\n please consult your physician</font>]]></string>
 
 
 </resources>
