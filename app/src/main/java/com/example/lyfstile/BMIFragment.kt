@@ -185,7 +185,7 @@ class BMIFragment : Fragment(), PassData, View.OnClickListener {
 
     }
 
-    fun update()
+    private fun update()
     {
 
         var newBMI = calculateBMI(crunchImperialWeight(pounds,ounces),

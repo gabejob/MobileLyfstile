@@ -87,6 +87,12 @@
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
             android:text="4" />
+        <RadioButton
+            android:id="@+id/radio_extremely_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="5" />
     </RadioGroup>
 
     <TextView
@@ -126,11 +132,10 @@
         android:id="@+id/activity_level_header"
 
         android:layout_width="match_parent"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="227dp"
-        android:singleLine="true"
-        android:text="Choose Activity Level"
+        android:layout_marginTop="211dp"
+        android:text="Choose Activity Level\n (1: not active - 5: extremely active)"
         android:textAlignment="center"
         android:textSize="20dp" />
 
