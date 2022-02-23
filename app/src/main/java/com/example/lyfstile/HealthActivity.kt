@@ -1,9 +1,10 @@
 package com.example.lyfstile
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.*
 import androidx.core.text.HtmlCompat
@@ -15,45 +16,39 @@ class HealthActivity : AppCompatActivity(),
 
     private var user : User ?=null
 
-    //Storage values
-    //Must be saved on state change
-    var currentGoalString : String ?= null
-    var calorieGoalString : String ?= null
-    var activityGoalString : String ?= null
-
     // NOTE: Using the Harris-Benedict equation for BMR
     //Must be saved on state change
     var BMR : Double ?= null
-    var calorieReq : Double ?= null
-    var userActivityLevelConstant : Double ?= null
+    private var calorieReq : Double ?= null
+    private var userActivityLevelConstant : Double ?= null
 
     //Constants:
     //Source: Mayo Clinic
     //https://www.mayoclinic.org/healthy-lifestyle/weight-loss/in-depth/calories/art-20048065
-    val CALORIE_CHANGE_LOW : Double = 500.0
+    private val CALORIE_CHANGE_LOW : Double = 500.0
     val CALORIE_CHANGE_HIGH : Double = 1000.0
-    val ACTIVITY_LEVEL_1 : Double = 1.2
-    val ACTIVITY_LEVEL_2 : Double = 1.375
-    val ACTIVITY_LEVEL_3 : Double = 1.55
-    val ACTIVITY_LEVEL_4 : Double = 1.725
-    val ACTIVITY_LEVEL_5 : Double = 1.9
 
+    private val ACTIVITY_LEVEL_1 : Double = 1.2
+    private val ACTIVITY_LEVEL_2 : Double = 1.375
+    private val ACTIVITY_LEVEL_3 : Double = 1.55
+    private val ACTIVITY_LEVEL_4 : Double = 1.725
+    private val ACTIVITY_LEVEL_5 : Double = 1.9
 
 
     //HealthActivity
     //Must be saved on state change
     private var activityGoalText : TextView ?= null
-    var activityCalorieGoalText : TextView ?= null
-    var activityCurrentGoalText : TextView ?= null
+    private var activityCalorieGoalText : TextView ?= null
+    private var activityCurrentGoalText : TextView ?= null
 
 
     //All within goal fragment
-    var modifyGoals : Button ?= null
-    var modifyHeightWeight : Button ?= null
+    private var modifyGoals : Button ?= null
+    private var modifyHeightWeight : Button ?= null
     private var goalText : TextView ?= null
     private var warningText : TextView ?= null
 
-    var dialogLayout : View ?= null
+    private var dialogLayout : View ?= null
     private var numberPicker : NumberPicker ?= null
     //Get all radio buttons to autofill selections
     private var radioGroupActivity : RadioGroup ?= null
@@ -64,37 +59,53 @@ class HealthActivity : AppCompatActivity(),
     private var currGoalVal : Int ?=null
     private var activityLevel : Int ?=null
 
-
-    override fun onSaveInstanceState(outState: Bundle) {
+/**
+ *
+ * Save values up changing state,
+ * only save those that are necessary to recalculate BMR/tdee
+ * */
+    override fun onSaveInstanceState(outState: Bundle)
+    {
         super.onSaveInstanceState(outState)
         outState.putParcelable("usr_data",user)
         outState.putString("curr_goal", currGoal)
+        currGoalVal?.let { outState.putInt("curr_goal_val", it) }
+        activityLevel?.let { outState.putInt("activity_level", it) }
+        userActivityLevelConstant?.let { outState.putDouble("activity_level_constant", it) }
     }
 
-    private fun restoreInstanceState(savedInstanceState: Bundle) {
+    /**
+     *
+     * Pull values from saved instance state,
+     * update locals, then UPDATE DIALOG OPTIONS!
+     * */
+    private fun restoreInstanceState(savedInstanceState: Bundle)
+    {
         super.onRestoreInstanceState(savedInstanceState)
 
-        user = savedInstanceState.getParcelable<User>("usr_data")
-        currGoal = savedInstanceState.getString("curr_goal");
-
+        user = savedInstanceState.getParcelable("usr_data")
+        currGoal = savedInstanceState.getString("curr_goal")
+        currGoalVal = savedInstanceState.getInt("curr_goal_val")
+        activityLevel = savedInstanceState.getInt("activity_level")
+        userActivityLevelConstant = savedInstanceState.getDouble("activity_level_constant")
+        pullExistingOptions()
+        updateGoals()
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if(savedInstanceState != null)
-        {
-            restoreInstanceState(savedInstanceState)
-        }
 
-        var actionbarFragment = ActionbarFragment()
-        var extras = intent.extras
+    /**
+     * Launch point of activity
+     * */
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState)
+
+        val actionbarFragment = ActionbarFragment()
+        val extras = intent.extras
         user = extras?.get(USER_DATA) as User
+
         setContentView(R.layout.activity_health)
 
-
-        val fragtrans = supportFragmentManager.beginTransaction()
-        fragtrans.replace(R.id.action_bar_fragment,actionbarFragment,"action_bar")
-        fragtrans.commit()
-
+        //Grab all of the dynamic pieces...
         activityCalorieGoalText =  findViewById(R.id.calorieGoal)
         activityCurrentGoalText = findViewById(R.id.currentGoal)
         activityGoalText = findViewById(R.id.activityGoal)
@@ -103,13 +114,24 @@ class HealthActivity : AppCompatActivity(),
         modifyHeightWeight = findViewById(R.id.modifyHeightWeight)
         modifyHeightWeight?.setOnClickListener(this)
         modifyGoals?.setOnClickListener(this)
+
+        //setup actionbar click interface
         actionbarFragment.bindClickInterface(this)
 
+        //Check to see if we're purely restoring state
+        if(savedInstanceState != null)
+        {
+            restoreInstanceState(savedInstanceState)
+        }
+
+        //initialize action bar
+        val fragtrans = supportFragmentManager.beginTransaction()
+        fragtrans.replace(R.id.action_bar_fragment,actionbarFragment,"action_bar")
+        fragtrans.commit()
     }
 
-
-
-    override fun onClick(view: View?) {
+    override fun onClick(view: View?)
+    {
         when(view?.id)
         {
             R.id.modifyGoalsButton ->
@@ -117,12 +139,9 @@ class HealthActivity : AppCompatActivity(),
                 showModifyGoalsDialog()
             }
             R.id.modifyHeightWeight ->
-            {
-
+            {// TODO:   add functionality here when hooking up to DB
             }
         }
-
-
     }
     /**
      *
@@ -131,7 +150,8 @@ class HealthActivity : AppCompatActivity(),
      * Function to handle all radio button clicks, delegates workflow for both sets; activity level, goal
      *
      * */
-    fun onRadioButtonClicked(view: View) {
+    fun onRadioButtonClicked(view: View)
+    {
         if (view is RadioButton) {
             // Is the button now checked?
             val checked = view.isChecked
@@ -141,7 +161,6 @@ class HealthActivity : AppCompatActivity(),
                 //===For goals===
                 R.id.radio_lw ->
                     if (checked) {
-                       // Toast.makeText(this, "made it here!", Toast.LENGTH_SHORT).show()
                         currGoal = "Lose"
                         numberPicker?.visibility = View.VISIBLE
                     }
@@ -186,11 +205,25 @@ class HealthActivity : AppCompatActivity(),
             currGoalVal?.let { updateDialogGoalText(it, currGoal.toString()) }
         }
     }
-    override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
+
+    /**
+     *
+     * Listener for number picker in dialog
+     * updates shown text
+     * */
+    override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int)
+    {
         currGoalVal = newVal
         updateDialogGoalText(newVal, currGoal.toString())
     }
-    private fun showModifyGoalsDialog() {
+
+    /**
+     *
+     * Initializer for the "modify goals" button, handles all setup
+     * */
+    @SuppressLint("InflateParams")
+    private fun showModifyGoalsDialog()
+    {
         val builder = AlertDialog.Builder(this)
 
         //Get dialog view and number picker
@@ -209,31 +242,26 @@ class HealthActivity : AppCompatActivity(),
         radioGroupActivity = dialogLayout?.findViewById(R.id.radio_group_activity)
         radioGroupGoal = dialogLayout?.findViewById(R.id.radio_group_goal)
 
-
         builder.setTitle("Choose Goal:")
         builder.setView(dialogLayout)
         builder.setPositiveButton(
             "OK"
         ) { _, _ ->
-
             updateGoals()
-
         }
         builder.setNegativeButton("Cancel", null)
-
-
         pullExistingOptions()
         builder.show()
     }
 
     /**
      *
-     *
      * Method to update dialog options from pre-existing data
      * needs to be migrated to user goals addition
      *
      * */
-    private fun pullExistingOptions() {
+    private fun pullExistingOptions()
+    {
         if(currGoalVal != null)
             numberPicker?.value = currGoalVal as Int
         else
@@ -289,17 +317,16 @@ class HealthActivity : AppCompatActivity(),
                 {
                     radioGroupActivity?.check(R.id.radio_extremely_active)
                 }
-
-
-
             }
-
         }
-
-
     }
 
 
+    /**
+     *
+     * Used in tandem with the number picker listener,
+     * changes dialog goal text
+     * */
     private fun updateDialogGoalText(newVal : Int, currentGoal : String)
     {
         if(numberPicker?.isVisible == true) {
@@ -310,7 +337,12 @@ class HealthActivity : AppCompatActivity(),
 
     }
 
-    private fun updateGoals() {
+    /**
+     *
+     * Function to handle all text changes on the health activity screen
+     * */
+    private fun updateGoals()
+    {
         //The amount to maintain a weight at a certain activity level
         calorieReq = calculateDifference(userActivityLevelConstant?.let {
             calculateTDEE(
@@ -319,7 +351,7 @@ class HealthActivity : AppCompatActivity(),
                     getYears(user?.birthday), getHeight(user?.height), getWeight(user?.weight)
                 ), it
             )
-        }, currGoal, currGoalVal);
+        }, currGoal, currGoalVal)
 
         activityCalorieGoalText?.text = getString(R.string.calorie_goal, calorieReq)
 
@@ -338,7 +370,7 @@ class HealthActivity : AppCompatActivity(),
                     HtmlCompat.FROM_HTML_MODE_COMPACT
                 )
                 warningText?.text = warning
-            }
+                }
             }
         }
         else
@@ -357,6 +389,10 @@ class HealthActivity : AppCompatActivity(),
 
     }
 
+    /**
+     *
+     * Determines the calorie deficit/overage required to gain or lose weight
+     * */
     private fun calculateDifference(tdee : Double?, goal : String?, goalVal : Int?) : Double
     {
         when(goal)
@@ -376,27 +412,33 @@ class HealthActivity : AppCompatActivity(),
             }
 
             "Maintain" -> {return tdee as Double}
-
         }
 
         return tdee as Double
     }
 
-    private fun getYears(birthday: String?): Int {
-        var currYear = Calendar.getInstance().get(Calendar.YEAR);
+    /**
+     *
+     * Function to parse incoming birthday input
+     * */
+    private fun getYears(birthday: String?): Int
+    {
+        val currYear = Calendar.getInstance().get(Calendar.YEAR)
 
-        var split = birthday?.split('/')
-        var birthYear = split?.get(2)?.toInt() ?: 0
+        val split = birthday?.split('/')
+        val birthYear = split?.get(2)?.toInt() ?: 0
 
        return currYear-birthYear
     }
 
+    /**
+     *
+     * Function to parse incoming weight input
+     * */
     private fun getWeight(weight: String?) : Double
     {
-        var split = weight?.split(' ')
-        var weightInKG = 0.0
-
-        weightInKG = if(weight?.contains("lbs") == true) {
+        val split = weight?.split(' ')
+        val weightInKG: Double = if(weight?.contains("lbs") == true) {
             val lbs = split?.get(0)?.toDouble()
             val oz = split?.get(2)?.toDouble()
             if(lbs!= null && oz != null)
@@ -404,7 +446,6 @@ class HealthActivity : AppCompatActivity(),
             else
                 0.0
         } else {
-
             val kg = split?.get(0)?.toDouble()
             val g = split?.get(2)?.toDouble()
             if(kg!= null && g != null)
@@ -415,12 +456,14 @@ class HealthActivity : AppCompatActivity(),
         return  weightInKG
     }
 
+    /**
+     *
+     * Function to parse incoming height input
+     * */
     private fun getHeight(height: String?) : Double
     {
-        var split = height?.split(' ')
-        var heightInCM = 0.0
-
-        heightInCM = if(height?.contains("ft")== true)
+        val split = height?.split(' ')
+        val heightInCM: Double = if(height?.contains("ft")== true)
         {
             val ft = split?.get(0)?.toDouble()
             val inchs = split?.get(2)?.toDouble()
@@ -442,7 +485,6 @@ class HealthActivity : AppCompatActivity(),
     }
     /**
      *
-     *
      * Function to calculate the Total daily energy expenditure
      *
      * */
@@ -455,7 +497,6 @@ class HealthActivity : AppCompatActivity(),
     }
 
     /**
-     *
      *
      * Function to obtain the Basic metabolic rate
      *
@@ -472,16 +513,27 @@ class HealthActivity : AppCompatActivity(),
                     //WEIGHT MUST BE IN KG, HEIGHT MUST BE IN CM, AGE MUST BE IN YEARS
                     return (655.1 + (9.563 * weight) + (1.850 * height)) - (4.676 * age)
                 }
-
             }
         }
-        return 0.0;
+        return 0.0
     }
 
+    /**
+     *
+     * Action bar related listeners.
+     * */
+    override fun actionButtonClicked(id: Int)
+    {
 
-
-    override fun actionButtonClicked(id: Int) {
+        when(id)
+        {
+            R.id.health ->
+            {}
+            R.id.hiker ->
+            {
+                val mapScreen = Intent(this, MapActivity::class.java)
+                this.startActivity(mapScreen)
+            }
+        }
     }
-
-
 }
