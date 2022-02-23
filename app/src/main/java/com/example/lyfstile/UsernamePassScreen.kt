@@ -50,7 +50,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
     private fun startNextActivity() {
         addToUserProfile()
         val fnPassScreen = Intent(this, NewUserInfoScreen::class.java)
-        fnPassScreen.putExtra("usr_data", user)
+        fnPassScreen.putExtra(USER_DATA, user)
         this.startActivity(fnPassScreen)
     }
 

@@ -19,8 +19,8 @@ class ReviewInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val extras = intent.extras
-        user = extras?.get("usr_data") as User
-        profilePic = intent.getParcelableExtra("profile_pic")
+        user = extras?.get(USER_DATA) as User
+        profilePic = intent.getParcelableExtra(PROFILE_PIC)
         setContentView(R.layout.review_info)
 
         createAccountButton = findViewById(R.id.create_button)
@@ -47,8 +47,8 @@ class ReviewInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             R.id.create_button -> {
                 try {
                     val homeScreen = Intent(this, HomeScreen::class.java)
-                    homeScreen.putExtra("usr_data", user)
-                    homeScreen.putExtra("profile_pic", profilePic)
+                    homeScreen.putExtra(USER_DATA, user)
+                    homeScreen.putExtra(PROFILE_PIC, profilePic)
                     this.startActivity(homeScreen)
                 } catch (e: Exception) {
                     throw Exception("Unable to start the camera")
@@ -56,8 +56,8 @@ class ReviewInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             }
             R.id.edit_button -> {
                 val editAllInfoScreen = Intent(this, EditAllInfoScreen::class.java)
-                editAllInfoScreen.putExtra("usr_data", user)
-                editAllInfoScreen.putExtra("profile_pic", profilePic)
+                editAllInfoScreen.putExtra(USER_DATA, user)
+                editAllInfoScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(editAllInfoScreen)
             }
         }

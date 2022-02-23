@@ -87,7 +87,7 @@ class HealthActivity : AppCompatActivity(),
 
         var actionbarFragment = ActionbarFragment()
         var extras = intent.extras
-        user = extras?.get("usr_data") as User
+        user = extras?.get(USER_DATA) as User
         setContentView(R.layout.activity_health)
 
 

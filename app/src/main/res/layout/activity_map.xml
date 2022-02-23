@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/master_border"
+        android:text="" />
+
+    <RelativeLayout
+        android:id="@+id/action_bar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="648dp"
+        android:layout_marginEnd="-1dp">
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/Maps_Hiking"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="108dp"
+        android:text="Hiking" />
+
+    <Button
+        android:id="@+id/Maps_Parks"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="234dp"
+        android:layout_marginEnd="107dp"
+        android:text="Parks" />
+
+    <Button
+        android:id="@+id/Maps_Gym"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="365dp"
+        android:layout_marginEnd="105dp"
+        android:text="Gyms" />
+
+    <Button
+        android:id="@+id/Maps_Restaurants"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="499dp"
+        android:layout_marginEnd="105dp"
+        android:text="Restaurants" />
+
+</RelativeLayout>
