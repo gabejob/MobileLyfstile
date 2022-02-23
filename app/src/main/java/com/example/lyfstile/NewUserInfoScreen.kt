@@ -30,7 +30,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         setContentView(R.layout.new_user_info)
 
         val extras = intent.extras
-        user = extras?.get("usr_data") as User
+        user = extras?.get(USER_DATA) as User
 
         fragTrans(FIRST_NAME, LAST_NAME)
         nextButton = findViewById<Button>(R.id.next_button)
@@ -69,7 +69,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                         COUNTRY_CITY_SCREEN -> {
                             addToUserProfile()
                             val cameraScrn = Intent(this, CameraScreen::class.java)
-                            cameraScrn.putExtra("usr_data", user)
+                            cameraScrn.putExtra(USER_DATA, user)
                             this.startActivity(cameraScrn)
                             finish()
                         }

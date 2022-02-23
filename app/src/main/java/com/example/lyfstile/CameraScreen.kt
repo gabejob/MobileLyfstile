@@ -27,7 +27,7 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
         setContentView(R.layout.take_profile_pic)
 
         var extras = intent.extras
-        user = extras?.get("usr_data") as User
+        user = extras?.get(USER_DATA) as User
 
         val takePictureButton = findViewById<Button>(R.id.Camera)
         takePictureButton.setOnClickListener(this)
@@ -59,8 +59,8 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
                     toast.show()
                 } else {
                     val reviewScreen = Intent(this, ReviewInfoScreen::class.java)
-                    reviewScreen.putExtra("usr_data", user)
-                    reviewScreen.putExtra("profile_pic", profileImage)
+                    reviewScreen.putExtra(USER_DATA, user)
+                    reviewScreen.putExtra(PROFILE_PIC, profileImage)
                     finish()
                     this.startActivity(reviewScreen)
                 }

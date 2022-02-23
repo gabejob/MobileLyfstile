@@ -19,8 +19,8 @@ class EditAllInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val extras = intent.extras
-        user = extras?.get("usr_data") as User
-        profilePic = intent.getParcelableExtra("profile_pic")
+        user = extras?.get(USER_DATA) as User
+        profilePic = intent.getParcelableExtra(PROFILE_PIC)
         setContentView(R.layout.edit_review_info)
 
         saveButton = findViewById(R.id.save_button)
@@ -47,8 +47,8 @@ class EditAllInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             R.id.save_button -> {
                 try {
                     val reviewScreen = Intent(this, ReviewInfoScreen::class.java)
-                    reviewScreen.putExtra("usr_data", user)
-                    reviewScreen.putExtra("profile_pic", profilePic)
+                    reviewScreen.putExtra(USER_DATA, user)
+                    reviewScreen.putExtra(PROFILE_PIC, profilePic)
                     this.startActivity(reviewScreen)
                 } catch (e: Exception) {
                     throw Exception("Error saving info")
@@ -56,8 +56,8 @@ class EditAllInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             }
             R.id.cancel_button -> {
                 val originalReviewScreen = Intent(this, ReviewInfoScreen::class.java)
-                originalReviewScreen.putExtra("usr_data", user)
-                originalReviewScreen.putExtra("profile_pic", profilePic)
+                originalReviewScreen.putExtra(USER_DATA, user)
+                originalReviewScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(originalReviewScreen)
                 finish()
             }
