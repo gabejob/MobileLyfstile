@@ -3,7 +3,6 @@ package com.example.lyfstile
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.*
 import androidx.core.text.HtmlCompat
@@ -104,7 +103,6 @@ class HealthActivity : AppCompatActivity(),
         modifyHeightWeight?.setOnClickListener(this)
         modifyGoals?.setOnClickListener(this)
         actionbarFragment.bindClickInterface(this)
-
     }
 
 

@@ -88,4 +88,18 @@ class User constructor(
             return arrayOfNulls(size)
         }
     }
+
+    // THIS IS TEMPORARY
+    // TODO - We will want to delete this once we get databases - jm
+    fun tempConstruct(){
+        password = TEMPLASTNAME
+        firstName = TEMPFIRSTNAME
+        lastName = TEMPLASTNAME
+        birthday = TEMPDOB
+        sex = TEMPSEX
+        height = TEMPHEIGHT
+        weight = TEMPWEIGHT
+        country = TEMPCOUNTRY
+        city = TEMPCITY
+    }
 }
