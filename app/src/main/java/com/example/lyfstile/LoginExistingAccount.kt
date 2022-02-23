@@ -24,8 +24,8 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
 
         val fragtrans = supportFragmentManager.beginTransaction()
 
-        fragtrans.replace(R.id.email_enter_box,emailEnterFragment,"Email_box")
-        fragtrans.replace(R.id.password_enter_box,passwordEnterFragment,"Password_box")
+        fragtrans.replace(R.id.email_enter_box,emailEnterFragment, EMAIL)
+        fragtrans.replace(R.id.password_enter_box,passwordEnterFragment, PASSWORD)
 
         fragtrans.commit()
 
@@ -50,7 +50,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
             }
         }
 
-        if(senders.contains("Email_box") && senders.contains("Password_box"))
+        if(senders.contains(EMAIL) && senders.contains(PASSWORD))
             return true
 
         return false
@@ -66,8 +66,8 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
               //Make sure everything has been entered/initialized
               if (dataList.size == 2) {
 
-                  var username = dataList["Email_box"]?.data
-                  var password = dataList["Password_box"]?.data
+                  var username = dataList[EMAIL]?.data
+                  var password = dataList[PASSWORD]?.data
 
                   if(verifyCredentials(username.toString(),password.toString())) {
 
@@ -111,7 +111,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     * */
     private fun verifyCredentials(email : String, password : String) : Boolean
     {
-        if (email == "123" && password == "123") {
+        if (email == "123@123.com" && password == "123") {
          var gabe = User()
             gabe.firstName="gabe"
             gabe.lastName="gabe"
@@ -126,17 +126,17 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     }
 
 
-    override fun onDataPass(_data: Data) {
+    override fun onDataPass(data: Data) {
         //Toast.makeText(this, "Came from: " + _data.sender, Toast.LENGTH_SHORT).show()
 
-        if(_data.data.isEmpty()) {
-            dataList.remove(_data.sender)
+        if(data.data.isEmpty()) {
+            dataList.remove(data.sender)
             login?.isEnabled = false
 
         }
         else
         {
-            dataList[_data.sender] = _data
+            dataList[data.sender] = data
 
             if(dataList.size == 2) {
                 login?.isEnabled = true

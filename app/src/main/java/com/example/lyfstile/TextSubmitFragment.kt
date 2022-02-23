@@ -88,7 +88,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
     private fun setContent()
     {
 
-        when(tag)
+      when(tag)
         {
             //
             AGE, WEIGHT, HEIGHT, SEX ->

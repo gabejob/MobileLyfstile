@@ -3,6 +3,7 @@ package com.example.lyfstile
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.*
 import androidx.core.text.HtmlCompat
@@ -15,11 +16,13 @@ class HealthActivity : AppCompatActivity(),
     private var user : User ?=null
 
     //Storage values
+    //Must be saved on state change
     var currentGoalString : String ?= null
     var calorieGoalString : String ?= null
     var activityGoalString : String ?= null
 
     // NOTE: Using the Harris-Benedict equation for BMR
+    //Must be saved on state change
     var BMR : Double ?= null
     var calorieReq : Double ?= null
     var userActivityLevelConstant : Double ?= null
@@ -38,7 +41,8 @@ class HealthActivity : AppCompatActivity(),
 
 
     //HealthActivity
-    var activityGoalText : TextView ?= null
+    //Must be saved on state change
+    private var activityGoalText : TextView ?= null
     var activityCalorieGoalText : TextView ?= null
     var activityCurrentGoalText : TextView ?= null
 
@@ -46,8 +50,8 @@ class HealthActivity : AppCompatActivity(),
     //All within goal fragment
     var modifyGoals : Button ?= null
     var modifyHeightWeight : Button ?= null
-    var goalText : TextView ?= null
-    var warningText : TextView ?= null
+    private var goalText : TextView ?= null
+    private var warningText : TextView ?= null
 
     var dialogLayout : View ?= null
     private var numberPicker : NumberPicker ?= null
@@ -61,10 +65,27 @@ class HealthActivity : AppCompatActivity(),
     private var activityLevel : Int ?=null
 
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("usr_data",user)
+        outState.putString("curr_goal", currGoal)
+    }
+
+    private fun restoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        user = savedInstanceState.getParcelable<User>("usr_data")
+        currGoal = savedInstanceState.getString("curr_goal");
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var actionbarFragment = ActionbarFragment()
+        if(savedInstanceState != null)
+        {
+            restoreInstanceState(savedInstanceState)
+        }
 
+        var actionbarFragment = ActionbarFragment()
         var extras = intent.extras
         user = extras?.get("usr_data") as User
         setContentView(R.layout.activity_health)
@@ -85,6 +106,8 @@ class HealthActivity : AppCompatActivity(),
         actionbarFragment.bindClickInterface(this)
 
     }
+
+
 
     override fun onClick(view: View?) {
         when(view?.id)
