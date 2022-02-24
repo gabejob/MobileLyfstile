@@ -17,7 +17,6 @@ class HomeScreen : AppCompatActivity(), ActionbarFragment.ClickInterface {
         profilePic = intent.getParcelableExtra(PROFILE_PIC)
         setContentView(R.layout.activity_home_screen)
 
-
         val bmgFragment = BMIFragment()
         val actionbarFragment = ActionbarFragment()
 
@@ -52,10 +51,5 @@ class HomeScreen : AppCompatActivity(), ActionbarFragment.ClickInterface {
                 this.startActivity(mapScreen)
             }
         }
-
-
-
     }
-
-
 }

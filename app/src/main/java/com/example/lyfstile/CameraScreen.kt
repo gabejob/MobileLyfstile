@@ -15,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginTop
 import java.lang.Exception
 
+/*
+* We need to look at either splitting everything or keeping it together. This feels like code duplication from the other login info
+* but at the same time it's a good idea to keep everything separate. Maybe make some of these functions generic later on??
+* */
 class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
 
     val REQUEST_IMAGE_CAPTURE = 1

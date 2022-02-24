@@ -75,9 +75,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                         }
                     }
                     fragTrans(tag1, tag2)
-
                 }
-
         }
     }
 
@@ -105,9 +103,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     */
     private fun fragTrans(tag1 : String, tag2 : String) {
 
-
         val fragtrans = supportFragmentManager.beginTransaction()
-
 
         var enterFragment = TextSubmitFragment();
         val enterFragment2 = TextSubmitFragment()
@@ -145,6 +141,8 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         return dataList[tag]?.data.toString()
     }
     override fun onDataPass(data: Data) {
+        // This needs to be changed. We need allow for data to be passed that is empty as part of the requirements.
+        // not sure who changed it. nextButton?.isEnabled = true for everything but the firstname lastname
         if (data.data.isEmpty()) {
             dataList.remove(data.sender)
             nextButton?.isEnabled = false
@@ -155,5 +153,4 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             }
         }
     }
-
 }

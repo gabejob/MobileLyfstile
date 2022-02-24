@@ -10,7 +10,7 @@ import java.util.*
 * MAJOR NOTE: PASSWORDS SHOULD NEVER BE STORED HERE! THIS IS TEMPORARY!
 *
 * */
-class User constructor(
+public class User constructor(
     _firstname: String, _lastname: String, _email: String,
     _password: String, _birthday: String, _sex: String, _height: String,
     _weight: String, _country: String, _city: String, _pfp: Any
