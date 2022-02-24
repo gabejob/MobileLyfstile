@@ -69,14 +69,8 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     * */
     private fun verifyCredentials(email: String, password: String): Boolean {
         if (email == "123@123.com" && password == "123") {
-            val gabe = User()
-            gabe.firstName = "gabe"
-            gabe.lastName = "gabe"
-            gabe.birthday = "2/2/1998"
-            gabe.sex = "Male"
-            gabe.height = "6 ft, 1 in."
-            gabe.weight = "181 lbs, 0 oz"
-            testLogin = gabe
+            testLogin = User()
+            testLogin?.tempConstruct()
             return true
         }
         return false
