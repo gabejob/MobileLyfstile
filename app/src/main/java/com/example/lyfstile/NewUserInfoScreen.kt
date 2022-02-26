@@ -37,6 +37,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         nextButton?.setOnClickListener(this)
 
         nextButton?.isEnabled = false
+
     }
 
     override fun onClick(view: View?) {
@@ -79,6 +80,10 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         }
     }
 
+    // TODO Implement back button functionality.
+    override fun onBackPressed() {
+
+    }
     /**
      *
      *

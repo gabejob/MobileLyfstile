@@ -1,25 +1,26 @@
 package com.example.lyfstile
 
-import android.content.Intent
+/*import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4*/
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
+/*import org.junit.runner.RunWith
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.core.app.ApplicationProvider
-import org.junit.Assert
+import org.junit.Assert*/
 
 class HomeScreenTest {
 
     // Create test user with no profile picture
-    val newUser = User("James", "Murray", "JM@JM.com", "cooldude1", "12/17", "M", "5'11", "195", "USA", "Seattle", "")
+/*    val newUser = User("James", "Murray", "JM@JM.com", "cooldude1", "12/17", "M", "5'11", "195", "USA", "Seattle", "")
     // pass the test user to home activity
-    @get:Rule val intent = Intent(ApplicationProvider.getApplicationContext(), HomeScreen::class.java)
-        .putExtra("USER_DATA", newUser)
+*//*    @get:Rule val intent = Intent(ApplicationProvider.getApplicationContext(), HomeScreen::class.java)
+        .putExtra("USER_DATA", newUser)*//*
 
     @get:Rule
     val rule: ActivityScenarioRule<*>? = ActivityScenarioRule(HomeScreen::class.java)
@@ -28,6 +29,7 @@ class HomeScreenTest {
     fun ensureDataCanBeRetrived() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), HomeScreen::class.java)
             .putExtra("USER_DATA", newUser)
+        //AppCompatActivity().startActivity(intent)
         var user : User ?= null
         user = Intent(ApplicationProvider.getApplicationContext(), HomeScreen::class.java).extras?.get("USER_DATA") as User
 
@@ -49,5 +51,5 @@ class HomeScreenTest {
         onView(withId(R.id.health)).perform(click())
         var healthActiv = HealthActivity()
         Assert.assertTrue(healthActiv.lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED))
-    }
+    }*/
 }
