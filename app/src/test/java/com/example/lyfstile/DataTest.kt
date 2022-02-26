@@ -1,6 +1,6 @@
 package com.example.lyfstile
 
-import android.os.Parcel
+import com.google.gson.Gson
 import org.junit.Assert
 import org.junit.Test
 
@@ -20,10 +20,14 @@ class DataTest {
             "Seattle",
             ""
         )
-        val d = Data("word", u.toString())
-        var rslt = d.data.toString()
-        Assert.assertEquals(u, rslt)
-/*        Assert.assertEquals(rslt.firstName, u.firstName)
+        // parcelable class, needs to send u as gson to test it
+        val gson = Gson()
+        val d = Data("CreateDataUser", gson.toJson(u))
+        var rslt = gson.fromJson(d.data, User::class.java)
+        var sndr = d.sender
+        Assert.assertEquals("CreateDataUser", sndr)
+        // compare object values
+        Assert.assertEquals(rslt.firstName, u.firstName)
         Assert.assertEquals(rslt.lastName, u.lastName)
         Assert.assertEquals(rslt.email, u.email)
         Assert.assertEquals(rslt.password, u.password)
@@ -33,6 +37,6 @@ class DataTest {
         Assert.assertEquals(rslt.weight, u.weight)
         Assert.assertEquals(rslt.country, u.country)
         Assert.assertEquals(rslt.city, u.city)
-        Assert.assertEquals(rslt.pfp, u.pfp)*/
+        Assert.assertEquals(rslt.pfp, u.pfp)
     }
 }
