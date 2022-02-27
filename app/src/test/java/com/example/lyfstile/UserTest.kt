@@ -1,6 +1,5 @@
 package com.example.lyfstile
 
-import com.ibm.icu.impl.IllegalIcuArgumentException
 import org.junit.Assert
 import org.junit.Assert.assertNotNull
 import org.junit.Rule
@@ -54,7 +53,7 @@ class UserTest {
         var exception: IllegalArgumentException? = null
         try{
             val newUser = User("", "", "", "", "", "", "", "", "", "", "")
-        }catch(e: IllegalIcuArgumentException){
+        }catch(e: IllegalArgumentException){
             exception = e
         }
         assertNotNull(exception)
