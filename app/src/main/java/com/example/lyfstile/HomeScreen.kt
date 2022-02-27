@@ -49,6 +49,11 @@ class HomeScreen : AppCompatActivity(), ActionbarFragment.ClickInterface {
                 val mapScreen = Intent(this, MapActivity::class.java)
                 this.startActivity(mapScreen)
             }
+            R.id.weather ->
+            {
+                val weatherScreen = Intent(this, WeatherActivity::class.java)
+                this.startActivity(weatherScreen)
+            }
         }
 
 

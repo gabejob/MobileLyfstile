@@ -63,6 +63,9 @@ class ActionbarFragment : Fragment(), View.OnClickListener {
             R.id.hiker -> {
                 clickInterface?.actionButtonClicked(R.id.hiker)
             }
+            R.id.weather -> {
+                clickInterface?.actionButtonClicked(R.id.weather)
+            }
         }
     }
 }
