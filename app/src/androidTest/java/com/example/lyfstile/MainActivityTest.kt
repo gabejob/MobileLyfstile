@@ -17,7 +17,7 @@ class MainActivityTest {
         @Before
         fun setup(){
             scenario = launchActivity()
-            scenario.moveToState(Lifecycle.State.STARTED)
+            scenario.moveToState(Lifecycle.State.RESUME)
         }*/
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
