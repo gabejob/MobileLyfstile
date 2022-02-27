@@ -8,7 +8,8 @@ import android.os.StrictMode.ThreadPolicy
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.json.JSONObject
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -36,7 +37,8 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         fragtrans.commit()
         actionbarFragment.bindClickInterface(this)
 
-        getWeather()
+        val weather = getWeather()
+        findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
     }
 
     override fun onClick(view: View) {
@@ -63,7 +65,7 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         }
     }
 
-    fun getWeather() {
+    fun getWeather(): WeatherInfo {
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
@@ -78,7 +80,10 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
                     response.append(inputLine)
                     inputLine = it.readLine()
                 }
-                val weatherObject = JSONObject(response.toString())
+
+                val mapper = jacksonObjectMapper()
+                val json = response.toString()
+                return mapper.readValue<WeatherInfo>(json)
             }
         }
     }
