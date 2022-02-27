@@ -2,20 +2,33 @@ package com.example.lyfstile
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.Window
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 class HealthActivity : AppCompatActivity(),
     View.OnClickListener, ActionbarFragment.ClickInterface, NumberPicker.OnValueChangeListener {
 
     private var user : User ?=null
-
+    private var profilePic: Bitmap? = null
+    private var dialog : Dialog ?= null
     // NOTE: Using the Harris-Benedict equation for BMR
     //Must be saved on state change
     var BMR : Double ?= null
@@ -46,16 +59,19 @@ class HealthActivity : AppCompatActivity(),
     private var modifyGoals : Button ?= null
     private var modifyHeightWeight : Button ?= null
     private var goalText : TextView ?= null
-    private var warningText : TextView ?= null
+    private var warningText : FloatingActionButton ?= null
+    private var isToolTipShown : Boolean = false
 
-    private var dialogLayout : View ?= null
     private var numberPicker : NumberPicker ?= null
     //Get all radio buttons to autofill selections
     private var radioGroupActivity : RadioGroup ?= null
     private var radioGroupGoal : RadioGroup ?= null
+    private var okButtonDialog : Button ?= null
+    private var cancelButtonDialog : Button ?= null
 
     //For INTERMEDIATE USE IN DIALOG!
     private var currGoal : String ?=null
+    private var warningTooltipText : String ?= null
     private var currGoalVal : Int ?=null
     private var activityLevel : Int ?=null
 
@@ -79,6 +95,7 @@ class HealthActivity : AppCompatActivity(),
      * Pull values from saved instance state,
      * update locals, then UPDATE DIALOG OPTIONS!
      * */
+
     private fun restoreInstanceState(savedInstanceState: Bundle)
     {
         super.onRestoreInstanceState(savedInstanceState)
@@ -102,6 +119,7 @@ class HealthActivity : AppCompatActivity(),
         val actionbarFragment = ActionbarFragment()
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
+        profilePic = intent.getParcelableExtra(PROFILE_PIC)
 
         setContentView(R.layout.activity_health)
 
@@ -109,12 +127,11 @@ class HealthActivity : AppCompatActivity(),
         activityCalorieGoalText =  findViewById(R.id.calorieGoal)
         activityCurrentGoalText = findViewById(R.id.currentGoal)
         activityGoalText = findViewById(R.id.activityGoal)
-        warningText = findViewById(R.id.warning)
+        warningText = findViewById(R.id.floatingActionButton)
         modifyGoals = findViewById(R.id.modifyGoalsButton)
-        modifyHeightWeight = findViewById(R.id.modifyHeightWeight)
-        modifyHeightWeight?.setOnClickListener(this)
         modifyGoals?.setOnClickListener(this)
-
+        warningText?.setOnClickListener(this)
+        findViewById<ImageView>(R.id.pfp_box)?.setImageBitmap(profilePic)
         //setup actionbar click interface
         actionbarFragment.bindClickInterface(this)
 
@@ -138,9 +155,25 @@ class HealthActivity : AppCompatActivity(),
             {
                 showModifyGoalsDialog()
             }
-            R.id.modifyHeightWeight ->
-            {// TODO:   add functionality here when hooking up to DB
+            R.id.floatingActionButton ->
+            {
+                if(isToolTipShown) {
+                    warningText?.tooltipText = null
+                    isToolTipShown = false
+                }
+                else {
+                    warningText?.tooltipText = warningTooltipText
+                    warningText?.performLongClick()
+                    isToolTipShown=true
+                }
             }
+            R.id.cancel ->{dialog?.hide()}
+            R.id.ok ->
+            {
+                updateGoals()
+                dialog?.hide()
+            }
+
         }
     }
     /**
@@ -224,34 +257,34 @@ class HealthActivity : AppCompatActivity(),
     @SuppressLint("InflateParams")
     private fun showModifyGoalsDialog()
     {
-        val builder = AlertDialog.Builder(this)
+        dialog = Dialog(this,R.style.AlertDialogCustom)
 
-        //Get dialog view and number picker
-        val inflater = layoutInflater
-        dialogLayout= inflater.inflate(R.layout.fragment_modify_goals, null)
-        numberPicker = dialogLayout?.findViewById(R.id.number_picker_1)
+        dialog?.setTitle("Choose Goal:")
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.setContentView(R.layout.fragment_modify_goals)
+
+        //grab positive/negative buttons
+        okButtonDialog = dialog?.findViewById(R.id.ok)
+        cancelButtonDialog = dialog?.findViewById(R.id.cancel)
+        okButtonDialog?.setOnClickListener(this)
+        cancelButtonDialog?.setOnClickListener(this)
+
+        //grab number picker
+        numberPicker = dialog?.findViewById(R.id.number_picker_1)
 
         //Setup number picker values, should initially be invisible
         numberPicker?.setOnValueChangedListener(this)
         numberPicker?.maxValue=5
         numberPicker?.minValue=0
-        numberPicker?.visibility = View.GONE
+        numberPicker?.visibility = GONE
 
         //setup dynamic text box and radio buttons
-        goalText = dialogLayout?.findViewById(R.id.goalText)
-        radioGroupActivity = dialogLayout?.findViewById(R.id.radio_group_activity)
-        radioGroupGoal = dialogLayout?.findViewById(R.id.radio_group_goal)
+        goalText = dialog?.findViewById(R.id.goalText)
+        radioGroupActivity = dialog?.findViewById(R.id.radio_group_activity)
+        radioGroupGoal = dialog?.findViewById(R.id.radio_group_goal)
 
-        builder.setTitle("Choose Goal:")
-        builder.setView(dialogLayout)
-        builder.setPositiveButton(
-            "OK"
-        ) { _, _ ->
-            updateGoals()
-        }
-        builder.setNegativeButton("Cancel", null)
         pullExistingOptions()
-        builder.show()
+        dialog?.show()
     }
 
     /**
@@ -341,6 +374,7 @@ class HealthActivity : AppCompatActivity(),
      *
      * Function to handle all text changes on the health activity screen
      * */
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateGoals()
     {
         //The amount to maintain a weight at a certain activity level
@@ -355,38 +389,61 @@ class HealthActivity : AppCompatActivity(),
 
         activityCalorieGoalText?.text = getString(R.string.calorie_goal, calorieReq)
 
+
+        //Warning text handling
         if (currGoalVal!! > 2) {
             when(currGoal) {
                 "Lose"-> {
-                    val warning = HtmlCompat.fromHtml(
+                    warningTooltipText = HtmlCompat.fromHtml(
                         getString(R.string.warning_losing, currGoal, currGoalVal),
                         HtmlCompat.FROM_HTML_MODE_COMPACT
-                    )
-                    warningText?.text = warning
+                    ).toString()
+                    warningText?.visibility=VISIBLE
                 }
                 "Gain"-> {
-                val warning = HtmlCompat.fromHtml(
+                warningTooltipText = HtmlCompat.fromHtml(
                     getString(R.string.warning_gaining, currGoal, currGoalVal),
                     HtmlCompat.FROM_HTML_MODE_COMPACT
-                )
-                warningText?.text = warning
+                ).toString()
+                    warningText?.visibility=VISIBLE
+                }
+                else ->
+                {
+                    warningText?.visibility=GONE
                 }
             }
         }
         else
         {
-            warningText?.text = ""
+            warningText?.visibility=GONE
+            warningText?.tooltipText = ""
         }
 
-        activityCurrentGoalText?.text = getString(
-            R.string.current_goal,
-            getString(
-                R.string.goal_option,
-                currGoal, currGoalVal
+        //Current goal text handling
+        if(currGoal=="Maintain")
+            activityCurrentGoalText?.text = getString(
+                R.string.current_goal,
+                getString(
+                    R.string.maintain_weight
+                )
             )
-        )
-        activityGoalText?.text = getString(R.string.activity_goal)
+        else
+            activityCurrentGoalText?.text = getString(
+                R.string.current_goal,
+                getString(R.string.goal_option,
+                currGoal, currGoalVal
+                )
+            )
 
+        //Activity goal handling
+        when(activityLevel)
+        {
+            1->{activityGoalText?.text = getString(R.string.activity_goal,"25 minutes")}
+            2->{activityGoalText?.text = getString(R.string.activity_goal, "35 minutes")}
+            3->{activityGoalText?.text = getString(R.string.activity_goal,"45 minutes")}
+            4->{activityGoalText?.text = getString(R.string.activity_goal,"1 hour")}
+            5->{activityGoalText?.text = getString(R.string.activity_goal, "1.5 hours")}
+        }
     }
 
     /**
@@ -423,8 +480,9 @@ class HealthActivity : AppCompatActivity(),
      * */
     private fun getYears(birthday: String?): Int
     {
+        if(birthday == "Not Provided")
+            return 2022
         val currYear = Calendar.getInstance().get(Calendar.YEAR)
-
         val split = birthday?.split('/')
         val birthYear = split?.get(2)?.toInt() ?: 0
 
@@ -437,6 +495,8 @@ class HealthActivity : AppCompatActivity(),
      * */
     private fun getWeight(weight: String?) : Double
     {
+        if(weight == "Not Provided")
+            return 0.0
         val split = weight?.split(' ')
         val weightInKG: Double = if(weight?.contains("lbs") == true) {
             val lbs = split?.get(0)?.toDouble()
@@ -462,6 +522,8 @@ class HealthActivity : AppCompatActivity(),
      * */
     private fun getHeight(height: String?) : Double
     {
+        if(height=="Not Provided")
+            return 0.0
         val split = height?.split(' ')
         val heightInCM: Double = if(height?.contains("ft")== true)
         {
