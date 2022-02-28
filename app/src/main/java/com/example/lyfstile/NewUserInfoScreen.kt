@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.util.Patterns
 import androidx.fragment.app.DialogFragment
 
 //@todo *******We really need to re-evaluate how this works... back button takes you to user/pass screen*********
@@ -146,8 +147,6 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         return dataList[tag]?.data.toString()
     }
     override fun onDataPass(data: Data) {
-        // This needs to be changed. We need allow for data to be passed that is empty as part of the requirements.
-        // not sure who changed it. nextButton?.isEnabled = true for everything but the firstname lastname
         if (data.data.isEmpty()) {
             dataList.remove(data.sender)
             nextButton?.isEnabled = false
