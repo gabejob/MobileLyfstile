@@ -23,7 +23,7 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
     private var latitude = 40.767778
     private val appID = "241f90adea0d5886a14c0dcfd83b5187"
     private val url = "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
-//    private val url = "https://google.com"
+    private val weatherImageUrl = "http://openweathermap.org/img/wn/50n@2x.png"
     private var user: User? = null
 
 
@@ -38,6 +38,7 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         actionbarFragment.bindClickInterface(this)
 
         val weather = getWeather()
+//        val weatherImage = getWeatherIcon(weather.current.weather.first().icon)
         findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
     }
 
@@ -54,8 +55,6 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
             R.id.health -> {
                 val healthScreen = Intent(this, HealthActivity::class.java)
                 healthScreen.putExtra(USER_DATA, temp)
-                // TODO - Remember to comment this back in. We need it for when we tie a database with images into this -jm
-//                healthScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(healthScreen)
             }
             R.id.hiker -> {
@@ -65,7 +64,7 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         }
     }
 
-    fun getWeather(): WeatherInfo {
+    private fun getWeather(): WeatherInfo {
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
@@ -86,5 +85,14 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
                 return mapper.readValue<WeatherInfo>(json)
             }
         }
+    }
+
+    private fun getWeatherIcon(code: String) {
+        val policy = ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        val mURL = URL(weatherImageUrl)
+        val connection = mURL.openConnection() as HttpURLConnection
+        val image = connection.responseMessage
     }
 }
