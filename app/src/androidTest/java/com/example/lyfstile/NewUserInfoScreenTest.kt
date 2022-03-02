@@ -1,24 +1,18 @@
 package com.example.lyfstile
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.view.View
-import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.PickerActions
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.junit.Assert.*
 import org.junit.Rule
 
 import org.junit.Test
@@ -33,7 +27,16 @@ import androidx.test.espresso.matcher.ViewMatchers.withClassName
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.NoMatchingViewException
+import androidx.test.platform.app.InstrumentationRegistry
 import java.lang.Exception
+import android.app.Activity
+import android.app.Instrumentation
+import android.graphics.Bitmap
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.intent.Intents.*
+import androidx.test.espresso.intent.matcher.IntentMatchers.toPackage
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.junit.Before
 
 
 class NewUserInfoScreenTest {
@@ -64,11 +67,17 @@ class NewUserInfoScreenTest {
         "",
         ""
     )
-
-/*    @get:Rule
-    val activityRule = ActivityScenarioRule(NewUserInfoScreen::class.java)*/
+    private val intent = Intent(ApplicationProvider.getApplicationContext(), NewUserInfoScreen::class.java)
+        .putExtra(
+            USER_DATA,
+            newUser2
+        )
 
     @get:Rule
+    val activityRule = ActivityScenarioRule<NewUserInfoScreen>(intent)
+
+    // Deprecated
+/*    @get:Rule
     val activityRule: ActivityTestRule<NewUserInfoScreen> =
         object : ActivityTestRule<NewUserInfoScreen>(NewUserInfoScreen::class.java) {
             override fun getActivityIntent(): Intent {
@@ -79,7 +88,7 @@ class NewUserInfoScreenTest {
                         newUser2)
                 }
             }
-        }
+        }*/
 
     /*
     * Helper to pick the correct enter_box view
@@ -102,18 +111,23 @@ class NewUserInfoScreenTest {
 
     @Test
     fun onCreate() {
-        onView(ViewMatchers.withId(R.id.wyn_textView))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.wyn_textView))
+            .check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
     fun firstNameLastNameTest() {
-        onView(withIndex(ViewMatchers.withId(R.id.enter_box), 0)).perform(ViewActions.typeText(newUser.firstName))
-        onView(withIndex(ViewMatchers.withId(R.id.enter_box), 1)).perform(ViewActions.typeText(newUser.lastName))
+        onView(
+            withIndex(
+                withId(R.id.enter_box),
+                0
+            )
+        ).perform(ViewActions.typeText(newUser.firstName))
+        onView(withIndex(withId(R.id.enter_box), 1)).perform(ViewActions.typeText(newUser.lastName))
         Espresso.closeSoftKeyboard()
         Thread.sleep(500)
-        onView(ViewMatchers.withId(R.id.next_button)).perform(ViewActions.click())
-        onView(ViewMatchers.withText("Tell us about you")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.next_button)).perform(ViewActions.click())
+        onView(withText("Tell us about you")).check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
@@ -123,7 +137,7 @@ class NewUserInfoScreenTest {
 
         // Age Sex
         onView(withIndex(withId(R.id.enter_box), 0)).perform(click())
-        try{
+        try {
             onView(withClassName(Matchers.equalTo(DatePicker::class.java.name))).perform(
                 PickerActions.setDate(
                     1989,
@@ -131,7 +145,7 @@ class NewUserInfoScreenTest {
                     25
                 )
             )
-        }catch(e: NoMatchingViewException){
+        } catch (e: NoMatchingViewException) {
             onView(withIndex(withId(R.id.enter_box), 0)).perform(click())
             onView(withClassName(Matchers.equalTo(DatePicker::class.java.name))).perform(
                 PickerActions.setDate(
@@ -147,14 +161,15 @@ class NewUserInfoScreenTest {
         onView(withIndex(withId(R.id.enter_box), 1)).perform(click())
         try {
             onView(withText("Male")).perform(click())
-        }catch(e: NoMatchingViewException){
+        } catch (e: NoMatchingViewException) {
             onView(withIndex(withId(R.id.enter_box), 1)).perform(click())
             onView(withText("Male")).perform(click())
         }
         onView(withText("OK")).perform(click())
 
         Espresso.onView(ViewMatchers.withId(R.id.next_button)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText("weight")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("weight"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
@@ -168,7 +183,7 @@ class NewUserInfoScreenTest {
             // Too many issues doing it this way, may look into it later
             /*onView(withText("12")).perform(click())
             onView(withText("1")).perform(click())*/
-        }catch(e: NoMatchingViewException){
+        } catch (e: NoMatchingViewException) {
             onView(withIndex(withId(R.id.enter_box), 0)).perform(click())
             onView(withText("OK")).perform(click())
 
@@ -186,7 +201,7 @@ class NewUserInfoScreenTest {
             // Too many issues doing it this way, may look into it later
             /*onView(withText("1")).perform(click())
             onView(withText("1000")).perform(click())*/
-        }catch(e: NoMatchingViewException){
+        } catch (e: NoMatchingViewException) {
             onView(withIndex(withId(R.id.enter_box), 1)).perform(click())
             onView(withText("OK")).perform(click())
             // Too many issues doing it this way, may look into it later
@@ -203,6 +218,13 @@ class NewUserInfoScreenTest {
     fun countryCityTest() {
         heightWeightTest()
 
+        onView(withIndex(withId(R.id.enter_box), 0)).perform(ViewActions.typeText(newUser.country))
+        onView(withIndex(withId(R.id.enter_box), 1)).perform(ViewActions.typeText(newUser.city))
+        Espresso.closeSoftKeyboard()
+        onView(withId(R.id.next_button)).perform(click())
+
+        onView(withId(R.id.Smile))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
