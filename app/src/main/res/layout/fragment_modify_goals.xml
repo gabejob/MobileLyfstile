@@ -3,21 +3,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ModifyGoalsFragment"
     android:layout_gravity="center"
+    android:background="@drawable/dialog_background"
 >
 
-    <RadioGroup
-        android:id="@+id/radio_group_goal"
-
-        android:layout_width="374dp"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/goal_header"
+        android:layout_width="wrap_content"
+        android:layout_height="115dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/rounded_corner_text"
+        android:fontFamily="@font/shippori"
+        android:gravity="top"
+        android:text="Choose Goal:"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/activity_level_header"
+        android:layout_width="wrap_content"
+        android:layout_height="125dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="165dp"
+        android:layout_marginEnd="31dp"
+        android:background="@drawable/rounded_corner_text"
+        android:fontFamily="@font/shippori"
+        android:gravity="top"
+        android:text="Choose Activity Level\n (1: not active - 5: extremely active)"
+        android:textAlignment="center"
+        android:textSize="17dp" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="43dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -25,6 +58,7 @@
             android:id="@+id/radio_lw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/shippori"
             android:onClick="onRadioButtonClicked"
             android:text="@string/lose_weight"
             android:textSize="10dp" />
@@ -33,6 +67,7 @@
             android:id="@+id/radio_mw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/shippori"
             android:onClick="onRadioButtonClicked"
             android:text="@string/maintain_weight"
             android:textSize="10dp" />
@@ -41,22 +76,22 @@
             android:id="@+id/radio_gw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/shippori"
             android:onClick="onRadioButtonClicked"
             android:text="@string/gain_weight"
-
             android:textSize="10dp" />
     </RadioGroup>
 
     <RadioGroup
         android:id="@+id/radio_group_activity"
-        android:layout_width="325dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="277dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="51dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -87,6 +122,7 @@
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
             android:text="4" />
+
         <RadioButton
             android:id="@+id/radio_extremely_active"
             android:layout_width="wrap_content"
@@ -97,47 +133,51 @@
 
     <TextView
         android:id="@+id/goalText"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="376dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="301dp"
+        android:layout_marginEnd="54dp"
+        android:background="@drawable/rounded_corner_text"
         android:text="@string/goal_option"
         android:textAlignment="center"
+        android:gravity="center"
         android:textSize="20dp" />
 
     <NumberPicker
         android:id="@+id/number_picker_1"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="411dp"
-        android:layout_marginEnd="106dp"></NumberPicker>
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="366dp"
+        android:layout_marginEnd="102dp"
+        android:background="@drawable/rounded_corner_text"></NumberPicker>
 
-    <TextView
-        android:id="@+id/goalHeader"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="48dp"
-        android:text="Choose Goal"
-        android:textAlignment="center"
-        android:textSize="40dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="557dp"
+        android:layout_marginEnd="55dp"
+        android:text="Ok"></Button>
 
-    <TextView
-        android:id="@+id/activity_level_header"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="211dp"
-        android:text="Choose Activity Level\n (1: not active - 5: extremely active)"
-        android:textAlignment="center"
-        android:textSize="20dp" />
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="557dp"
+        android:text="Cancel"></Button>
 
 
 </RelativeLayout>

@@ -1,16 +1,37 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Lyfstile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+  <style name="Theme.Lyfstile" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/Button_color</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:background">#59EDE4F5</item>
+        <item name="buttonStyle">@style/CustomStyle</item>
+        <item name="android:textViewStyle">@style/textview</item>
+
+        !-- Secondary brand color. -->
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="CustomStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/rounded_corner</item>
+        <item name="android:textColor">#e77121</item>
+        <item name="android:shadowDx">.2</item>
+        <item name="android:shadowDy">.2</item>
+        <item name="android:shadowRadius">.2</item>
+        <item name="android:shadowColor">#7F000000</item>
+
+
+
+    </style>
+    <style name="textview" parent="Widget.AppCompat.TextView">
+        <item name="android:background">#4DF8F5FB</item>
+        <item name="android:textColor">@color/black</item>
+
+    </style>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">#010101</item>
+        <item name="android:background">@drawable/dialog_background</item>
     </style>
 </resources>
