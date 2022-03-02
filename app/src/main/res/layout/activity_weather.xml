@@ -26,16 +26,6 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/Weather"
-        android:layout_width="200dp"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="578dp"
-        android:layout_marginEnd="105dp"
-        android:text="Weather" />
-
     <TextView
         android:id="@+id/WeatherStatus"
         android:layout_width="match_parent"
