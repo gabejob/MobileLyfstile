@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/goal_header"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="115dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -19,15 +19,15 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/rounded_corner_text"
         android:fontFamily="@font/shippori"
-        android:gravity="center"
+        android:gravity="top"
         android:text="Choose Goal:"
         android:textAlignment="center"
         android:textSize="30dp" />
 
     <TextView
         android:id="@+id/activity_level_header"
-        android:layout_width="350dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="125dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -36,22 +36,21 @@
         android:layout_marginEnd="31dp"
         android:background="@drawable/rounded_corner_text"
         android:fontFamily="@font/shippori"
-        android:gravity="center"
+        android:gravity="top"
         android:text="Choose Activity Level\n (1: not active - 5: extremely active)"
         android:textAlignment="center"
         android:textSize="17dp" />
 
     <RadioGroup
         android:id="@+id/radio_group_goal"
-        android:layout_width="374dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="114dp"
-        android:layout_marginEnd="18dp"
-        android:background="@drawable/rounded_corner_text"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="43dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -85,15 +84,14 @@
 
     <RadioGroup
         android:id="@+id/radio_group_activity"
-        android:layout_width="313dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="257dp"
-        android:layout_marginEnd="49dp"
-        android:background="@drawable/rounded_corner_text"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="51dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -146,6 +144,7 @@
         android:background="@drawable/rounded_corner_text"
         android:text="@string/goal_option"
         android:textAlignment="center"
+        android:gravity="center"
         android:textSize="20dp" />
 
     <NumberPicker

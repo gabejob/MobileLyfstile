@@ -60,9 +60,9 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
         //Makes keyboard disappear when enter/submit is fixed, still a little buggy
         if(tag != AGE) {
             enterTxt?.setOnEditorActionListener { view, actionId, keyEvent ->
-                if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.keyCode == KEYCODE_ENTER) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent?.keyCode == KEYCODE_ENTER) {
                     passData(enterTxt?.text.toString())
-                    closeKeyboard()
+                   // closeKeyboard()
                 }
                 false
             }

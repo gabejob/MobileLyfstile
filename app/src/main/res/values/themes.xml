@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
   <style name="Theme.Lyfstile" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:background">#4DF8F5FB</item>
+        <item name="android:background">#59EDE4F5</item>
         <item name="buttonStyle">@style/CustomStyle</item>
         <item name="android:textViewStyle">@style/textview</item>
 
@@ -16,7 +16,13 @@
 
     <style name="CustomStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/rounded_corner</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">#e77121</item>
+        <item name="android:shadowDx">.2</item>
+        <item name="android:shadowDy">.2</item>
+        <item name="android:shadowRadius">.2</item>
+        <item name="android:shadowColor">#7F000000</item>
+
+
 
     </style>
     <style name="textview" parent="Widget.AppCompat.TextView">
