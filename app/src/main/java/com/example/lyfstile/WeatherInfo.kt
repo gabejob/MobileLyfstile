@@ -22,7 +22,6 @@ data class Current(
     var visibility: String,
     var wind_speed: String,
     var wind_deg: String,
-    var wind_gust: String,
     var weather: MutableList<Weather>
 )
 

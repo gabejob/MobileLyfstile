@@ -22,7 +22,8 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
     private var longitude = -111.845205
     private var latitude = 40.767778
     private val appID = "241f90adea0d5886a14c0dcfd83b5187"
-    private val url = "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
+    private val url =
+        "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
     private val weatherImageUrl = "http://openweathermap.org/img/wn/50n@2x.png"
     private var user: User? = null
 
@@ -39,7 +40,10 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
 
         val weather = getWeather()
 //        val weatherImage = getWeatherIcon(weather.current.weather.first().icon)
+        findViewById<TextView>(R.id.WeatherStatus)?.text = "Today's weather: ${weather.current.weather.first().main}"
         findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
+        findViewById<TextView>(R.id.TemperatureFeelsLike)?.text = "Feels like: ${weather.current.feels_like} °F"
+        findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
     }
 
     override fun onClick(view: View) {
@@ -69,7 +73,6 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         StrictMode.setThreadPolicy(policy)
 
         val mURL = URL(url)
-
         with(mURL.openConnection() as HttpURLConnection) {
             BufferedReader(InputStreamReader(inputStream)).use {
                 val response = StringBuffer()
@@ -92,7 +95,17 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         StrictMode.setThreadPolicy(policy)
 
         val mURL = URL(weatherImageUrl)
-        val connection = mURL.openConnection() as HttpURLConnection
-        val image = connection.responseMessage
+        with(mURL.openConnection() as HttpURLConnection) {
+            val response =
+            BufferedReader(InputStreamReader(inputStream)).use {
+                val response = StringBuffer()
+
+                var inputLine = it.readLine()
+                while (inputLine != null) {
+                    response.append(inputLine)
+                    inputLine = it.readLine()
+                }
+            }
+        }
     }
 }
