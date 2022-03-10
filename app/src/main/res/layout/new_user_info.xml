@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/master_border"
-        android:text="" />
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/wyn_textView"
-        android:layout_width="290dp"
-        android:layout_height="46dp"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="61dp"
+        android:layout_marginStart="63dp"
 
         android:layout_marginLeft="102dp"
         android:layout_marginTop="74dp"
-        android:layout_marginEnd="60dp"
-        android:fontFamily="@font/segoe"
+        android:layout_marginEnd="57dp"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
         android:text="What's your name?"
         android:textAlignment="center"
         android:textSize="30dp" />
@@ -35,9 +29,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="102dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="63dp"
         android:layout_marginEnd="61dp"
-        android:fontFamily="@font/segoe"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
         android:text="First Name"
         android:textAlignment="center"
         android:textSize="30dp" />
@@ -62,9 +57,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="61dp"
         android:layout_marginLeft="102dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="82dp"
         android:layout_marginEnd="60dp"
-        android:fontFamily="@font/segoe"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
         android:text="Last Name"
         android:textAlignment="center"
         android:textSize="30dp" />
@@ -77,25 +73,24 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="81dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="80dp">
 
     </RelativeLayout>
 
     <Button
         android:id="@+id/next_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="73dp"
         android:layout_below="@+id/ln_enter_box"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="129dp"
-        android:background="@color/Button_color"
-        android:backgroundTint="@color/Button_color"
-        android:fontFamily="@font/segoe"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="124dp"
+        android:fontFamily="@font/shippori"
         android:text="Next"
         android:textColor="@color/black"
         android:textSize="22dp"></Button>
+
 </RelativeLayout>
