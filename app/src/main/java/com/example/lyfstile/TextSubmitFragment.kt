@@ -1,29 +1,27 @@
 package com.example.lyfstile
 
+import android.R.attr.password
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.provider.Telephony.Carriers.PASSWORD
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.KeyEvent.KEYCODE_ENTER
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import java.lang.ClassCastException
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-
-import android.widget.TextView.OnEditorActionListener
-import java.lang.StringBuilder
-import java.text.SimpleDateFormat
-import java.util.*
 import android.widget.*
+import androidx.fragment.app.Fragment
+import java.util.*
+import java.util.regex.Pattern
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -90,19 +88,42 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
 
       when(tag)
         {
-            //
-            AGE, WEIGHT, HEIGHT, SEX ->
+            AGE ->
             {
                 enterTxt?.setOnClickListener(this)
+                enterTxt?.hint = "MM/DD/YYYY"
             }
-            //@todo
-            SEX ->
-            {
-            }
+          COUNTRY ->
+          {
+              enterTxt?.hint = "US"
+          }
+          CITY ->
+          {
+              enterTxt?.hint = "SLC"
+          }
+          WEIGHT->
+          {
+              enterTxt?.setOnClickListener(this)
+              enterTxt?.hint = "xxx lbs, xxxx oz"
+          }
+          HEIGHT->
+          {
+              enterTxt?.setOnClickListener(this)
+              enterTxt?.hint = "xx ft, xx in"
+          }
+          SEX ->
+          {
+              enterTxt?.setOnClickListener(this)
+              enterTxt?.hint = "Sex"
+          }
             //Adds email req.
-            EMAIL ->{ enterTxt?.addTextChangedListener(watcher) }
+            EMAIL ->{
+                enterTxt?.addTextChangedListener(watcher)
+                enterTxt?.hint = "example@example.com"}
             //Adds password stars
-            PASSWORD, PASSWORD_CONFIRMED -> { enterTxt?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD }
+            PASSWORD, PASSWORD_CONFIRMED -> {
+                enterTxt?.addTextChangedListener(watcher)
+                enterTxt?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD}
 
         }
 
@@ -123,6 +144,22 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
 
     }
 
+    /*
+        Should be called like:
+        <string>.isValidEmail() -> Returns -> T/F
+        matching <***>@<***>.<***> pattern
+     */
+    private fun CharSequence?.isValidPassword() : Boolean
+    {
+
+        val PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
+        val pat = Pattern.compile(PASSWORD_PATTERN)
+        if(!isNullOrEmpty() && pat.matcher(this).matches())
+            return true
+        return false
+
+
+    }
 
  /**
   *
@@ -168,7 +205,6 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
             .setSingleChoiceItems(R.array.sex_array,checked,
                 DialogInterface.OnClickListener{
                         _, which ->
-
                     //For some reason this is what I have to do to get this to work?
                     var s = options[which]
                     enterTxt?.setText(s)
@@ -212,9 +248,10 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
 
         pickerOne.minValue=0
         pickerOne.maxValue=12
+        pickerOne.value=6
         pickerTwo.minValue=0
         pickerTwo.maxValue=12
-
+        pickerTwo.value=6
         //Check for the type of text needed to display
         //@todo: add in metric system
         when(type)
@@ -223,8 +260,10 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
             {
                 pickerOne.minValue=0
                 pickerOne.maxValue=1000
+                pickerOne.value=150
                 pickerTwo.minValue=0
                 pickerTwo.maxValue=1000
+                pickerTwo.value=0
 
                 textOne?.text="Pounds"
                 textTwo?.text="Ounces"
@@ -252,7 +291,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
 
         builder.setPositiveButton(
             "OK"
-        ) { dialog, which ->
+        ) { _, _ ->
             val weight = pickerOne.value.toString() + " "+textType1+", " + pickerTwo.value.toString() + " "+textType2
             enterTxt?.setText(weight)
             passData(enterTxt?.text.toString())
@@ -294,19 +333,30 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(sequence: CharSequence, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(editable: Editable?) {
-            var email = enterTxt?.text
-            if (email.isValidEmail() && email?.length!! > 0)
-            {
-                //Need to look for some sort of success library here...
-                isValid = true
-            }
-            else
-            {
-                enterTxt?.error = "Invalid Email!";
-                isValid = false
+            when (tag) {
+                EMAIL -> {
+                    var email = enterTxt?.text
+                    if (email.isValidEmail() && email?.length!! > 0) {
+                        //Need to look for some sort of success library here...
+                        isValid = true
+                    } else {
+                        enterTxt?.error = "Invalid Email!";
+                        isValid = false
+                    }
+                }
+                PASSWORD ->
+                {
+                    var pass = enterTxt?.text
+                    if (pass.isValidPassword() && pass?.length!! > 0) {
+                        //Need to look for some sort of success library here...
+                        isValid = true
+                    } else {
+                        enterTxt?.error = "Password must be at least 8 digits\nand contain at least on of each:\n-Uppercase letter\n-Special character (!,#,?)\n-Number (0-9)";
+                        isValid = false
+                    }
+                }
             }
         }
-
     }
 
     fun passData(text : String)
