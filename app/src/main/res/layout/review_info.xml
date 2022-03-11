@@ -2,20 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/master_border"
-        android:text="" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="145dp"
         android:layout_height="188dp"
         android:layout_alignParentStart="true"
-
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="133dp"
@@ -40,7 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="First Name:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -51,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fn_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Last Name:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -62,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Age:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -73,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/age_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Sex:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -84,7 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sex_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Height:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -95,10 +94,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/height_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Weight:"
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -108,70 +108,87 @@
 
             <TextView
                 android:id="@+id/first_name_box"
-                android:layout_width="match_parent"
+                android:layout_width="191dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/rounded_corner_text"
+                android:fontFamily="@font/shippori"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/last_name_box"
-                android:layout_width="match_parent"
+                android:layout_width="191dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/first_name_box"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/rounded_corner_text"
+                android:fontFamily="@font/shippori"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/age_box"
-                android:layout_width="match_parent"
+                android:layout_width="191dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
                 android:layout_below="@+id/last_name_box"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/rounded_corner_text"
+                android:fontFamily="@font/shippori"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/sex_box"
-                android:layout_width="match_parent"
+                android:layout_width="191dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
                 android:layout_below="@+id/age_box"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/rounded_corner_text"
+                android:fontFamily="@font/shippori"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/height_box"
-                android:layout_width="match_parent"
+                android:layout_width="191dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sex_box"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/rounded_corner_text"
+                android:fontFamily="@font/shippori"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/weight_box"
-                android:layout_width="match_parent"
+                android:layout_width="191dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/height_box"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/rounded_corner_text"
+                android:fontFamily="@font/shippori"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
 
         </RelativeLayout>
 
@@ -190,9 +207,7 @@
         android:layout_marginTop="27dp"
         android:layout_marginEnd="240dp"
         android:layout_weight="2"
-        android:background="@color/Button_color"
-        android:backgroundTint="@color/Button_color"
-        android:fontFamily="@font/segoe"
+        android:fontFamily="@font/shippori"
         android:text="Edit"
         android:textColor="@color/black"
         android:textSize="22dp" />
@@ -210,10 +225,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-
-        android:background="@color/Button_color"
-        android:backgroundTint="@color/Button_color"
-        android:fontFamily="@font/segoe"
+        android:fontFamily="@font/shippori"
         android:text="Create Account"
         android:textColor="@color/black"
         android:textSize="15dp" />

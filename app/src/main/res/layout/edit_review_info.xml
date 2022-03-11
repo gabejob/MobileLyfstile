@@ -2,13 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/master_border"
-        android:text="" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -40,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="First Name:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -51,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fn_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Last Name:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -62,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Age:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -73,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/age_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Sex:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -84,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sex_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Height:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -95,7 +95,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/height_TV"
                 android:layout_marginTop="35dp"
-                android:fontFamily="@font/segoe"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
                 android:text="Weight:"
                 android:textAlignment="center"
                 android:textSize="25dp" />
@@ -183,9 +184,7 @@
         android:layout_marginTop="27dp"
         android:layout_marginEnd="240dp"
         android:layout_weight="2"
-        android:background="@color/Button_color"
-        android:backgroundTint="@color/Button_color"
-        android:fontFamily="@font/segoe"
+        android:fontFamily="@font/shippori"
         android:text="Save"
         android:textColor="@color/black"
         android:textSize="22dp" />
@@ -203,10 +202,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-
-        android:background="@color/Button_color"
-        android:backgroundTint="@color/Button_color"
-        android:fontFamily="@font/segoe"
+        android:fontFamily="@font/shippori"
         android:text="Cancel"
         android:textColor="@color/black"
         android:textSize="15dp" />
