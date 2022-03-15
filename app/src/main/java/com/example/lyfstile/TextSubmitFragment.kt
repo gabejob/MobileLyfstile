@@ -1,6 +1,5 @@
 package com.example.lyfstile
 
-import android.R.attr.password
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
@@ -31,10 +30,13 @@ private const val ARG_PARAM2 = "param2"
 
 
 
-class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
+class TextSubmitFragment : Fragment(), OnDateSetListener {
+
     lateinit var dataPasser: PassData;
     var enterTxt : EditText ?= null;
+    var autoCompleteEnterTxt : AutoCompleteTextView ?= null;
     var isValid = false
+    var value = ""
 
     //Associate the callback with this Fragment
     override fun onAttach(context: Context) {
@@ -49,26 +51,65 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_text_submit, container, false)
-        enterTxt = view.findViewById(R.id.enter_box) as EditText
+        var view: View ?= null
+        // AutoComplete is created differently, thus we have to check for the fields
+        if(tag == COUNTRY || tag == CITY) {
+            view = inflater.inflate(R.layout.fragment_autocomplete_textview, container, false)
+            autoCompleteEnterTxt = view.findViewById(R.id.autoCompleteEnter_box) as AutoCompleteTextView
+            if(!value.isNullOrEmpty()) {
+                autoCompleteEnterTxt!!.setText(value)
+            }
+
+            createAdapter()
+
+        }else{
+            view = inflater.inflate(R.layout.fragment_text_submit, container, false)
+            enterTxt = view.findViewById(R.id.enter_box) as EditText
+            if(!value.isNullOrEmpty()) {
+                enterTxt!!.setText(value)
+            }
+        }
 
         setContent()
 
         //May look to move this into its own function for readability,
         //Makes keyboard disappear when enter/submit is fixed, still a little buggy
-        if(tag != AGE) {
+        if(tag != AGE || tag != COUNTRY) {
             enterTxt?.setOnEditorActionListener { view, actionId, keyEvent ->
                 if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent?.keyCode == KEYCODE_ENTER) {
                     passData(enterTxt?.text.toString())
-                   // closeKeyboard()
+                    closeKeyboard()
                 }
                 false
             }
         }else
         {
         }
-
         return view
+    }
+
+    /**
+     * Creates and adapter for the give tag.
+     * This is used for the autocompletion of countries and cities
+     */
+    private fun createAdapter() {
+        var array: Array<String>? = null
+        array = if (tag == COUNTRY) {
+            resources.getStringArray(R.array.countries_array)
+        } else {
+            resources.getStringArray(R.array.cities_array)
+        }
+
+        val adapter =
+            ArrayAdapter<String>(activity as Context, android.R.layout.simple_list_item_1, array)
+        autoCompleteEnterTxt!!.setAdapter(adapter)
+        val context = activity as Context
+        autoCompleteEnterTxt?.setOnItemClickListener { adapterView, view, i, l ->
+            val inputMethodManager =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(autoCompleteEnterTxt?.windowToken, 0)
+            passData(autoCompleteEnterTxt?.text.toString())
+        }
     }
 
 
@@ -90,30 +131,34 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
         {
             AGE ->
             {
-                enterTxt?.setOnClickListener(this)
+                enterTxt?.clearFocus()
+                enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showDatePickerDialog() } }
                 enterTxt?.hint = "MM/DD/YYYY"
             }
           COUNTRY ->
           {
-              enterTxt?.hint = "US"
+              autoCompleteEnterTxt?.hint = "US"
           }
           CITY ->
           {
-              enterTxt?.hint = "SLC"
+              autoCompleteEnterTxt?.hint = "Salt Lake City"
           }
           WEIGHT->
           {
-              enterTxt?.setOnClickListener(this)
+              enterTxt?.clearFocus()
+              enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showNumberPickerDialog(WEIGHT) } }
               enterTxt?.hint = "xxx lbs, xxxx oz"
           }
           HEIGHT->
           {
-              enterTxt?.setOnClickListener(this)
+              enterTxt?.clearFocus()
+              enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showNumberPickerDialog(HEIGHT) } }
               enterTxt?.hint = "xx ft, xx in"
           }
           SEX ->
           {
-              enterTxt?.setOnClickListener(this)
+              enterTxt?.clearFocus()
+              enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showSexPickerDialog() } }
               enterTxt?.hint = "Sex"
           }
             //Adds email req.
@@ -123,10 +168,12 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
             //Adds password stars
             PASSWORD, PASSWORD_CONFIRMED -> {
                 enterTxt?.addTextChangedListener(watcher)
-                enterTxt?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD}
+                enterTxt?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                enterTxt?.clearFocus()
+            }
 
         }
-
+        enterTxt?.clearFocus()
     }
 
 
@@ -168,32 +215,39 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
   *
   *
   * */
-    override fun onClick(view: View?) {
+/*    override fun onClick(view: View?) {
         when(view?.id) {
             R.id.enter_box ->
             {
                 when(tag) {
                     AGE ->
                     {
-                       showDatePickerDialog()
+                        //enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showDatePickerDialog() } }
+                        showDatePickerDialog()
                     }
                     WEIGHT ->
                     {
+                        //enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showNumberPickerDialog(WEIGHT) } }
                         showNumberPickerDialog(WEIGHT)
                     }
                     HEIGHT ->
                     {
+                        //enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showNumberPickerDialog(HEIGHT) } }
                         showNumberPickerDialog(HEIGHT)
+                    }
+                    COUNTRY ->
+                    {
                     }
                     SEX ->
                     {
+                        //enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showSexPickerDialog() } }
                         showSexPickerDialog()
                     }
                 }
             }
 
     }
-}
+}*/
 
     private fun showSexPickerDialog() {
 
@@ -217,6 +271,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
             enterTxt?.clearFocus()
             closeKeyboard()
         }
+        closeKeyboard()
         builder.setNegativeButton("Cancel", null)
         builder.show()
     }
@@ -301,6 +356,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
             "CANCEL"
         ) { _, _ -> }
 
+        closeKeyboard()
         // Create the AlertDialog object and return it
         builder.create()
         builder.show()
@@ -314,6 +370,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
             Calendar.getInstance()[Calendar.MONTH],
             Calendar.getInstance()[Calendar.DAY_OF_MONTH]
         )
+        closeKeyboard()
         datePickerDialog.show()
     }
 
@@ -325,7 +382,7 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
         var keyboard =
             context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyboard.hideSoftInputFromWindow(enterTxt?.windowToken, 0)
-       // enterTxt?.clearFocus()
+        enterTxt?.clearFocus()
 
     }
 
@@ -364,8 +421,9 @@ class TextSubmitFragment : Fragment(), View.OnClickListener, OnDateSetListener {
         var data : Data ?= null
         data = if(text.isEmpty())
             Data(tag.toString(), "Not Provided")
-        else
+        else {
             Data(tag.toString(), text)
+        }
 
         if (data != null) {
             dataPasser?.onDataPass(data)
