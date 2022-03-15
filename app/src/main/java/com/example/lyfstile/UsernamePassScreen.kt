@@ -60,7 +60,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
     }
 
     override fun onDataPass(data: Data) {
-        if (data.data.isEmpty() || data.data == "Not Provided") {
+        if (data.data.isEmpty()) {
             dataList.remove(data.sender)
             nextButton?.isEnabled = false
         } else {
