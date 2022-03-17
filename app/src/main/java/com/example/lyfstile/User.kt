@@ -36,7 +36,19 @@ class User constructor(
     var pfp: Any = _pfp
     var sex: String = _sex
 
-    constructor(parcel: Parcel) : this() {
+    constructor(parcel: Parcel) : this(
+        _firstname = "",
+        _lastname = "",
+        _email = "",
+        _password = "",
+        _birthday = "",
+        _sex = "",
+        _height = "",
+        _weight = "",
+        _country = "",
+        _city = "",
+        _pfp = ""
+    ) {
         firstName = parcel.readString().toString()
         lastName = parcel.readString().toString()
         email = parcel.readString().toString()
