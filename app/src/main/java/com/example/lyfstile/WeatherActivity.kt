@@ -2,15 +2,19 @@ package com.example.lyfstile
 
 import android.content.Intent
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.*
+import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -24,7 +28,6 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
     private val appID = "241f90adea0d5886a14c0dcfd83b5187"
     private val url =
         "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
-    private val weatherImageUrl = "http://openweathermap.org/img/wn/50n@2x.png"
     private var user: User? = null
 
 
@@ -38,12 +41,42 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         fragtrans.commit()
         actionbarFragment.bindClickInterface(this)
 
-        val weather = getWeather()
-//        val weatherImage = getWeatherIcon(weather.current.weather.first().icon)
-        findViewById<TextView>(R.id.WeatherStatus)?.text = "Today's weather: ${weather.current.weather.first().main}"
-        findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
-        findViewById<TextView>(R.id.TemperatureFeelsLike)?.text = "Feels like: ${weather.current.feels_like} °F"
-        findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
+        try {
+            val weather = getWeather()
+
+            findViewById<TextView>(R.id.WeatherStatus)?.text =
+                "Today's weather: ${weather.current.weather.first().main}"
+            findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
+            findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
+                "Feels like: ${weather.current.feels_like} °F"
+            findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
+
+            when (weather.current.weather.first().main) {
+                "Clear" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clear)
+                "Rain" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.rain)
+                "Clouds" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
+                "Snow" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.snow)
+                else -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
+            }
+        } catch (e: Exception) {
+            val weather = getWeatherNoGust()
+
+            findViewById<TextView>(R.id.WeatherStatus)?.text =
+                "Today's weather: ${weather.current.weather.first().main}"
+            findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
+            findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
+                "Feels like: ${weather.current.feels_like} °F"
+            findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
+
+            when (weather.current.weather.first().main) {
+                "Clear" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clear)
+                "Rain" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.rain)
+                "Clouds" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
+                "Snow" -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.snow)
+                else -> findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
+            }
+        }
+
     }
 
     override fun onClick(view: View) {
@@ -90,13 +123,12 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         }
     }
 
-    private fun getWeatherIcon(code: String) {
+    private fun getWeatherNoGust(): WeatherInfoNoGust {
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val mURL = URL(weatherImageUrl)
+        val mURL = URL(url)
         with(mURL.openConnection() as HttpURLConnection) {
-            val response =
             BufferedReader(InputStreamReader(inputStream)).use {
                 val response = StringBuffer()
 
@@ -105,7 +137,29 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
                     response.append(inputLine)
                     inputLine = it.readLine()
                 }
+                val mapper = jacksonObjectMapper()
+                val json = response.toString()
+                return mapper.readValue<WeatherInfoNoGust>(json)
             }
         }
     }
+
+//    private fun getWeatherIcon(code: String) {
+//        val policy = ThreadPolicy.Builder().permitAll().build()
+//        StrictMode.setThreadPolicy(policy)
+//
+//        val mURL = URL(weatherImageUrl)
+//        with(mURL.openConnection() as HttpURLConnection) {
+//            val response =
+//            BufferedReader(InputStreamReader(inputStream)).use {
+//                val response = StringBuffer()
+//
+//                var inputLine = it.readLine()
+//                while (inputLine != null) {
+//                    response.append(inputLine)
+//                    inputLine = it.readLine()
+//                }
+//            }
+//        }
+//    }
 }
