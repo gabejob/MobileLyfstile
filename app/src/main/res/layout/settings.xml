@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/settings_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
+        android:text="Edit Personal Info"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <ImageView
+        android:id="@+id/settings_imageView"
+        android:layout_width="121dp"
+        android:layout_height="137dp"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="97dp"
+        android:layout_marginEnd="140dp"
+        app:srcCompat="@mipmap/chad" />
+
+    <LinearLayout
+        android:id="@+id/info_RL_TV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings_imageView"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="311dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/settings_fn_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:background="#0000"
+                android:fontFamily="@font/shippori"
+                android:text="First Name:"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/settings_ln_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_fn_TV"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
+                android:text="Last Name:"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/settings_age_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_ln_TV"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
+                android:text="Age:"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/settings_sex_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_age_TV"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
+                android:text="Sex:"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/settings_height_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_sex_TV"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
+                android:text="Height:"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/settings_weight_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_height_TV"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/shippori"
+                android:background="#0000"
+                android:text="Weight:"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/settings_fn_edit_box"
+                android:layout_width="252dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="60dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/settings_ln_edit_box"
+                android:layout_width="350dp"
+                android:layout_height="33dp"
+                android:layout_below="@+id/settings_fn_edit_box"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="60dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/settings_age_edit_box"
+                android:layout_width="252dp"
+                android:layout_height="33dp"
+                android:layout_below="@+id/settings_ln_edit_box"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginEnd="60dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/settings_sex_edix_box"
+                android:layout_width="252dp"
+                android:layout_height="33dp"
+                android:layout_below="@+id/settings_age_edit_box"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginEnd="60dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/settings_height_edit_box"
+                android:layout_width="252dp"
+                android:layout_height="33dp"
+                android:layout_below="@+id/settings_sex_edix_box"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginEnd="60dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/settings_weight_edit_box"
+                android:layout_width="252dp"
+                android:layout_height="33dp"
+                android:layout_below="@+id/settings_height_edit_box"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginEnd="60dp"
+                android:background="@color/white" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/settings_save_button"
+        android:layout_width="143dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/info_RL_TV"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="240dp"
+        android:layout_weight="2"
+        android:fontFamily="@font/shippori"
+        android:text="Save"
+        android:textColor="@color/black"
+        android:textSize="22dp" />
+
+    <Button
+        android:id="@+id/settings_cancel_button"
+        android:layout_width="143dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/info_RL_TV"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="240dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/shippori"
+        android:text="Cancel"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+
+
+</RelativeLayout>

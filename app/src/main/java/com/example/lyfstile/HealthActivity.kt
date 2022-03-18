@@ -1,7 +1,6 @@
 package com.example.lyfstile
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
@@ -13,13 +12,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.Window
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -586,7 +583,8 @@ class HealthActivity : AppCompatActivity(),
      * */
     override fun actionButtonClicked(id: Int)
     {
-
+        val temp = User()
+        temp.tempConstruct()
         when(id)
         {
             R.id.health ->
@@ -594,12 +592,30 @@ class HealthActivity : AppCompatActivity(),
             R.id.hiker ->
             {
                 val mapScreen = Intent(this, MapActivity::class.java)
+                mapScreen.putExtra(USER_DATA, user)
+                mapScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(mapScreen)
             }
             R.id.weather ->
             {
                 val weatherScreen = Intent(this, WeatherActivity::class.java)
+                weatherScreen.putExtra(USER_DATA, user)
+                weatherScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(weatherScreen)
+            }
+            R.id.home ->
+            {
+                val homeScreen = Intent(this, HomeScreen::class.java)
+                homeScreen.putExtra(USER_DATA, user)
+                homeScreen.putExtra(PROFILE_PIC, profilePic)
+                this.startActivity(homeScreen)
+            }
+            R.id.settings ->
+            {
+                val settingsScreen = Intent(this, SettingsActivity::class.java)
+                settingsScreen.putExtra(USER_DATA, user)
+                settingsScreen.putExtra(PROFILE_PIC, profilePic)
+                this.startActivity(settingsScreen)
             }
         }
     }

@@ -41,18 +41,28 @@ class HomeScreen : AppCompatActivity(), ActionbarFragment.ClickInterface {
                 val healthScreen = Intent(this, HealthActivity::class.java)
                 healthScreen.putExtra(USER_DATA, user)
                 healthScreen.putExtra(PROFILE_PIC, profilePic)
-
                 this.startActivity(healthScreen)
             }
             R.id.hiker ->
             {
                 val mapScreen = Intent(this, MapActivity::class.java)
+                mapScreen.putExtra(USER_DATA, user)
+                mapScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(mapScreen)
             }
             R.id.weather ->
             {
                 val weatherScreen = Intent(this, WeatherActivity::class.java)
+                weatherScreen.putExtra(USER_DATA, user)
+                weatherScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(weatherScreen)
+            }
+            R.id.settings ->
+            {
+                val settingsScreen = Intent(this, SettingsActivity::class.java)
+                settingsScreen.putExtra(USER_DATA, user)
+                settingsScreen.putExtra(PROFILE_PIC, profilePic)
+                this.startActivity(settingsScreen)
             }
         }
 

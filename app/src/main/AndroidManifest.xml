@@ -25,6 +25,9 @@
             android:name=".MapActivity"
             android:exported="true"/>
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"/>
+        <activity
             android:name=".WeatherActivity"
             android:exported="false"/>
         <activity
