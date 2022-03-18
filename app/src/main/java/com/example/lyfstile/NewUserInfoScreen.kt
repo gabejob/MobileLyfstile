@@ -31,6 +31,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
+        buildDataList(user!!)
 
         fragTrans(FIRST_NAME, LAST_NAME)
         nextButton = findViewById<Button>(R.id.next_button)
@@ -38,7 +39,51 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         nextButton?.isEnabled = false
     }
+    private fun buildDataList(user: User){
+        if(user.firstName.isNullOrEmpty()) {
+            nextButton?.isEnabled = false
+        }else{
 
+            dataList[FIRST_NAME] = (Data(FIRST_NAME,user.firstName))
+            dataList[LAST_NAME] = (Data(LAST_NAME,user.lastName))
+            dataList[COUNTRY] = (Data(COUNTRY,user.country))
+            dataList[CITY] = (Data(CITY,user.city))
+            dataList[AGE] = (Data(AGE,user.birthday))
+            dataList[SEX] = (Data(SEX,user.sex))
+            dataList[WEIGHT] = (Data(WEIGHT,user.weight))
+            dataList[HEIGHT] = (Data(HEIGHT,user.height))
+
+        }
+
+    }
+
+    override fun onBackPressed() {
+        when (currentScreen) {
+            "first_last_name" -> {
+                super.onBackPressed()
+                finish()
+            }
+            AGE_SEX_SCREEN -> {
+                currentScreen = FIRST_LAST_NAME_SCREEN
+                changeScreen(currentScreen)
+                tag1 = FIRST_NAME
+                tag2 = LAST_NAME
+            }
+            HEIGHT_WEIGHT_SCREEN -> {
+                currentScreen = AGE_SEX_SCREEN
+                changeScreen(currentScreen)
+                tag1 = AGE
+                tag2 = SEX
+            }
+            COUNTRY_CITY_SCREEN -> {
+                currentScreen = HEIGHT_WEIGHT_SCREEN
+                changeScreen(currentScreen)
+                tag1 = HEIGHT
+                tag2 = WEIGHT
+            }
+        }
+        fragTrans(tag1, tag2)
+    }
     override fun onClick(view: View?) {
 
         if(dataList[FIRST_NAME]?.equals("") == true)
@@ -47,6 +92,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         when(view?.id) {
             //Each time the next button is pressed, change tags and replace text fragments...
                 R.id.next_button -> {
+                    currentFocus?.clearFocus()
                     when (currentScreen) {
                         FIRST_LAST_NAME_SCREEN -> {
                             currentScreen = AGE_SEX_SCREEN
@@ -111,6 +157,13 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         var enterFragment = TextSubmitFragment();
         val enterFragment2 = TextSubmitFragment()
+
+        if (!dataList[tag1]?.data.isNullOrEmpty()) {
+            enterFragment.value = dataList[tag1]?.data.toString()
+        }
+        if(!dataList[tag2]?.data.isNullOrEmpty()){
+            enterFragment2.value = dataList[tag2]?.data.toString()
+        }
 
         fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
         fragtrans.replace(R.id.ln_enter_box, enterFragment2, tag2)
