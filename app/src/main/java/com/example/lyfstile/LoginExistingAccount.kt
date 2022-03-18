@@ -68,7 +68,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     *
     * */
     private fun verifyCredentials(email: String, password: String): Boolean {
-        if (email == "123@123.com" && password == "123") {
+        if (email == "123@123.com" && password == "Playing123!") {
             testLogin = User()
             testLogin?.tempConstruct()
             return true
