@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/pfp_box"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/fire_icon"
+        android:layout_width="70dp"
+        android:layout_height="64dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="337dp"
+        android:layout_marginEnd="485dp"
+        android:background="@drawable/fire_simple_bold"
+        android:translationZ="100dp"
+        android:visibility="visible"
+        app:tint="#F40B0B" />
+
+    <ImageView
+        android:id="@+id/barbell_icon"
+        android:layout_width="70dp"
+        android:layout_height="64dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="513dp"
+        android:layout_marginEnd="481dp"
+        android:background="@drawable/barbell_bold"
+        android:translationZ="100dp"
+        android:visibility="visible"
+        app:tint="#F40B0B" />
+
+    <TextView
+        android:id="@+id/currentGoal"
+        android:layout_width="249dp"
+        android:layout_height="166dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="344dp"
+        android:background="@drawable/rounded_corner_text"
+        android:clickable="true"
+        android:fontFamily="@font/shippori"
+        android:gravity="center"
+        android:text="Current Goal:"
+        android:textAlignment="center"
+        android:textSize="17dp"></TextView>
+
+    <TextView
+        android:id="@+id/calorieGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="133dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="303dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner_text"
+        android:clickable="true"
+        android:fontFamily="@font/shippori"
+        android:gravity="center"
+        android:text="Calorie Goal:"
+        android:textAlignment="center"
+        android:textSize="23dp"></TextView>
+
+    <TextView
+        android:id="@+id/activityGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="133dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="482dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_corner_text"
+        android:clickable="true"
+        android:fontFamily="@font/shippori"
+        android:gravity="center"
+        android:text="Activity Goal:"
+        android:textAlignment="center"
+        android:textSize="20dp"></TextView>
+
+    <Button
+        android:id="@+id/modifyGoalsButton"
+        android:layout_width="171dp"
+        android:layout_height="92dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="647dp"
+        android:layout_marginEnd="215dp"
+        android:text="Modify Goals"
+        android:textSize="17dp"></Button>
+
+    <RelativeLayout
+        android:id="@+id/action_bar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="786dp"
+        android:layout_marginEnd="5dp">
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="344dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:backgroundTint="@color/white"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/warning_bold" />
+</RelativeLayout>

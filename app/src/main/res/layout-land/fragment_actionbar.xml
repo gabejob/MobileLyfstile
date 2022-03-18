@@ -11,8 +11,8 @@
         android:layout_height="58dp"
 
         android:layout_alignParentTop="true"
-        android:layout_marginTop="232dp"
-        android:background="@drawable/settings_icon">
+        android:layout_marginTop="306dp"
+        android:background="@drawable/gear_duotone">
 
     </Button>
 
@@ -22,8 +22,8 @@
         android:layout_height="58dp"
 
         android:layout_alignParentTop="true"
-        android:layout_marginTop="309dp"
-        android:background="@drawable/weather_icon">
+        android:layout_marginTop="230dp"
+        android:background="@drawable/cloud_sun_duotone">
 
     </Button>
 
@@ -34,7 +34,7 @@
 
         android:layout_alignParentTop="true"
         android:layout_marginTop="151dp"
-        android:background="@drawable/hiker_icon">
+        android:background="@drawable/person_simple_run_duotone">
 
     </Button>
 
@@ -44,18 +44,18 @@
         android:layout_height="58dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="83dp"
-        android:background="@drawable/health_icon">
+        android:background="@drawable/chart_bar_duotone">
 
     </Button>
 
     <Button
-        android:id="@+id/health2"
+        android:id="@+id/home"
         android:layout_width="85dp"
         android:layout_height="58dp"
 
         android:layout_alignParentTop="true"
         android:layout_marginTop="9dp"
-        android:background="@drawable/health_icon">
+        android:background="@drawable/house_duotone">
         >
 
     </Button>

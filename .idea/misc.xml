@@ -30,6 +30,10 @@
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout-land/new_user_info.xml" value="0.24080560420315236" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout-land/review_info.xml" value="0.24080560420315236" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout-land/take_profile_pic.xml" value="0.24080560420315236" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout-sw600dp/activity_health.xml" value="0.33" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout-sw600dp/activity_home_screen.xml" value="0.33" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout-sw600dp/activity_map.xml" value="0.33" />
+        <entry key="..\:/MobileLyfstile/app/src/main/res/layout-sw600dp/fragment_actionbar.xml" value="0.5" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/activity_health.xml" value="0.33" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/activity_home_screen.xml" value="0.3359375" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/activity_login_existing_account.xml" value="0.3359375" />

@@ -41,12 +41,9 @@
     <RelativeLayout
         android:id="@+id/action_bar_fragment"
         android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:layout_alignParentStart="true"
+        android:layout_height="120dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="648dp">
+        android:layout_marginTop="786dp">
 
     </RelativeLayout>
 
