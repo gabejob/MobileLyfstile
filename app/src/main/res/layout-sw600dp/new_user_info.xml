@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/wyn_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="63dp"
+
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="57dp"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
+        android:text="What's your name?"
+        android:textAlignment="center"
+        android:textSize="65dp" />
+
+    <TextView
+        android:id="@+id/fn_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="81dp"
+        android:layout_below="@+id/wyn_textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginEnd="55dp"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
+        android:text="First Name"
+        android:textAlignment="center"
+        android:textSize="50dp" />
+
+    <RelativeLayout
+        android:id="@+id/fn_enter_box"
+        android:layout_width="wrap_content"
+        android:layout_height="76dp"
+        android:layout_below="@+id/fn_textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="171dp"
+        android:layout_marginEnd="78dp"></RelativeLayout>
+
+    <TextView
+        android:id="@+id/ln_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="89dp"
+        android:layout_below="@+id/fn_enter_box"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="61dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="60dp"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
+        android:text="Last Name"
+        android:textAlignment="center"
+        android:textSize="50dp" />
+
+    <RelativeLayout
+        android:id="@+id/ln_enter_box"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_below="@+id/ln_textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="189dp"
+        android:layout_marginEnd="79dp">
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="162dp"
+        android:layout_height="73dp"
+        android:layout_below="@+id/ln_enter_box"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="263dp"
+        android:layout_marginEnd="132dp"
+        android:fontFamily="@font/shippori"
+        android:text="Next"
+        android:textColor="@color/black"
+        android:textSize="50dp"></Button>
+
+</RelativeLayout>

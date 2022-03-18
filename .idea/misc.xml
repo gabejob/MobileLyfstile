@@ -18,8 +18,6 @@
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/activity_home_screen.xml" value="0.3359375" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/activity_username_pass_screen.xml" value="0.31614583333333335" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_actionbar.xml" value="0.3359375" />
-        <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_auto_complete_textview.xml" value="0.20572916666666666" />
-        <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_autocomplete_textview.xml" value="0.20572916666666666" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/fragment_bmi.xml" value="0.3359375" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/new_user_info.xml" value="0.31614583333333335" />
         <entry key="..\:/MobileLyfstile/app/src/main/res/layout/review_info.xml" value="0.29375" />
@@ -34,8 +32,13 @@
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.31922398589065254" />
         <entry key="app/src/main/res/layout-land/activity_weather.xml" value="0.31922398589065254" />
         <entry key="app/src/main/res/layout-land/fragment_actionbar.xml" value="0.31922398589065254" />
+        <entry key="app/src/main/res/layout-land/new_user_info.xml" value="0.24735449735449735" />
         <entry key="app/src/main/res/layout-land/settings.xml" value="0.31922398589065254" />
         <entry key="app/src/main/res/layout-sw600dp/activity_home_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-sw600dp/activity_login_existing_account.xml" value="0.219140625" />
+        <entry key="app/src/main/res/layout-sw600dp/activity_map.xml" value="0.219140625" />
+        <entry key="app/src/main/res/layout-sw600dp/new_user_info.xml" value="0.219140625" />
+        <entry key="app/src/main/res/layout-sw600dp/review_info.xml" value="0.28930808955306353" />
         <entry key="app/src/main/res/layout/activity_health.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/activity_login_existing_account.xml" value="0.18297101449275363" />
