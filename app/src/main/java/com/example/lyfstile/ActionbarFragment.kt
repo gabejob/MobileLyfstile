@@ -46,6 +46,8 @@ class ActionbarFragment : Fragment(), View.OnClickListener {
         hikerButton?.setOnClickListener(this)
         val healthButton = root.findViewById<Button>(R.id.health)
         healthButton?.setOnClickListener(this)
+        val homeButton = root.findViewById<Button>(R.id.home)
+        homeButton?.setOnClickListener(this)
 
         // Inflate the layout for this fragment
         return root
@@ -65,6 +67,12 @@ class ActionbarFragment : Fragment(), View.OnClickListener {
             }
             R.id.weather -> {
                 clickInterface?.actionButtonClicked(R.id.weather)
+            }
+            R.id.home -> {
+                clickInterface?.actionButtonClicked(R.id.home)
+            }
+            R.id.settings -> {
+                clickInterface?.actionButtonClicked(R.id.settings)
             }
         }
     }

@@ -24,9 +24,13 @@ class MapActivity : AppCompatActivity(), View.OnClickListener, PassData, Locatio
     private var longitude = 0.0
     private var latitude = 0.0
     private var user : User ?= null
+    private var profilePic: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val extras = intent.extras
+        user = extras?.get(USER_DATA) as User
+        profilePic = intent.getParcelableExtra(PROFILE_PIC)
         setContentView(R.layout.activity_map)
 
         val actionbarFragment = ActionbarFragment()
@@ -117,21 +121,30 @@ class MapActivity : AppCompatActivity(), View.OnClickListener, PassData, Locatio
             R.id.health ->
             {
                 val healthScreen = Intent(this, HealthActivity::class.java)
-                healthScreen.putExtra(USER_DATA, temp)
-                // TODO - Remember to comment this back in. We need it for when we tie a database with images into this -jm
-//                healthScreen.putExtra(PROFILE_PIC, profilePic)
-
+                healthScreen.putExtra(USER_DATA, user)
+                healthScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(healthScreen)
-            }
-            R.id.hiker ->
-            {
-                val mapScreen = Intent(this, MapActivity::class.java)
-                this.startActivity(mapScreen)
             }
             R.id.weather ->
             {
                 val weatherScreen = Intent(this, WeatherActivity::class.java)
+                weatherScreen.putExtra(USER_DATA, user)
+                weatherScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(weatherScreen)
+            }
+            R.id.home ->
+            {
+                val homeScreen = Intent(this, HomeScreen::class.java)
+                homeScreen.putExtra(USER_DATA, user)
+                homeScreen.putExtra(PROFILE_PIC, profilePic)
+                this.startActivity(homeScreen)
+            }
+            R.id.settings ->
+            {
+                val settingsScreen = Intent(this, SettingsActivity::class.java)
+                settingsScreen.putExtra(USER_DATA, user)
+                settingsScreen.putExtra(PROFILE_PIC, profilePic)
+                this.startActivity(settingsScreen)
             }
         }
     }

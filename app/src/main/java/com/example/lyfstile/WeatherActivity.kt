@@ -1,15 +1,14 @@
 package com.example.lyfstile
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -29,10 +28,14 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
     private val url =
         "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
     private var user: User? = null
+    private var profilePic: Bitmap? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val extras = intent.extras
+        user = extras?.get(USER_DATA) as User
+        profilePic = intent.getParcelableExtra(PROFILE_PIC)
         setContentView(R.layout.activity_weather)
 
         val actionbarFragment = ActionbarFragment()
@@ -91,12 +94,28 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         when (id) {
             R.id.health -> {
                 val healthScreen = Intent(this, HealthActivity::class.java)
-                healthScreen.putExtra(USER_DATA, temp)
+                healthScreen.putExtra(USER_DATA, user)
+                healthScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(healthScreen)
             }
             R.id.hiker -> {
                 val mapScreen = Intent(this, MapActivity::class.java)
+                mapScreen.putExtra(USER_DATA, user)
+                mapScreen.putExtra(PROFILE_PIC, profilePic)
                 this.startActivity(mapScreen)
+            }
+            R.id.home -> {
+                val homeScreen = Intent(this, HomeScreen::class.java)
+                homeScreen.putExtra(USER_DATA, user)
+                homeScreen.putExtra(PROFILE_PIC, profilePic)
+                this.startActivity(homeScreen)
+            }
+            R.id.settings ->
+            {
+                val settingsScreen = Intent(this, SettingsActivity::class.java)
+                settingsScreen.putExtra(USER_DATA, user)
+                settingsScreen.putExtra(PROFILE_PIC, profilePic)
+                this.startActivity(settingsScreen)
             }
         }
     }
@@ -143,23 +162,4 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
             }
         }
     }
-
-//    private fun getWeatherIcon(code: String) {
-//        val policy = ThreadPolicy.Builder().permitAll().build()
-//        StrictMode.setThreadPolicy(policy)
-//
-//        val mURL = URL(weatherImageUrl)
-//        with(mURL.openConnection() as HttpURLConnection) {
-//            val response =
-//            BufferedReader(InputStreamReader(inputStream)).use {
-//                val response = StringBuffer()
-//
-//                var inputLine = it.readLine()
-//                while (inputLine != null) {
-//                    response.append(inputLine)
-//                    inputLine = it.readLine()
-//                }
-//            }
-//        }
-//    }
 }
