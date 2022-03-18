@@ -55,10 +55,11 @@ class ReviewInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                 }
             }
             R.id.edit_button -> {
-                val editAllInfoScreen = Intent(this, EditAllInfoScreen::class.java)
-                editAllInfoScreen.putExtra(USER_DATA, user)
-                editAllInfoScreen.putExtra(PROFILE_PIC, profilePic)
-                this.startActivity(editAllInfoScreen)
+                val newUserInfoScreen = Intent(this, NewUserInfoScreen::class.java)
+                newUserInfoScreen.putExtra(USER_DATA, user)
+                newUserInfoScreen.putExtra(PROFILE_PIC, profilePic)
+                finish()
+                this.startActivity(newUserInfoScreen)
             }
         }
     }

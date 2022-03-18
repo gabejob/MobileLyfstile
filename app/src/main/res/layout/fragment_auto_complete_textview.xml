@@ -1,0 +1,22 @@
+<LinearLayout class="androidx.appcompat.app.AlertController$RecycleListView" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+
+    >
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteEnter_box"
+        android:layout_width="236dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corner_text"
+        android:gravity="center"
+        android:completionThreshold="3"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:textAlignment="center"></AutoCompleteTextView>
+
+</LinearLayout>
