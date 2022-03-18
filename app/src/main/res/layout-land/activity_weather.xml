@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     >
@@ -13,39 +13,26 @@
         android:background="#0000"
         android:text="" />
 
-    <RelativeLayout
-        android:id="@+id/action_bar_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="648dp"
-        android:layout_marginEnd="-1dp">
-
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/WeatherStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="254dp"
+        android:layout_marginBottom="325dp"
         android:fontFamily="@font/segoe"
         android:text=""
-        android:textAlignment="center"
         android:textSize="25dp" />
 
     <TextView
         android:id="@+id/Temperature"
-        android:layout_width="match_parent"
+        android:layout_width="323dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="322dp"
-        android:layout_marginEnd="-4dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/segoe"
         android:text=""
         android:textAlignment="center"
@@ -53,12 +40,12 @@
 
     <TextView
         android:id="@+id/TemperatureFeelsLike"
-        android:layout_width="match_parent"
+        android:layout_width="317dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="406dp"
-        android:layout_marginEnd="-1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="168dp"
         android:fontFamily="@font/segoe"
         android:text=""
         android:textAlignment="center"
@@ -66,26 +53,33 @@
 
     <TextView
         android:id="@+id/Humidity"
-        android:layout_width="match_parent"
+        android:layout_width="326dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="492dp"
-        android:layout_marginEnd="-3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="104dp"
         android:fontFamily="@font/segoe"
         android:text=""
         android:textAlignment="center"
         android:textSize="25dp" />
 
+
     <ImageView
         android:id="@+id/weather_image"
-        android:layout_width="138dp"
-        android:layout_height="142dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="135dp"
+        android:layout_height="136dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="136dp"
-        android:background="#68cbf8"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="486dp"
+        android:layout_marginBottom="99dp"
+        android:background="#35baf6" />
 
+    <RelativeLayout
+        android:id="@+id/action_bar_fragment"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="669dp"></RelativeLayout>
 
 </RelativeLayout>
