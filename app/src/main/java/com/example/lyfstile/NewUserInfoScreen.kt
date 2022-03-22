@@ -8,17 +8,18 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 
 //@todo *******We really need to re-evaluate how this works... back button takes you to user/pass screen*********
 class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
-    private var currentScreen =  MutableLiveData<String>() //"first_last_name"
+    private var currentScreen = "first_last_name"
     private var tag1 = ""
     private var tag2 = ""
     private var user: User? = null
     private var nextButton: Button? = null
+    private var viewModel : ViewModel ?= null
     private val screenPrompts = mapOf(
         FIRST_LAST_NAME_SCREEN to arrayOf("What's your name?", FIRST_NAME, LAST_NAME),
         AGE_SEX_SCREEN to arrayOf("Tell us about you", AGE, SEX),
@@ -30,9 +31,11 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_user_info)
 
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+
+
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
-        currentScreen.value = FIRST_LAST_NAME_SCREEN
         buildDataList(user!!)
 
         fragTrans(FIRST_NAME, LAST_NAME)
@@ -60,26 +63,26 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     }
 
     override fun onBackPressed() {
-        when (currentScreen.value) {
+        when (currentScreen) {
             "first_last_name" -> {
                 super.onBackPressed()
                 finish()
             }
             AGE_SEX_SCREEN -> {
-                currentScreen.value = FIRST_LAST_NAME_SCREEN
-                changeScreen(currentScreen.value!!)
+                currentScreen = FIRST_LAST_NAME_SCREEN
+                changeScreen(currentScreen)
                 tag1 = FIRST_NAME
                 tag2 = LAST_NAME
             }
             HEIGHT_WEIGHT_SCREEN -> {
-                currentScreen.value = AGE_SEX_SCREEN
-                changeScreen(currentScreen.value!!)
+                currentScreen = AGE_SEX_SCREEN
+                changeScreen(currentScreen)
                 tag1 = AGE
                 tag2 = SEX
             }
             COUNTRY_CITY_SCREEN -> {
-                currentScreen.value = HEIGHT_WEIGHT_SCREEN
-                changeScreen(currentScreen.value!!)
+                currentScreen = HEIGHT_WEIGHT_SCREEN
+                changeScreen(currentScreen)
                 tag1 = HEIGHT
                 tag2 = WEIGHT
             }
@@ -95,22 +98,22 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             //Each time the next button is pressed, change tags and replace text fragments...
                 R.id.next_button -> {
                     currentFocus?.clearFocus()
-                    when (currentScreen.value) {
+                    when (currentScreen) {
                         FIRST_LAST_NAME_SCREEN -> {
-                            currentScreen.value = AGE_SEX_SCREEN
-                            changeScreen(currentScreen.value!!)
+                            currentScreen = AGE_SEX_SCREEN
+                            changeScreen(currentScreen)
                             tag1 = AGE //Needs to enforce numbers/date selector
                             tag2 = SEX //Needs to enforce dropdown
                         }
                         AGE_SEX_SCREEN -> {
-                            currentScreen.value = HEIGHT_WEIGHT_SCREEN
-                            changeScreen(currentScreen.value!!)
+                            currentScreen = HEIGHT_WEIGHT_SCREEN
+                            changeScreen(currentScreen)
                             tag1 = HEIGHT //Needs to enforce dropdowns
                             tag2 = WEIGHT //Needs to enforce dropdowns
                         }
                         HEIGHT_WEIGHT_SCREEN -> {
-                            currentScreen.value = COUNTRY_CITY_SCREEN
-                            changeScreen(currentScreen.value!!)
+                            currentScreen = COUNTRY_CITY_SCREEN
+                            changeScreen(currentScreen)
                             tag1 = COUNTRY //Needs to enforce country auto-select
                             tag2 = CITY //Needs to enforce city auto-select
                         }

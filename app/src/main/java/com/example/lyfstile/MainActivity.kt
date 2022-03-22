@@ -5,12 +5,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, PassData {
+    private var viewModel : ViewModel ?= null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Get the viewmodel
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+
 
         val createAccountButton = findViewById<Button>(R.id.new_user)
         createAccountButton.setOnClickListener(this)
