@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.*
@@ -29,10 +30,12 @@ class WeatherActivity : AppCompatActivity(), View.OnClickListener, PassData,
         "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
     private var user: User? = null
     private var profilePic: Bitmap? = null
-
+    private var viewModel : ViewModel ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
         profilePic = intent.getParcelableExtra(PROFILE_PIC)

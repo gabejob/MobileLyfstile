@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 
 //@todo *******We really need to re-evaluate how this works... back button takes you to user/pass screen*********
 class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
@@ -18,6 +19,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     private var tag2 = ""
     private var user: User? = null
     private var nextButton: Button? = null
+    private var viewModel : ViewModel ?= null
     private val screenPrompts = mapOf(
         FIRST_LAST_NAME_SCREEN to arrayOf("What's your name?", FIRST_NAME, LAST_NAME),
         AGE_SEX_SCREEN to arrayOf("Tell us about you", AGE, SEX),
@@ -28,6 +30,9 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_user_info)
+
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+
 
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User

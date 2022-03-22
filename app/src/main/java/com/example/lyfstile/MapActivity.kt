@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 
 class MapActivity : AppCompatActivity(), View.OnClickListener, PassData, LocationListener,
     ActionbarFragment.ClickInterface {
@@ -25,9 +26,11 @@ class MapActivity : AppCompatActivity(), View.OnClickListener, PassData, Locatio
     private var latitude = 0.0
     private var user : User ?= null
     private var profilePic: Bitmap? = null
-
+    private var viewModel : ViewModel ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
         profilePic = intent.getParcelableExtra(PROFILE_PIC)
