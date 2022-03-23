@@ -5,13 +5,18 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.lifecycle.ViewModelProvider
 
 class HomeScreen : AppCompatActivity(), ActionbarFragment.ClickInterface {
     private var profilePic: Bitmap? = null
     private var user : User ?= null
+    private var viewModel : ViewModel ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+        //@todo: replace
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
         profilePic = intent.getParcelableExtra(PROFILE_PIC)

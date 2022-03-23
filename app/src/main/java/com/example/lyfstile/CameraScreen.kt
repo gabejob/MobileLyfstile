@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginTop
+import androidx.lifecycle.ViewModelProvider
 import java.lang.Exception
 
 class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
@@ -21,10 +22,11 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
     var profileImage: Bitmap? = null
     private var dataList = HashMap<String, Data>()
     private var user : User ?= null
-
+    private var viewModel : ViewModel ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.take_profile_pic)
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
 
         var extras = intent.extras
         user = extras?.get(USER_DATA) as User

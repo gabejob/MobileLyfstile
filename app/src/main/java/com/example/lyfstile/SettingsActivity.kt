@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import java.lang.Exception
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener, PassData {
@@ -15,9 +16,12 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, PassData {
     private var user: User? = null
     private var saveButton: Button? = null
     private var cancelButton: Button? = null
-
+    private var viewModel : ViewModel ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
         profilePic = intent.getParcelableExtra(PROFILE_PIC)

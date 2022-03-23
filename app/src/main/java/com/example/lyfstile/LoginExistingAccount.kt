@@ -6,15 +6,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import kotlin.collections.HashMap
 
 class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData {
     private var dataList = HashMap<String, Data>()
     private var login: Button? = null
     private var testLogin: User? = null
+    private var viewModel : ViewModel ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_existing_account)
+
+        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+
 
         val emailEnterFragment = TextSubmitFragment()
         val passwordEnterFragment = TextSubmitFragment()
