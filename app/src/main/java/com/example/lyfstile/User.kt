@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
@@ -19,7 +20,7 @@ class User constructor(
 
     constructor() : this(
         "", "", "",
-        "", "", "", "", "", "", "", ""
+        "", "", "", "", "", "", "", Bitmap.createBitmap(1,1,Bitmap.Config.ARGB_8888)
     ) {
 
     }
@@ -33,7 +34,7 @@ class User constructor(
     var weight: String = _weight
     var country: String = _country
     var city: String = _city
-    var pfp: Any = _pfp
+    var pfp: Bitmap = _pfp as Bitmap
     var sex: String = _sex
 
     constructor(parcel: Parcel) : this() {

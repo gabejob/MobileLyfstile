@@ -13,8 +13,9 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
     private var nextButton: Button? = null
-    private var user: User? = User()
+
     private var viewModel : ViewModel ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username_pass_screen)
@@ -55,17 +56,15 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
     private fun startNextActivity() {
         addToUserProfile()
         val fnPassScreen = Intent(this, NewUserInfoScreen::class.java)
-        fnPassScreen.putExtra(USER_DATA, user)
         this.startActivity(fnPassScreen)
     }
 
     private fun addToUserProfile() {
-        user?.email = dataList[EMAIL]?.data.toString()
-        user?.password = dataList[PASSWORD_CONFIRMED]?.data.toString()
+       viewModel?.getFromDataList(dataList)
     }
 
     override fun onDataPass(data: Data) {
-        if (data.data.isEmpty() || data.data == "Not Provided") {
+        if (data.data.toString().isEmpty() || data.data == "Not Provided") {
             dataList.remove(data.sender)
             nextButton?.isEnabled = false
         } else {
