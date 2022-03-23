@@ -17,7 +17,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     private var currentScreen = "first_last_name"
     private var tag1 = ""
     private var tag2 = ""
-    private var user: User? = null
+
     private var nextButton: Button? = null
     private var viewModel : ViewModel ?= null
     private val screenPrompts = mapOf(
@@ -34,9 +34,6 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         viewModel = ViewModelProvider( this).get(ViewModel::class.java)
 
 
-        val extras = intent.extras
-        user = extras?.get(USER_DATA) as User
-        buildDataList(user!!)
 
         fragTrans(FIRST_NAME, LAST_NAME)
         nextButton = findViewById<Button>(R.id.next_button)
@@ -120,7 +117,6 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                         COUNTRY_CITY_SCREEN -> {
                             addToUserProfile()
                             val cameraScrn = Intent(this, CameraScreen::class.java)
-                            cameraScrn.putExtra(USER_DATA, user)
                             this.startActivity(cameraScrn)
                             finish()
                         }
@@ -156,17 +152,15 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     */
     private fun fragTrans(tag1 : String, tag2 : String) {
 
-
         val fragtrans = supportFragmentManager.beginTransaction()
-
 
         var enterFragment = TextSubmitFragment();
         val enterFragment2 = TextSubmitFragment()
 
-        if (!dataList[tag1]?.data.isNullOrEmpty()) {
+        if (!dataList[tag1]?.data.toString().isNullOrEmpty()) {
             enterFragment.value = dataList[tag1]?.data.toString()
         }
-        if(!dataList[tag2]?.data.isNullOrEmpty()){
+        if(!dataList[tag2]?.data.toString().isNullOrEmpty()){
             enterFragment2.value = dataList[tag2]?.data.toString()
         }
 
@@ -185,25 +179,11 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
      *
      */
     private fun addToUserProfile() {
-
-        user?.firstName = checkVal(FIRST_NAME)
-        user?.lastName = checkVal(LAST_NAME)
-        user?.birthday = checkVal(AGE)
-        user?.sex = checkVal(SEX)
-        user?.height = checkVal(HEIGHT)
-        user?.weight = checkVal(WEIGHT)
-        user?.country = checkVal(COUNTRY)
-        user?.city = checkVal(CITY)
+        viewModel?.getFromDataList(dataList)
     }
 
-    private fun checkVal(tag : String) : String
-    {
-        if(dataList[tag]?.data.isNullOrEmpty())
-            return "Not Provided"
-        return dataList[tag]?.data.toString()
-    }
     override fun onDataPass(data: Data) {
-        if (data.data.isEmpty()) {
+        if (data.data.toString().isEmpty()) {
             dataList.remove(data.sender)
             nextButton?.isEnabled = false
         } else {

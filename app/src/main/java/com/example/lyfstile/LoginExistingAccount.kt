@@ -83,7 +83,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     }
 
     override fun onDataPass(data: Data) {
-        if (data.data.isEmpty()) {
+        if (data.data.toString().isEmpty()) {
             dataList.remove(data.sender)
             login?.isEnabled = false
         } else {
