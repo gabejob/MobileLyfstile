@@ -1,14 +1,9 @@
 package com.example.lyfstile
 
 import android.app.Application
-import android.os.Looper
-import androidx.core.os.HandlerCompat
 import androidx.lifecycle.MutableLiveData
-import org.json.JSONException
-import java.net.URL
-import java.util.concurrent.Executors
 
-class Repository private constructor(application: Application) {
+class WeatherRepository private constructor(application: Application) {
     private val userData: MutableLiveData<User> = MutableLiveData<User>()
 
     val data: MutableLiveData<User>
@@ -24,13 +19,13 @@ class Repository private constructor(application: Application) {
     }
 
     companion object {
-        private var instance: Repository? = null
+        private var instance: WeatherRepository? = null
         @Synchronized
-        fun getInstance(application: Application): Repository {
+        fun getInstance(application: Application): WeatherRepository {
             if (instance == null) {
-                instance = Repository(application)
+                instance = WeatherRepository(application)
             }
-            return instance as Repository
+            return instance as WeatherRepository
         }
     }
 

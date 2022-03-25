@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import kotlin.reflect.KProperty
 
 //@todo *******We really need to re-evaluate how this works... back button takes you to user/pass screen*********
 class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
@@ -17,26 +21,31 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     private var currentScreen = "first_last_name"
     private var tag1 = ""
     private var tag2 = ""
-    private var user: User? = null
+
     private var nextButton: Button? = null
-    private var viewModel : ViewModel ?= null
+    private var viewModel : LyfViewModel by viewModels()
     private val screenPrompts = mapOf(
         FIRST_LAST_NAME_SCREEN to arrayOf("What's your name?", FIRST_NAME, LAST_NAME),
         AGE_SEX_SCREEN to arrayOf("Tell us about you", AGE, SEX),
         HEIGHT_WEIGHT_SCREEN to arrayOf("Tell us about you", HEIGHT, WEIGHT),
         COUNTRY_CITY_SCREEN to arrayOf("Where are you from?", COUNTRY, CITY)
     )
+    var user:User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_user_info)
+        viewModel = ViewModelProvider(this)[LyfViewModel::class.java]
 
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+        viewModel.allUsers(this)!!.observe(this) {
+            if (it == null) {
 
+            } else {
+                println(it)
+            }
+        }
 
-        val extras = intent.extras
-        user = extras?.get(USER_DATA) as User
-        buildDataList(user!!)
+        // dataList = viewModel.data
 
         fragTrans(FIRST_NAME, LAST_NAME)
         nextButton = findViewById<Button>(R.id.next_button)
@@ -49,14 +58,14 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             nextButton?.isEnabled = false
         }else{
 
-            dataList[FIRST_NAME] = (Data(FIRST_NAME,user.firstName))
-            dataList[LAST_NAME] = (Data(LAST_NAME,user.lastName))
-            dataList[COUNTRY] = (Data(COUNTRY,user.country))
-            dataList[CITY] = (Data(CITY,user.city))
-            dataList[AGE] = (Data(AGE,user.birthday))
-            dataList[SEX] = (Data(SEX,user.sex))
-            dataList[WEIGHT] = (Data(WEIGHT,user.weight))
-            dataList[HEIGHT] = (Data(HEIGHT,user.height))
+            dataList?.set(FIRST_NAME, (Data(FIRST_NAME,user.firstName)))
+            dataList?.set(LAST_NAME, (Data(LAST_NAME,user.lastName)))
+            dataList?.set(COUNTRY, (Data(COUNTRY,user.country)))
+            dataList?.set(CITY, (Data(CITY,user.city)))
+            dataList?.set(AGE, (Data(AGE,user.birthday)))
+            dataList?.set(SEX, (Data(SEX,user.sex)))
+            dataList?.set(WEIGHT, (Data(WEIGHT,user.weight)))
+            dataList?.set(HEIGHT, (Data(HEIGHT,user.height)))
 
         }
 
@@ -91,7 +100,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     }
     override fun onClick(view: View?) {
 
-        if(dataList[FIRST_NAME]?.equals("") == true)
+        if(dataList?.get(FIRST_NAME)?.equals("") == true)
             nextButton?.isEnabled = false
 
         when(view?.id) {
@@ -120,7 +129,6 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                         COUNTRY_CITY_SCREEN -> {
                             addToUserProfile()
                             val cameraScrn = Intent(this, CameraScreen::class.java)
-                            cameraScrn.putExtra(USER_DATA, user)
                             this.startActivity(cameraScrn)
                             finish()
                         }
@@ -156,18 +164,16 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     */
     private fun fragTrans(tag1 : String, tag2 : String) {
 
-
         val fragtrans = supportFragmentManager.beginTransaction()
-
 
         var enterFragment = TextSubmitFragment();
         val enterFragment2 = TextSubmitFragment()
 
-        if (!dataList[tag1]?.data.isNullOrEmpty()) {
-            enterFragment.value = dataList[tag1]?.data.toString()
+        if (!dataList?.get(tag1)?.data.toString().isNullOrEmpty()) {
+            enterFragment.value = dataList?.get(tag1)?.data.toString()
         }
-        if(!dataList[tag2]?.data.isNullOrEmpty()){
-            enterFragment2.value = dataList[tag2]?.data.toString()
+        if(!dataList?.get(tag2)?.data.toString().isNullOrEmpty()){
+            enterFragment2.value = dataList?.get(tag2)?.data.toString()
         }
 
         fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
@@ -185,33 +191,28 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
      *
      */
     private fun addToUserProfile() {
-
-        user?.firstName = checkVal(FIRST_NAME)
-        user?.lastName = checkVal(LAST_NAME)
-        user?.birthday = checkVal(AGE)
-        user?.sex = checkVal(SEX)
-        user?.height = checkVal(HEIGHT)
-        user?.weight = checkVal(WEIGHT)
-        user?.country = checkVal(COUNTRY)
-        user?.city = checkVal(CITY)
+        //testing
+        user?.email = "test"
+        user?.password = "testpass"
+        user?.let { viewModel.update(this, it) }
     }
 
-    private fun checkVal(tag : String) : String
-    {
-        if(dataList[tag]?.data.isNullOrEmpty())
-            return "Not Provided"
-        return dataList[tag]?.data.toString()
-    }
     override fun onDataPass(data: Data) {
-        if (data.data.isEmpty()) {
-            dataList.remove(data.sender)
+        if (data.data.toString().isEmpty()) {
+            dataList?.remove(data.sender)
             nextButton?.isEnabled = false
         } else {
-            dataList[data.sender] = data
-            if (dataList.size % 2 == 0) {
+            dataList?.set(data.sender, data)
+            dataList = dataList as HashMap<String, Data>
+            if (dataList!!.size % 2==0) {
                 nextButton?.isEnabled = true
             }
         }
     }
 
 }
+
+private operator fun Any.setValue(newUserInfoScreen: NewUserInfoScreen, property: KProperty<*>, lyfViewModel: LyfViewModel) {
+
+}
+

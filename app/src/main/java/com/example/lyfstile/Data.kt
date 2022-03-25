@@ -12,7 +12,7 @@ import android.os.Parcelable
  *
  *
  */
-public class Data(_sender: String,_data: String) : Parcelable
+public class Data(_sender: String,_data: Any?) : Parcelable
 {
 
     //This looks weird, might look further into changing it
@@ -22,7 +22,7 @@ public class Data(_sender: String,_data: String) : Parcelable
     }
 
     var sender: String = _sender
-    var data : String = _data
+    var data : Any? = _data
 
 
     override fun describeContents(): Int {
@@ -31,7 +31,7 @@ public class Data(_sender: String,_data: String) : Parcelable
 
     override fun writeToParcel(out: Parcel?, flags: Int) {
         out?.writeString(sender)
-        out?.writeString(data)
+       // out?.writeString(data)
     }
 
     companion object CREATOR : Parcelable.Creator<Data> {

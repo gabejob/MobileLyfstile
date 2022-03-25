@@ -13,13 +13,13 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     private var dataList = HashMap<String, Data>()
     private var login: Button? = null
     private var testLogin: User? = null
-    private var viewModel : ViewModel ?= null
+    private var lyfViewModel : LyfViewModel ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_existing_account)
 
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+        lyfViewModel = ViewModelProvider( this).get(LyfViewModel::class.java)
 
 
         val emailEnterFragment = TextSubmitFragment()
@@ -83,7 +83,7 @@ class LoginExistingAccount : AppCompatActivity(), View.OnClickListener, PassData
     }
 
     override fun onDataPass(data: Data) {
-        if (data.data.isEmpty()) {
+        if (data.data.toString().isEmpty()) {
             dataList.remove(data.sender)
             login?.isEnabled = false
         } else {
