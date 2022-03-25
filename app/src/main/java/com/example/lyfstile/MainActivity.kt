@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, PassData {
-    private var viewModel : ViewModel ?= null
+    private var lyfViewModel : LyfViewModel ?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, PassData {
         setContentView(R.layout.activity_main)
 
         //Get the viewmodel
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+        //lyfViewModel = ViewModelProvider( this).get(LyfViewModel::class.java)
 
 
         val createAccountButton = findViewById<Button>(R.id.new_user)

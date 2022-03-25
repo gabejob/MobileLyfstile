@@ -26,10 +26,10 @@ class MapActivity : AppCompatActivity(), View.OnClickListener, PassData, Locatio
     private var latitude = 0.0
     private var user : User ?= null
     private var profilePic: Bitmap? = null
-    private var viewModel : ViewModel ?= null
+    private var lyfViewModel : LyfViewModel ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+        lyfViewModel = ViewModelProvider( this).get(LyfViewModel::class.java)
 
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User

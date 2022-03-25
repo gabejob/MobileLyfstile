@@ -24,7 +24,7 @@ import java.util.*
 class HealthActivity : AppCompatActivity(),
     View.OnClickListener, ActionbarFragment.ClickInterface, NumberPicker.OnValueChangeListener {
 
-    private var viewModel : ViewModel ?= null
+    private var lyfViewModel : LyfViewModel ?= null
     private var user : User ?=null
     private var profilePic: Bitmap? = null
     private var dialog : Dialog ?= null
@@ -114,7 +114,7 @@ class HealthActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+        lyfViewModel = ViewModelProvider( this).get(LyfViewModel::class.java)
 
         val actionbarFragment = ActionbarFragment()
         val extras = intent.extras

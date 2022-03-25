@@ -5,24 +5,33 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import kotlin.collections.HashMap
+import kotlin.reflect.KProperty
+
 
 class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
     private var nextButton: Button? = null
-
-    private var viewModel : ViewModel ?= null
+    lateinit var viewModel : LyfViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username_pass_screen)
+        viewModel = ViewModelProvider(this)[LyfViewModel::class.java]
 
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
 
 
+        var user = User()
+        user?.email="test"
+        user?.password="testpass"
+
+        viewModel?.insert(this,user)
 
         val emailEnterFragment = TextSubmitFragment()
         val passwordEnterFragment = TextSubmitFragment()
@@ -60,7 +69,8 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
     }
 
     private fun addToUserProfile() {
-       viewModel?.getFromDataList(dataList)
+      // viewModel.getFromDataList(dataList)
+
     }
 
     override fun onDataPass(data: Data) {
@@ -75,4 +85,14 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
         }
     }
 }
+
+operator fun Any.setValue(usernamePassScreen: UsernamePassScreen, property: KProperty<*>, lyfViewModel: LyfViewModel) {
+
+}
+
+
+
+
+
+
 

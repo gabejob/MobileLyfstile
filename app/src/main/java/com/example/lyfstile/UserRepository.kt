@@ -1,36 +1,43 @@
 package com.example.lyfstile
 
 import android.app.Application
+import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class UserRepository private constructor(application: Application) {
-    private val userData: MutableLiveData<User> = MutableLiveData<User>()
+class UserRepository public constructor(private val db: DBHandler) {
 
-    val data: MutableLiveData<User>
-        get() = userData
-
-    private fun loadData() {
-        // FetchWeatherTask().execute(mLocation)
-    }
-
-
-    fun get(): MutableLiveData<User>? {
-        return null
-    }
 
     companion object {
-        private var instance: UserRepository? = null
-        @Synchronized
-        fun getInstance(application: Application): UserRepository {
-            if (instance == null) {
-                instance = UserRepository(application)
-            }
-            return instance as UserRepository
+
+        private var db: DBHandler? = null
+        var data : LiveData<List<UserEntity>>? = null
+
+        fun insert(context: Context, user: User) {
+            db = initializeDB(context)
+
+           val insert = UserEntity(
+                user?.email, user?.password,null,
+                null, null, null, null, null, null, null
+            )
+           db!!.dao().insert(insert)
         }
-    }
 
-    init {
+        fun update(context: Context, user: User)
+        {
+            db = initializeDB(context)
+            db!!.dao().updateUser(user.email, user.birthday, user.height, user.weight, user.sex, user.country, user.city)
+        }
 
 
+        fun allUsers(context: Context) :LiveData<List<UserEntity>>? {
+            db = initializeDB(context)
+            data = db?.dao()?.getAll()
+            return data
+        }
+
+        fun initializeDB(context: Context): DBHandler {
+            return DBHandler.getDatabaseClient(context)
+        }
     }
 }

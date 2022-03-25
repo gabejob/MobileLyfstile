@@ -7,12 +7,8 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginTop
 import androidx.lifecycle.ViewModelProvider
 import java.lang.Exception
 
@@ -22,11 +18,11 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
     var profileImage: Bitmap? = null
     private var dataList = HashMap<String, Data>()
 
-    private var viewModel : ViewModel ?= null
+    private var lyfViewModel : LyfViewModel ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.take_profile_pic)
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
+        lyfViewModel = ViewModelProvider( this).get(LyfViewModel::class.java)
 
         val takePictureButton = findViewById<Button>(R.id.Camera)
         takePictureButton.setOnClickListener(this)
@@ -58,7 +54,7 @@ class CameraScreen : AppCompatActivity(), View.OnClickListener, PassData{
                     toast.show()
                 } else {
                     val reviewScreen = Intent(this, ReviewInfoScreen::class.java)
-                    viewModel?.user?.pfp = profileImage as Bitmap
+                    //lyfViewModel?.user?.pfp = profileImage as Bitmap
                     finish()
                     this.startActivity(reviewScreen)
                 }
