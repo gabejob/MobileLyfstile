@@ -14,12 +14,12 @@ import java.lang.Exception
 class ReviewInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     private var createAccountButton: Button? = null
     private var editButton: Button? = null
-    private var viewModel : ViewModel ?= null
+    private var lyfViewModel : LyfViewModel ?= null
     private var dataList : HashMap<String, Data> ?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider( this).get(ViewModel::class.java)
-        dataList = viewModel?.getCurrentUser()
+        lyfViewModel = ViewModelProvider( this).get(LyfViewModel::class.java)
+        //dataList = lyfViewModel?.getCurrentUser()
         setContentView(R.layout.review_info)
 
         createAccountButton = findViewById(R.id.create_button)
