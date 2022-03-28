@@ -8,12 +8,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.MutableLiveData
 
 //@todo *******We really need to re-evaluate how this works... back button takes you to user/pass screen*********
 class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
     private var dataList = HashMap<String, Data>()
-    private var currentScreen = "first_last_name"
+    private var currentScreen =  MutableLiveData<String>() //"first_last_name"
     private var tag1 = ""
     private var tag2 = ""
     private var user: User? = null
@@ -31,6 +32,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
         val extras = intent.extras
         user = extras?.get(USER_DATA) as User
+        currentScreen.value = FIRST_LAST_NAME_SCREEN
         buildDataList(user!!)
 
         fragTrans(FIRST_NAME, LAST_NAME)
@@ -58,26 +60,26 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
     }
 
     override fun onBackPressed() {
-        when (currentScreen) {
+        when (currentScreen.value) {
             "first_last_name" -> {
                 super.onBackPressed()
                 finish()
             }
             AGE_SEX_SCREEN -> {
-                currentScreen = FIRST_LAST_NAME_SCREEN
-                changeScreen(currentScreen)
+                currentScreen.value = FIRST_LAST_NAME_SCREEN
+                changeScreen(currentScreen.value!!)
                 tag1 = FIRST_NAME
                 tag2 = LAST_NAME
             }
             HEIGHT_WEIGHT_SCREEN -> {
-                currentScreen = AGE_SEX_SCREEN
-                changeScreen(currentScreen)
+                currentScreen.value = AGE_SEX_SCREEN
+                changeScreen(currentScreen.value!!)
                 tag1 = AGE
                 tag2 = SEX
             }
             COUNTRY_CITY_SCREEN -> {
-                currentScreen = HEIGHT_WEIGHT_SCREEN
-                changeScreen(currentScreen)
+                currentScreen.value = HEIGHT_WEIGHT_SCREEN
+                changeScreen(currentScreen.value!!)
                 tag1 = HEIGHT
                 tag2 = WEIGHT
             }
@@ -93,22 +95,22 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             //Each time the next button is pressed, change tags and replace text fragments...
                 R.id.next_button -> {
                     currentFocus?.clearFocus()
-                    when (currentScreen) {
+                    when (currentScreen.value) {
                         FIRST_LAST_NAME_SCREEN -> {
-                            currentScreen = AGE_SEX_SCREEN
-                            changeScreen(currentScreen)
+                            currentScreen.value = AGE_SEX_SCREEN
+                            changeScreen(currentScreen.value!!)
                             tag1 = AGE //Needs to enforce numbers/date selector
                             tag2 = SEX //Needs to enforce dropdown
                         }
                         AGE_SEX_SCREEN -> {
-                            currentScreen = HEIGHT_WEIGHT_SCREEN
-                            changeScreen(currentScreen)
+                            currentScreen.value = HEIGHT_WEIGHT_SCREEN
+                            changeScreen(currentScreen.value!!)
                             tag1 = HEIGHT //Needs to enforce dropdowns
                             tag2 = WEIGHT //Needs to enforce dropdowns
                         }
                         HEIGHT_WEIGHT_SCREEN -> {
-                            currentScreen = COUNTRY_CITY_SCREEN
-                            changeScreen(currentScreen)
+                            currentScreen.value = COUNTRY_CITY_SCREEN
+                            changeScreen(currentScreen.value!!)
                             tag1 = COUNTRY //Needs to enforce country auto-select
                             tag2 = CITY //Needs to enforce city auto-select
                         }

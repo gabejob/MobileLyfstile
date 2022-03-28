@@ -19,7 +19,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import com.example.lyfstile.databinding.FragmentCreateNewUserBinding
 import java.util.*
 import java.util.regex.Pattern
 
@@ -37,26 +41,37 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
     var isValid = false
     var autoCompleteEnterTxt : AutoCompleteTextView ?= null;
     var value = ""
+    var screenNumber = 0
 
-
+    private lateinit var binding: FragmentCreateNewUserBinding
+    private lateinit var newUserViewModel: NewUserViewModel
 
     //Associate the callback with this Fragment
-    override fun onAttach(context: Context) {
+/*    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             dataPasser = context as PassData
         } catch (e: ClassCastException) {
          }
-    }
+    }*/
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         var view: View ?= null
+
+        val binding = DataBindingUtil.inflate<FragmentCreateNewUserBinding>(inflater, R.layout.new_user_info, container, false)
+        newUserViewModel = ViewModelProvider(this).get(NewUserViewModel::class.java)
+        binding.viewModel = newUserViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        newUserViewModel.currentScreen.observe(viewLifecycleOwner, { changeScreen(screenNumber) })
+
         // AutoComplete is created differently, thus we have to check for the fields
         if(tag == COUNTRY || tag == CITY) {
-            view = inflater.inflate(R.layout.fragment_auto_complete_textview, container, false)
+            //view = inflater.inflate(R.layout.fragment_auto_complete_textview, container, false)
+
             autoCompleteEnterTxt = view?.findViewById(R.id.autoCompleteEnter_box) as AutoCompleteTextView
             if(!value.isNullOrEmpty()) {
                 autoCompleteEnterTxt!!.setText(value)
@@ -88,7 +103,11 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         {
         }
 
-        return view
+        return binding.root
+    }
+
+    private fun changeScreen(screenNumber: Int) {
+
     }
 
     /**
