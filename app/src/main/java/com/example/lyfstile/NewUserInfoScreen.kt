@@ -30,7 +30,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
         HEIGHT_WEIGHT_SCREEN to arrayOf("Tell us about you", HEIGHT, WEIGHT),
         COUNTRY_CITY_SCREEN to arrayOf("Where are you from?", COUNTRY, CITY)
     )
-    var user:User? = null
+    var user:User? = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +45,10 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             }
         }
 
+        viewModel.contained(this)!!.observe(this)
+        {
+            print(it)
+        }
         // dataList = viewModel.data
 
         fragTrans(FIRST_NAME, LAST_NAME)
@@ -192,8 +196,20 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
      */
     private fun addToUserProfile() {
         //testing
+
         user?.email = "test"
         user?.password = "testpass"
+        user?.firstName = dataList[FIRST_NAME]?.data.toString()
+        user?.lastName = dataList[LAST_NAME]?.data.toString()
+        user?.birthday = dataList[AGE]?.data.toString()
+        user?.sex = dataList[SEX]?.data.toString()
+        user?.height = dataList[HEIGHT]?.data.toString()
+        user?.weight = dataList[WEIGHT]?.data.toString()
+        user?.country = dataList[COUNTRY]?.data.toString()
+        user?.city = dataList[CITY]?.data.toString()
+
+
+
         user?.let { viewModel.update(this, it) }
     }
 
@@ -203,7 +219,6 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             nextButton?.isEnabled = false
         } else {
             dataList?.set(data.sender, data)
-            dataList = dataList as HashMap<String, Data>
             if (dataList!!.size % 2==0) {
                 nextButton?.isEnabled = true
             }

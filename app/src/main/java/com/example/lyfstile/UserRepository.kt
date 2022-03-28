@@ -26,7 +26,7 @@ class UserRepository public constructor(private val db: DBHandler) {
         fun update(context: Context, user: User)
         {
             db = initializeDB(context)
-            db!!.dao().updateUser(user.email, user.birthday, user.height, user.weight, user.sex, user.country, user.city)
+            db!!.dao().updateUser(user.email,user.firstName,user.lastName, user.birthday, user.height, user.weight, user.sex, user.country, user.city)
         }
 
 

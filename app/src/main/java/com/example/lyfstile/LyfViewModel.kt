@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 public class LyfViewModel : ViewModel() {
 
     val user = MutableLiveData<User>()
-
+    var test = MutableLiveData<Int>()
     fun insert(context: Context, user : User) = GlobalScope.launch {
         UserRepository.insert(context,user)
     }
@@ -27,4 +27,14 @@ public class LyfViewModel : ViewModel() {
        data = UserRepository.allUsers(context)
         return data
     }
+
+    fun updateContained( newval : Int)
+    {
+        test.value = newval
+    }
+
+    fun contained(context: Context) : LiveData<Int> {
+        return test
+    }
+
 }
