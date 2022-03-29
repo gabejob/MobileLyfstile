@@ -50,7 +50,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
 /*    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            dataPasser = context as PassData
+            dataPasser = parentFragment as PassData
         } catch (e: ClassCastException) {
          }
     }*/
