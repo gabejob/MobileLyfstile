@@ -36,5 +36,4 @@ public class LyfViewModel : ViewModel() {
     fun contained(context: Context) : Int {
         return test
     }
-
 }
