@@ -45,10 +45,7 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
             }
         }
 
-        viewModel.contained(this)!!.observe(this)
-        {
-            print(it)
-        }
+
         // dataList = viewModel.data
 
         fragTrans(FIRST_NAME, LAST_NAME)

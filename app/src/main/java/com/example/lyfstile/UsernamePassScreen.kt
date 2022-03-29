@@ -26,9 +26,7 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
         viewModel = ViewModelProvider(this)[LyfViewModel::class.java]
 
 
-        viewModel.contained(this)!!.observe(this,){
-            
-        }
+
         var user = User()
         user?.email="test"
         user?.password="testpass"

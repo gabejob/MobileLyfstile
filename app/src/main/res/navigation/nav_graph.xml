@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/testHomeScreenFrag">
+
+    <fragment
+        android:id="@+id/testHomeScreenFrag"
+        android:name="com.example.lyfstile.TestHomeScreenFrag"
+        android:label="fragment_test_home_screen"
+        tools:layout="@layout/fragment_test_home_screen" >
+        <action
+            android:id="@+id/action_testHomeScreenFrag_to_usernamePassScreenTest"
+            app:destination="@id/usernamePassScreenTest" />
+    </fragment>
+    <fragment
+        android:id="@+id/usernamePassScreenTest"
+        android:name="com.example.lyfstile.UsernamePassScreenTest"
+        android:label="fragment_username_pass_screen_test"
+        tools:layout="@layout/fragment_username_pass_screen_test" />
+</navigation>
