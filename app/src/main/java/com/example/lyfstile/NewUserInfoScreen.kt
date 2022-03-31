@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import kotlin.reflect.KProperty
 
 //@todo *******We really need to re-evaluate how this works... back button takes you to user/pass screen*********
@@ -129,9 +130,10 @@ class NewUserInfoScreen : AppCompatActivity(), View.OnClickListener, PassData {
                         }
                         COUNTRY_CITY_SCREEN -> {
                             addToUserProfile()
-                            val cameraScrn = Intent(this, CameraScreen::class.java)
-                            this.startActivity(cameraScrn)
-                            finish()
+                            view?.let {
+                                Navigation.findNavController(it)
+                                    .navigate(R.id.action_newUserInfoFrag_to_cameraFrag)
+                            }
                         }
                     }
                     fragTrans(tag1, tag2)

@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 
 /**
  * A simple [Fragment] subclass.
@@ -18,9 +20,6 @@ class UsernamePassScreenTest : Fragment(), View.OnClickListener, PassData {
     private var dataList = HashMap<String, Data>()
     private var nextButton: Button? = null
     lateinit var viewModel: LyfViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,11 +55,29 @@ class UsernamePassScreenTest : Fragment(), View.OnClickListener, PassData {
     }
 
     override fun onClick(p0: View?) {
-
+        if (dataList.size == 3) {
+            if (dataList[PASSWORD]?.data == dataList[PASSWORD_CONFIRMED]?.data) {
+                view?.let {
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_usernamePassScreenFrag_to_newUserInfoFrag)
+                }
+            } else {
+                Toast.makeText(requireActivity(), "Passwords do not match!", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(requireActivity(), "Please enter all forms!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDataPass(data: Data) {
-        var x = viewModel.test
-        print(viewModel.test)
+        if (data.data.toString().isEmpty() || data.data == "Not Provided") {
+            dataList.remove(data.sender)
+            nextButton?.isEnabled = false
+        } else {
+            dataList[data.sender] = data
+            if (dataList.size == 3) {
+                nextButton?.isEnabled = true
+            }
+        }
     }
 }
