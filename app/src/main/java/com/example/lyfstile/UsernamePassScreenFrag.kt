@@ -1,13 +1,10 @@
 package com.example.lyfstile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.Toast
-import androidx.fragment.app.commit
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 
@@ -29,7 +26,6 @@ class UsernamePassScreenTest : Fragment(), View.OnClickListener, PassData {
         val view = inflater.inflate(R.layout.fragment_username_pass_screen_test, container, false)
 
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
-
 
         val emailEnterFragment = TextSubmitFragment()
         val passwordEnterFragment = TextSubmitFragment()

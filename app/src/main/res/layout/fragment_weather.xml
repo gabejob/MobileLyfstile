@@ -3,12 +3,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".WeatherFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:ignore="UselessParent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0000"
+            android:text="" />
+
+        <RelativeLayout
+            android:id="@+id/action_bar_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="648dp"
+            android:layout_marginEnd="-1dp">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/WeatherStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/segoe"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/Temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="322dp"
+            android:layout_marginEnd="-4dp"
+            android:fontFamily="@font/segoe"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/TemperatureFeelsLike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="406dp"
+            android:layout_marginEnd="-1dp"
+            android:fontFamily="@font/segoe"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/Humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="492dp"
+            android:layout_marginEnd="-3dp"
+            android:fontFamily="@font/segoe"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/weather_image"
+            android:layout_width="138dp"
+            android:layout_height="142dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="136dp"
+            android:background="#68cbf8"
+            android:contentDescription="Weather Icon"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
 </FrameLayout>

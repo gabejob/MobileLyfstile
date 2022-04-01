@@ -115,7 +115,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFrag"
-        android:name="com.example.lyfstile.MapsFrag"
+        android:name="com.example.lyfstile.mapsFrag"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" >
         <action
@@ -124,8 +124,9 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFrag"
-        android:name="com.example.lyfstile.SettingsFrag"
-        android:label="SettingsFrag" >
+        android:name="com.example.lyfstile.settingsFrag"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFrag_to_homeScreenFrag"
             app:destination="@id/homeScreenFrag" />
