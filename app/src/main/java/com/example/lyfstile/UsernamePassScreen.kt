@@ -5,14 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import kotlin.collections.HashMap
 import kotlin.reflect.KProperty
-
 
 class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
 
@@ -24,8 +19,6 @@ class UsernamePassScreen : AppCompatActivity(), View.OnClickListener, PassData {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username_pass_screen)
         viewModel = ViewModelProvider(this)[LyfViewModel::class.java]
-
-
 
         var user = User()
         user?.email="test"
