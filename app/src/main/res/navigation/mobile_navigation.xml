@@ -3,32 +3,152 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
+    app:startDestination="@id/welcome">
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.lyfstile.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:id="@+id/welcome"
+        android:name="com.example.lyfstile.WelcomeScreenFrag"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome_screen">
+        <action
+            android:id="@+id/action_welcome_screen_to_registration"
+            app:destination="@id/registration" />
+        <action
+            android:id="@+id/action_welcome_to_loginScreenFrag"
+            app:destination="@id/loginScreenFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/new_user_info"
+        android:name="com.example.lyfstile.NewUserInfoFrag"
+        android:label="fragment_new_user_info"
+        tools:layout="@layout/fragment_new_user_info" >
+        <action
+            android:id="@+id/action_new_user_info_to_camera"
+            app:destination="@id/camera" />
+    </fragment>
+    <fragment
+        android:id="@+id/registration"
+        android:name="com.example.lyfstile.RegistrationFrag"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registration_to_new_user_info"
+            app:destination="@id/new_user_info" />
+    </fragment>
+    <fragment
+        android:id="@+id/camera"
+        android:name="com.example.lyfstile.CameraFrag"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_camera_to_review"
+            app:destination="@id/review" />
+    </fragment>
+    <fragment
+        android:id="@+id/review"
+        android:name="com.example.lyfstile.ReviewScreenFrag"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" >
+        <action
+            android:id="@+id/action_review_to_homeScreenFrag"
+            app:destination="@id/homeScreenFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeScreenFrag"
+        android:name="com.example.lyfstile.HomeScreenFrag"
+        android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_fragment_username_pass"
-            app:destination="@id/fragment_username_pass2" />
+            android:id="@+id/action_homeScreenFrag_to_mapsFrag"
+            app:destination="@id/mapsFrag" />
+        <action
+            android:id="@+id/action_homeScreenFrag_to_weatherFrag"
+            app:destination="@id/weatherFrag" />
+        <action
+            android:id="@+id/action_homeScreenFrag_to_healthFrag"
+            app:destination="@id/healthFrag" />
+        <action
+            android:id="@+id/action_homeScreenFrag_to_settingsFrag"
+            app:destination="@id/settingsFrag" />
     </fragment>
-
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.lyfstile.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
+        android:id="@+id/mapsFrag"
+        android:name="com.example.lyfstile.MapsFrag"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFrag_to_homeScreenFrag"
+            app:destination="@id/homeScreenFrag" />
+        <action
+            android:id="@+id/action_mapsFrag_to_weatherFrag"
+            app:destination="@id/weatherFrag" />
+        <action
+            android:id="@+id/action_mapsFrag_to_healthFrag"
+            app:destination="@id/healthFrag" />
+        <action
+            android:id="@+id/action_mapsFrag_to_settingsFrag"
+            app:destination="@id/settingsFrag" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.lyfstile.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/weatherFrag"
+        android:name="com.example.lyfstile.WeatherFrag"
+        android:label="fragment_weather"
+        tools:layout="@layout/fragment_weather" >
+        <action
+            android:id="@+id/action_weatherFrag_to_homeScreenFrag"
+            app:destination="@id/homeScreenFrag" />
+        <action
+            android:id="@+id/action_weatherFrag_to_mapsFrag"
+            app:destination="@id/mapsFrag" />
+        <action
+            android:id="@+id/action_weatherFrag_to_healthFrag"
+            app:destination="@id/healthFrag" />
+        <action
+            android:id="@+id/action_weatherFrag_to_settingsFrag"
+            app:destination="@id/settingsFrag" />
+    </fragment>
     <fragment
-        android:id="@+id/fragment_username_pass2"
-        android:name="com.example.lyfstile.fragment_username_pass"
-        android:label="fragment_username_pass_fragment"
-        tools:layout="@layout/fragment_username_pass_fragment" />
+        android:id="@+id/healthFrag"
+        android:name="com.example.lyfstile.HealthFrag"
+        android:label="fragment_health"
+        tools:layout="@layout/fragment_health" >
+        <action
+            android:id="@+id/action_healthFrag_to_homeScreenFrag"
+            app:destination="@id/homeScreenFrag" />
+        <action
+            android:id="@+id/action_healthFrag_to_mapsFrag"
+            app:destination="@id/mapsFrag" />
+        <action
+            android:id="@+id/action_healthFrag_to_weatherFrag"
+            app:destination="@id/weatherFrag" />
+        <action
+            android:id="@+id/action_healthFrag_to_settingsFrag"
+            app:destination="@id/settingsFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFrag"
+        android:name="com.example.lyfstile.SettingsFrag"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFrag_to_homeScreenFrag"
+            app:destination="@id/homeScreenFrag" />
+        <action
+            android:id="@+id/action_settingsFrag_to_mapsFrag"
+            app:destination="@id/mapsFrag" />
+        <action
+            android:id="@+id/action_settingsFrag_to_weatherFrag"
+            app:destination="@id/weatherFrag" />
+        <action
+            android:id="@+id/action_settingsFrag_to_healthFrag"
+            app:destination="@id/healthFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginScreenFrag"
+        android:name="com.example.lyfstile.LoginScreenFrag"
+        android:label="fragment_login_screen"
+        tools:layout="@layout/fragment_login_screen" >
+        <action
+            android:id="@+id/action_loginScreenFrag_to_homeScreenFrag"
+            app:destination="@id/homeScreenFrag" />
+    </fragment>
 </navigation>

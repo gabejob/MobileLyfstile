@@ -1,59 +1,98 @@
 package com.example.lyfstile
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 
 /**
  * A simple [Fragment] subclass.
  * Use the [LoginScreenFrag.newInstance] factory method to
  * create an instance of this fragment.
  */
-class LoginScreenFrag : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
+    private lateinit var viewModel: LyfViewModel
+    private var login: Button? = null
+    private var email = ""
+    private var password = ""
+    private var userEntity: UserEntity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login_screen, container, false)
+        val view = inflater.inflate(R.layout.fragment_login_screen, container, false)
+        viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
+
+        val emailEnterFragment = TextSubmitFragment()
+        val passwordEnterFragment = TextSubmitFragment()
+
+        val fragtrans = childFragmentManager.beginTransaction()
+
+        fragtrans.replace(R.id.email_enter_box, emailEnterFragment, EMAIL)
+        fragtrans.replace(R.id.password_enter_box, passwordEnterFragment, PASSWORD)
+
+        fragtrans.commit()
+
+        login = view.findViewById<Button>(R.id.Login_button)
+//        login?.isEnabled = false
+
+        val forgot = view.findViewById<Button>(R.id.forgot_pass)
+        forgot.setOnClickListener(this)
+        login?.setOnClickListener(this)
+
+        viewModel.allUsers(requireActivity())!!.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()){
+                userEntity = it.first()
+            }
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginScreenFrag.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginScreenFrag().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.Login_button -> {
+                // Make sure everything has been entered/initialized
+                if (email.isNotBlank() && password.isNotBlank()) {
+                    val cred = verifyCredentials(email, password)
+                    if (cred) {
+                        view?.let {
+                            Navigation.findNavController(it)
+                                .navigate(R.id.action_loginScreenFrag_to_homeScreenFrag)
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), "Incorrect Password!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                } else {
+                    Toast.makeText(requireActivity(), "Please enter all forms!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
+            R.id.forgot_pass -> {
+                Toast.makeText(requireActivity(), "Not Implemented", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun verifyCredentials(email: String, password: String): Boolean {
+        var isVerified = false
+            if (userEntity?.email == email && userEntity?.password == password) {
+                login?.isEnabled = true
+                isVerified = true
+            }
+        return isVerified
+    }
+
+    override fun onDataPass(data: Data) {
+        when (data.sender) {
+            EMAIL -> email = data.data.toString()
+            PASSWORD -> password = data.data.toString()
+        }
     }
 }

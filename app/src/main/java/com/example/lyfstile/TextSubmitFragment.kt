@@ -1,6 +1,5 @@
 package com.example.lyfstile
 
-import android.R.attr.password
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
@@ -8,22 +7,14 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.provider.Telephony.Carriers.PASSWORD
-import android.text.Editable
-import android.text.InputType
-import android.text.TextWatcher
+import android.text.*
 import android.util.Patterns
+import android.view.*
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.Observer
-import com.example.lyfstile.databinding.FragmentCreateNewUserBinding
 import java.util.*
 import java.util.regex.Pattern
 
@@ -41,39 +32,26 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
     var isValid = false
     var autoCompleteEnterTxt : AutoCompleteTextView ?= null;
     var value = ""
-    var screenNumber = 0
-
-    private lateinit var binding: FragmentCreateNewUserBinding
-    private lateinit var newUserViewModel: NewUserViewModel
 
     //Associate the callback with this Fragment
-/*    override fun onAttach(context: Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             dataPasser = parentFragment as PassData
         } catch (e: ClassCastException) {
          }
-    }*/
-
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         var view: View ?= null
-
-        val binding = DataBindingUtil.inflate<FragmentCreateNewUserBinding>(inflater, R.layout.new_user_info, container, false)
-        newUserViewModel = ViewModelProvider(this).get(NewUserViewModel::class.java)
-        binding.viewModel = newUserViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        newUserViewModel.currentScreen.observe(viewLifecycleOwner, { changeScreen(screenNumber) })
-
         // AutoComplete is created differently, thus we have to check for the fields
         if(tag == COUNTRY || tag == CITY) {
-            //view = inflater.inflate(R.layout.fragment_auto_complete_textview, container, false)
-
+            view = inflater.inflate(R.layout.fragment_auto_complete_textview, container, false)
             autoCompleteEnterTxt = view?.findViewById(R.id.autoCompleteEnter_box) as AutoCompleteTextView
-            if(!value.isNullOrEmpty()) {
+            if(value.isNotEmpty()) {
                 autoCompleteEnterTxt!!.setText(value)
             }
 
@@ -82,7 +60,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         }else{
             view = inflater.inflate(R.layout.fragment_text_submit, container, false)
             enterTxt = view.findViewById(R.id.enter_box) as EditText
-            if(!value.isNullOrEmpty()) {
+            if(value.isNotEmpty()) {
                 enterTxt!!.setText(value)
             }
         }
@@ -99,15 +77,9 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
                 }
                 false
             }
-        }else
-        {
         }
 
-        return binding.root
-    }
-
-    private fun changeScreen(screenNumber: Int) {
-
+        return view
     }
 
     /**
@@ -388,7 +360,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
 
     override fun onDateSet(view: DatePicker?, year : Int, month : Int, day: Int) {
 
-        val date = "$month/$day/$year"
+        val date = "${month+1}/$day/$year"
         enterTxt?.setText(date)
         passData(enterTxt?.text.toString())
         var keyboard =

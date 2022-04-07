@@ -16,6 +16,7 @@
         android:inputType="text"
         android:gravity="center"
         android:singleLine="true"
-        android:textAlignment="center"></EditText>
+        android:text=""
+        android:textAlignment="center" />
 
 </LinearLayout>

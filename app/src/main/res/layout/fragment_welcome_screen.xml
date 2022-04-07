@@ -1,68 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".WelcomeScreenFrag">
 
-    >
-    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="107dp"
-        android:layout_marginTop="123dp"
-        android:layout_marginEnd="104dp"
-        android:background="@drawable/lyfstile"
-        android:scaleX="3"
-        android:scaleY="3"></ImageView>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="107dp"
+            android:layout_marginTop="123dp"
+            android:layout_marginEnd="104dp"
+            android:background="@drawable/lyfstile"
+            android:contentDescription="Lyfstile Logo"
+            android:scaleX="3"
+            android:scaleY="3"
+            tools:ignore="HardcodedText" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/new_user"
-        android:layout_width="150dp"
-        android:layout_height="59dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="131dp"
+        <Button
+            android:id="@+id/Log_in"
+            android:layout_width="150dp"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="443dp"
+            android:layout_marginEnd="131dp"
+            android:background="@drawable/rounded_corner"
+            android:fontFamily="@font/shippori"
+            android:text="Log in"
+            android:textSize="22sp"
+            tools:ignore="HardcodedText" />
 
-        android:layout_marginTop="516dp"
-        android:layout_marginEnd="130dp"
-        android:background="@drawable/rounded_corner"
-        android:fontFamily="@font/shippori"
+        <Button
+            android:id="@+id/new_user"
+            android:layout_width="150dp"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="131dp"
 
-        android:text="Create\nAccount"
-        android:textSize="13dp" />
+            android:layout_marginTop="516dp"
+            android:layout_marginEnd="130dp"
+            android:background="@drawable/rounded_corner"
+            android:fontFamily="@font/shippori"
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/forgot_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="588dp"
-        android:layout_marginEnd="130dp"
-        android:background="#0000"
-        android:text="Forgot Password?"
-        android:textColor="#828282" />
+            android:text="Create\nAccount"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText" />
 
-    <Button
-        android:id="@+id/Log_in"
-        android:layout_width="150dp"
-        android:layout_height="59dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="443dp"
-        android:layout_marginEnd="131dp"
-        android:background="@drawable/rounded_corner"
-        android:fontFamily="@font/shippori"
-        android:text="Log in"
-        android:textSize="22dp" />
+        <Button
+            android:id="@+id/forgot_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="131dp"
+            android:layout_marginTop="588dp"
+            android:layout_marginEnd="130dp"
+            android:background="#0000"
+            android:text="Forgot Password?"
+            android:textColor="#828282"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>

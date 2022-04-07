@@ -1,22 +1,12 @@
 package com.example.lyfstile
 
-import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import java.lang.Exception
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -26,30 +16,32 @@ private const val ARG_PARAM2 = "param2"
 class ReviewScreenFrag : Fragment(), View.OnClickListener {
     private var createAccountButton: Button? = null
     private var editButton: Button? = null
-    private var lyfViewModel : LyfViewModel ?= null
-    private var dataList : HashMap<String, Data> ?=null
+    private lateinit var viewModel: LyfViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view=inflater.inflate(R.layout.fragment_review_screen, container, false)
+        val view=inflater.inflate(R.layout.fragment_review, container, false)
+        viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
 
         createAccountButton = view.findViewById(R.id.create_button)
         createAccountButton?.setOnClickListener(this)
 
         editButton = view.findViewById(R.id.edit_button)
         editButton?.setOnClickListener(this)
-        setInfoValues()
+        setInfoValues(view)
         return view
     }
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.create_button -> {
                 try {
-                    view?.let {
+                    viewModel.insert(requireContext(), viewModel.user)
+                    view.let {
                         Navigation.findNavController(it)
-                            .navigate(R.id.action_reviewScreenFrag_to_homeScreenFrag)
+                            .navigate(R.id.action_review_to_homeScreenFrag)
                     }
                 } catch (e: Exception) {
                     throw Exception("Unable to start the camera")
@@ -57,21 +49,26 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
             }
             R.id.edit_button -> {
                 view?.let {
-                    Navigation.findNavController(it)
-                        .navigate(R.id.action_reviewScreenFrag_to_cameraFrag)
                 }
 
             }
         }
     }
-    private fun setInfoValues() {
-    //@todo: Pull from viemodel instead
-    //        findViewById<ImageView>(R.id.imageView)?.setImageBitmap(dataList?.get(PROFILE_PIC)?.data as Bitmap)
-//        findViewById<TextView>(R.id.first_name_box)?.text = dataList?.get(FIRST_NAME)?.data.toString()
-//        findViewById<TextView>(R.id.last_name_box)?.text = dataList?.get(LAST_NAME)?.data.toString()
-//        findViewById<TextView>(R.id.age_box)?.text = dataList?.get(AGE)?.data.toString()
-//        findViewById<TextView>(R.id.sex_box)?.text = dataList?.get(SEX)?.data.toString()
-//        findViewById<TextView>(R.id.height_box)?.text = dataList?.get(HEIGHT)?.data.toString()
-//        findViewById<TextView>(R.id.weight_box)?.text = dataList?.get(WEIGHT)?.data.toString()
+    private fun setInfoValues(view: View) {
+        val user = viewModel!!.user
+//            view.findViewById<ImageView>(R.id.imageView)?.setImageBitmap(dataList?.get(PROFILE_PIC)?.data as Bitmap)
+//        view?.findViewById<EditText>(R.id.first_name_box)?.text = user.firstName as Editable
+
+        view.findViewById<EditText>(R.id.first_name_box)?.setText(user.firstName)
+        view.findViewById<EditText>(R.id.last_name_box)?.setText(user.lastName)
+        view.findViewById<EditText>(R.id.age_box)?.setText(user.age)
+        view.findViewById<EditText>(R.id.sex_box)?.setText(user.sex)
+        view.findViewById<EditText>(R.id.height_box)?.setText(user.height)
+        view.findViewById<EditText>(R.id.weight_box)?.setText(user.weight)
+//        view?.findViewById<EditText>(R.id.last_name_box)?.text = user.lastName as Editable
+//        view?.findViewById<EditText>(R.id.age_box)?.text = user.age as Editable
+//        view?.findViewById<EditText>(R.id.sex_box)?.text = user.sex as Editable
+//        view?.findViewById<EditText>(R.id.height_box)?.text = user.height as Editable
+//        view?.findViewById<EditText>(R.id.weight_box)?.text = user.weight as Editable
     }
 }
