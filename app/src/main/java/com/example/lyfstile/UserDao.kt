@@ -8,9 +8,9 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(userEntity: UserEntity?)
 
-    @Query("UPDATE user_table SET age = :age, age = :age, sex = :sex," +
+    @Query("UPDATE user_table SET age = :age,firstname=:firstname, lastname= :lastname, sex = :sex," +
             " height = :height, weight = :weight, country = :country, city = :city WHERE email = :email")
-    fun updateUser( email: String, age : String, height : String,
+    fun updateUser( email: String, firstname : String, lastname : String, age : String, height : String,
                     weight : String, sex : String, country : String, city : String)
 
 
@@ -19,4 +19,9 @@ interface UserDao {
 
     @Query("SELECT * from user_table ORDER BY email ASC")
     fun getAll(): LiveData<List<UserEntity>>
+
+    @Query("SELECT * from user_table WHERE email = :email")
+    fun getUser(email: String): LiveData<UserEntity>
+
+
 }

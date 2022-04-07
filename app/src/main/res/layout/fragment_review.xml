@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReviewScreenFrag">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="145dp"
+            android:layout_height="188dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="133dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="132dp"
+            android:contentDescription="Profile Picture"
+            app:srcCompat="@mipmap/chad"
+            tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:id="@+id/info_RL_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:orientation="horizontal"
+            tools:ignore="DisableBaselineAlignment">
+
+            <RelativeLayout
+                android:layout_width="311dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/fn_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:background="#0000"
+                    android:fontFamily="@font/shippori"
+                    android:text="First Name:"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/ln_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fn_TV"
+                    android:layout_marginTop="35dp"
+                    android:background="#0000"
+                    android:fontFamily="@font/shippori"
+                    android:text="Last Name:"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/age_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ln_TV"
+                    android:layout_marginTop="35dp"
+                    android:background="#0000"
+                    android:fontFamily="@font/shippori"
+                    android:text="Age:"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/sex_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/age_TV"
+                    android:layout_marginTop="35dp"
+                    android:background="#0000"
+                    android:fontFamily="@font/shippori"
+                    android:text="Sex:"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/height_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sex_TV"
+                    android:layout_marginTop="35dp"
+                    android:background="#0000"
+                    android:fontFamily="@font/shippori"
+                    android:text="Height:"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/weight_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/height_TV"
+                    android:layout_marginTop="35dp"
+                    android:background="#0000"
+                    android:fontFamily="@font/shippori"
+                    android:text="Weight:"
+                    android:textAlignment="center"
+                    android:textSize="22sp"
+                    tools:ignore="HardcodedText" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="311dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/first_name_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/last_name_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/first_name_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/age_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/last_name_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/sex_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/age_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/height_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/sex_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/weight_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/height_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/edit_button"
+            android:layout_width="143dp"
+            android:layout_height="65dp"
+            android:layout_below="@+id/info_RL_TV"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="240dp"
+            android:fontFamily="@font/shippori"
+            android:text="Edit"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/create_button"
+            android:layout_width="143dp"
+            android:layout_height="65dp"
+            android:layout_below="@+id/info_RL_TV"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="240dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/shippori"
+            android:text="Create Account"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+</FrameLayout>

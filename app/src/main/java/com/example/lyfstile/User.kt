@@ -3,7 +3,6 @@ package com.example.lyfstile
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.*
 
 /*
 *
@@ -13,7 +12,7 @@ import java.util.*
 * */
 class User constructor(
     _firstname: String, _lastname: String, _email: String,
-    _password: String, _birthday: String, _sex: String, _height: String,
+    _password: String, _age: String, _sex: String, _height: String,
     _weight: String, _country: String, _city: String, _pfp: Any
 ) : Parcelable {
 
@@ -29,13 +28,27 @@ class User constructor(
     var lastName: String = _lastname
     var email: String = _email
     var password: String = _password
-    var birthday: String = _birthday
+    var age: String = _age
     var height: String = _height
     var weight: String = _weight
     var country: String = _country
     var city: String = _city
     var pfp: Bitmap = _pfp as Bitmap
     var sex: String = _sex
+
+
+    constructor (userEntity: UserEntity) : this() {
+        firstName = userEntity.fn.toString()
+        lastName = userEntity.ln.toString()
+        email = userEntity.email.toString()
+        password = userEntity.password.toString()
+        height = userEntity.height.toString()
+        weight = userEntity.weight.toString()
+        country = userEntity.country.toString()
+        city = userEntity.city.toString()
+        sex = userEntity.sex.toString()
+        age = userEntity.age.toString()
+    }
 
     constructor(parcel: Parcel) : this() {
         firstName = parcel.readString().toString()
@@ -47,7 +60,7 @@ class User constructor(
         country = parcel.readString().toString()
         city = parcel.readString().toString()
         sex = parcel.readString().toString()
-        birthday = parcel.readString().toString()
+        age = parcel.readString().toString()
     }
 
 
@@ -61,7 +74,7 @@ class User constructor(
         out?.writeString(country)
         out?.writeString(city)
         out?.writeString(sex)
-        out?.writeString(birthday)
+        out?.writeString(age)
     }
 
     override fun describeContents(): Int {
@@ -78,17 +91,4 @@ class User constructor(
         }
     }
 
-    // THIS IS TEMPORARY
-    // TODO - We will want to delete this once we get databases - jm
-    fun tempConstruct(){
-        password = TEMPLASTNAME
-        firstName = TEMPFIRSTNAME
-        lastName = TEMPLASTNAME
-        birthday = TEMPDOB
-        sex = TEMPSEX
-        height = TEMPHEIGHT
-        weight = TEMPWEIGHT
-        country = TEMPCOUNTRY
-        city = TEMPCITY
-    }
 }

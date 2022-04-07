@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/Smile"
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="7dp"
+        android:background="#0000"
+        android:fontFamily="@font/shippori"
+        android:text="Take a profile picture!"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="226dp"
+        android:layout_height="206dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="258dp"
+        android:contentDescription="Profile Picture"
+        android:scaleType="fitXY"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Camera"
+        android:layout_width="198dp"
+        android:layout_height="96dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="305dp"
+        android:layout_marginEnd="271dp"
+        android:fontFamily="@font/shippori"
+        android:text="Launch Camera"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="150dp"
+        android:layout_height="59dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="334dp"
+        android:layout_marginEnd="77dp"
+        android:fontFamily="@font/shippori"
+        android:text="Next"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>

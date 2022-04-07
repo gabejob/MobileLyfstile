@@ -1,9 +1,7 @@
 package com.example.lyfstile
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 
 class UserRepository public constructor(private val db: DBHandler) {
 
@@ -26,7 +24,7 @@ class UserRepository public constructor(private val db: DBHandler) {
         fun update(context: Context, user: User)
         {
             db = initializeDB(context)
-            db!!.dao().updateUser(user.email, user.birthday, user.height, user.weight, user.sex, user.country, user.city)
+            db!!.dao().updateUser(user.email,user.firstName,user.lastName, user.age, user.height, user.weight, user.sex, user.country, user.city)
         }
 
 
@@ -34,6 +32,14 @@ class UserRepository public constructor(private val db: DBHandler) {
             db = initializeDB(context)
             data = db?.dao()?.getAll()
             return data
+        }
+
+        fun getUser(context: Context, email: String): User {
+            db = initializeDB(context)
+
+            val user = db?.dao()?.getUser(email)
+
+            return User()
         }
 
         fun initializeDB(context: Context): DBHandler {
