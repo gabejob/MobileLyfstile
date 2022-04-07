@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_username_pass">
+
+    <fragment
+        android:id="@+id/fragment_username_pass"
+        android:name="com.example.lyfstile.fragment_username_pass"
+        android:label="fragment_username_pass_fragment"
+        tools:layout="@layout/fragment_username_pass_fragment" />
+</navigation>
