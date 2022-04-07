@@ -1,11 +1,9 @@
 package com.example.lyfstile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 
 /**
@@ -14,16 +12,12 @@ import androidx.navigation.Navigation
  * create an instance of this fragment.
  */
 class WelcomeScreenFrag : Fragment(), View.OnClickListener {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_welcome_screen, container, false)
 
         val createAccountButton = view.findViewById<Button>(R.id.new_user)
@@ -36,13 +30,17 @@ class WelcomeScreenFrag : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.new_user -> {
-                Navigation.findNavController(view)
-                    .navigate(R.id.action_testHomeScreenFrag_to_usernamePassScreenTest)
+                view.let {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_welcome_screen_to_registration)
+                }
             }
             R.id.Log_in -> {
-
+                view.let {
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_welcome_to_loginScreenFrag)
+                }
             }
         }
     }
-
 }

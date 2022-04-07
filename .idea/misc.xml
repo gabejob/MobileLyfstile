@@ -33,44 +33,84 @@
         <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/new_user_info.xml" value="0.3671875" />
         <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/review_info.xml" value="0.3671875" />
         <entry key="..\:/Users/Alexromero/AndroidStudioProjects/MobileLyfstile/app/src/main/res/layout/take_profile_pic.xml" value="0.20572916666666666" />
+        <entry key="app/src/main/res/drawable-anydpi/hiker_icon.xml" value="0.2105" />
+        <entry key="app/src/main/res/drawable-anydpi/weather_icon.xml" value="0.2105" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2105" />
         <entry key="app/src/main/res/drawable/chad_background.xml" value="0.208" />
+        <entry key="app/src/main/res/drawable/ic_home_background.xml" value="0.2105" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2105" />
         <entry key="app/src/main/res/layout-land/activity_health.xml" value="0.31922398589065254" />
+        <entry key="app/src/main/res/layout-land/activity_home_screen.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/activity_login_existing_account.xml" value="0.27028218694885364" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.31922398589065254" />
+        <entry key="app/src/main/res/layout-land/activity_map.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/activity_username_pass_screen.xml" value="0.27028218694885364" />
         <entry key="app/src/main/res/layout-land/activity_weather.xml" value="0.31922398589065254" />
         <entry key="app/src/main/res/layout-land/fragment_actionbar.xml" value="0.31922398589065254" />
+        <entry key="app/src/main/res/layout-land/fragment_camera.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_health.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_home.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_login_screen.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_maps.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_new_user_info.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_registration.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_review.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_weather.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/fragment_welcome_screen.xml" value="0.27028218694885364" />
         <entry key="app/src/main/res/layout-land/new_user_info.xml" value="0.24735449735449735" />
+        <entry key="app/src/main/res/layout-land/new_user_info_2.xml" value="0.27028218694885364" />
+        <entry key="app/src/main/res/layout-land/review_info.xml" value="0.27028218694885364" />
         <entry key="app/src/main/res/layout-land/settings.xml" value="0.31922398589065254" />
+        <entry key="app/src/main/res/layout-land/take_profile_pic.xml" value="0.27028218694885364" />
         <entry key="app/src/main/res/layout-sw600dp/activity_home_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout-sw600dp/activity_login_existing_account.xml" value="0.219140625" />
         <entry key="app/src/main/res/layout-sw600dp/activity_map.xml" value="0.219140625" />
         <entry key="app/src/main/res/layout-sw600dp/new_user_info.xml" value="0.219140625" />
+        <entry key="app/src/main/res/layout-sw600dp/new_user_info_2.xml" value="0.239453125" />
         <entry key="app/src/main/res/layout-sw600dp/review_info.xml" value="0.28930808955306353" />
+        <entry key="app/src/main/res/layout/activity_entry_point.xml" value="0.31927083333333334" />
         <entry key="app/src/main/res/layout/activity_health.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/activity_login_existing_account.xml" value="0.18297101449275363" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18297101449275363" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27849537678157965" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.24617269764775818" />
         <entry key="app/src/main/res/layout/activity_username_pass_screen.xml" value="0.18297101449275363" />
         <entry key="app/src/main/res/layout/activity_weather.xml" value="0.22" />
         <entry key="app/src/main/res/layout/edit_review_info.xml" value="0.3847637010657269" />
         <entry key="app/src/main/res/layout/fragment_actionbar.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/fragment_bmi.xml" value="0.22418478260869565" />
-        <entry key="app/src/main/res/layout/fragment_health.xml" value="0.2921875" />
+        <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/fragment_camera_2.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/layout/fragment_health.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.203125" />
         <entry key="app/src/main/res/layout/fragment_login_screen.xml" value="0.2921875" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.2921875" />
+        <entry key="app/src/main/res/layout/fragment_modify_goals.xml" value="0.31927083333333334" />
         <entry key="app/src/main/res/layout/fragment_new_user_info.xml" value="0.2921875" />
-        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.3460662841796875" />
+        <entry key="app/src/main/res/layout/fragment_new_user_info_2.xml" value="0.12916666666666668" />
+        <entry key="app/src/main/res/layout/fragment_picker.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/layout/fragment_registration.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/fragment_review.xml" value="0.25149786108297695" />
+        <entry key="app/src/main/res/layout/fragment_review_screen.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.23547210693359372" />
         <entry key="app/src/main/res/layout/fragment_test_home_screen.xml" value="0.2921875" />
         <entry key="app/src/main/res/layout/fragment_text_submit.xml" value="0.18297101449275363" />
         <entry key="app/src/main/res/layout/fragment_username_pass_screen_test.xml" value="0.2921875" />
-        <entry key="app/src/main/res/layout/fragment_weather.xml" value="0.2921875" />
+        <entry key="app/src/main/res/layout/fragment_username_pass_screen_test_2.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/layout/fragment_weather.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_welcome_screen.xml" value="0.2921875" />
         <entry key="app/src/main/res/layout/new_user_info.xml" value="0.22418478260869565" />
+        <entry key="app/src/main/res/layout/new_user_info_2.xml" value="0.31927083333333334" />
         <entry key="app/src/main/res/layout/review_info.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/settings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/take_profile_pic.xml" value="0.14209726443768997" />
+        <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.203125" />
+        <entry key="app/src/main/res/menu/menu_toolbar.xml" value="0.203125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/chad.xml" value="0.301" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/chad_round.xml" value="0.301" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_home.xml" value="0.2105" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2105" />
       </map>
     </option>
   </component>

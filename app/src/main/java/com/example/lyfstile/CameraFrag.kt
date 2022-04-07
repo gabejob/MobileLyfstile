@@ -4,22 +4,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
+import android.view.*
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import java.lang.Exception
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -39,7 +29,7 @@ class CameraFrag : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_camera, container, false)
-        lyfViewModel = ViewModelProvider( this).get(LyfViewModel::class.java)
+        lyfViewModel = ViewModelProvider( requireActivity())[LyfViewModel::class.java]
 
         val takePictureButton = view.findViewById<Button>(R.id.Camera)
         takePictureButton.setOnClickListener(this)
@@ -72,7 +62,7 @@ class CameraFrag : Fragment(), View.OnClickListener {
                 } else {
                     view?.let {
                         Navigation.findNavController(it)
-                            .navigate(R.id.action_cameraFrag_to_reviewScreenFrag)
+                            .navigate(R.id.action_camera_to_review)
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package com.example.lyfstile
 
-import android.R.attr.password
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
@@ -8,14 +7,10 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.provider.Telephony.Carriers.PASSWORD
-import android.text.Editable
-import android.text.InputType
-import android.text.TextWatcher
+import android.text.*
 import android.util.Patterns
+import android.view.*
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -38,8 +33,6 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
     var autoCompleteEnterTxt : AutoCompleteTextView ?= null;
     var value = ""
 
-
-
     //Associate the callback with this Fragment
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -58,7 +51,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         if(tag == COUNTRY || tag == CITY) {
             view = inflater.inflate(R.layout.fragment_auto_complete_textview, container, false)
             autoCompleteEnterTxt = view?.findViewById(R.id.autoCompleteEnter_box) as AutoCompleteTextView
-            if(!value.isNullOrEmpty()) {
+            if(value.isNotEmpty()) {
                 autoCompleteEnterTxt!!.setText(value)
             }
 
@@ -67,7 +60,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         }else{
             view = inflater.inflate(R.layout.fragment_text_submit, container, false)
             enterTxt = view.findViewById(R.id.enter_box) as EditText
-            if(!value.isNullOrEmpty()) {
+            if(value.isNotEmpty()) {
                 enterTxt!!.setText(value)
             }
         }
@@ -84,8 +77,6 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
                 }
                 false
             }
-        }else
-        {
         }
 
         return view
@@ -369,7 +360,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
 
     override fun onDateSet(view: DatePicker?, year : Int, month : Int, day: Int) {
 
-        val date = "$month/$day/$year"
+        val date = "${month+1}/$day/$year"
         enterTxt?.setText(date)
         passData(enterTxt?.text.toString())
         var keyboard =
