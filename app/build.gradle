@@ -38,6 +38,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.3.5'
     def nav_version = "2.4.1"
 
     // Java language implementation
