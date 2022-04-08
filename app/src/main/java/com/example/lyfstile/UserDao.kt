@@ -13,7 +13,6 @@ interface UserDao {
     fun updateUser( email: String, firstname : String, lastname : String, age : String, height : String,
                     weight : String, sex : String, country : String, city : String)
 
-
     @Query("DELETE FROM user_table WHERE email = :email")
             fun deleteAll(email : String)
 
@@ -22,6 +21,4 @@ interface UserDao {
 
     @Query("SELECT * from user_table WHERE email = :email")
     fun getUser(email: String): LiveData<UserEntity>
-
-
 }

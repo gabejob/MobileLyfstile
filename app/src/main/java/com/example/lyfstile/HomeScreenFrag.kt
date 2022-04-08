@@ -1,7 +1,9 @@
 package com.example.lyfstile
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -22,7 +24,7 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
 
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
 
-        val bmgFragment = BMIFragment()
+        val bmgFragment = BMIFragment(viewModel.user)
         val actionbarFragment = ActionbarFragment()
 
         val fragtrans = childFragmentManager.beginTransaction()
@@ -30,6 +32,8 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
         fragtrans.replace(R.id.action_bar_fragment, actionbarFragment, ACTION_BAR)
         fragtrans.commit()
         actionbarFragment.bindClickInterface(this)
+
+        view.findViewById<ImageView>(R.id.pfp_box)?.setImageBitmap(BitmapFactory.decodeByteArray(viewModel.user.pfp, 0,viewModel.user.pfp.size))
         return view
     }
 
@@ -61,5 +65,4 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
             }
         }
     }
-
 }

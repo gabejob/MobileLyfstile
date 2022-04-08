@@ -4,42 +4,53 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 
 class UserRepository public constructor(private val db: DBHandler) {
-
-
     companion object {
-
         private var db: DBHandler? = null
-        var data : LiveData<List<UserEntity>>? = null
+        var data: LiveData<List<UserEntity>>? = null
 
         fun insert(context: Context, user: User) {
             db = initializeDB(context)
 
-           val insert = UserEntity(
-                user?.email, user?.password,null,
-                null, null, null, null, null, null, null
+            val insert = UserEntity(
+                user.email,
+                user.password,
+                user.firstName,
+                user.lastName,
+                user.age,
+                user.height,
+                user.weight,
+                user.sex,
+                user.country,
+                user.city,
+                user.pfp
             )
-           db!!.dao().insert(insert)
+            db!!.dao().insert(insert)
         }
 
-        fun update(context: Context, user: User)
-        {
+        fun update(context: Context, user: User) {
             db = initializeDB(context)
-            db!!.dao().updateUser(user.email,user.firstName,user.lastName, user.age, user.height, user.weight, user.sex, user.country, user.city)
+            db!!.dao().updateUser(
+                user.email,
+                user.firstName,
+                user.lastName,
+                user.age,
+                user.height,
+                user.weight,
+                user.sex,
+                user.country,
+                user.city
+            )
         }
 
-
-        fun allUsers(context: Context) :LiveData<List<UserEntity>>? {
+        fun allUsers(context: Context): LiveData<List<UserEntity>>? {
             db = initializeDB(context)
             data = db?.dao()?.getAll()
             return data
         }
 
-        fun getUser(context: Context, email: String): User {
+        fun getUser(context: Context, email: String): LiveData<UserEntity>? {
             db = initializeDB(context)
-
-            val user = db?.dao()?.getUser(email)
-
-            return User()
+            return db?.dao()?.getUser(email)
         }
 
         fun initializeDB(context: Context): DBHandler {

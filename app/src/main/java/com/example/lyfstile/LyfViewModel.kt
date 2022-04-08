@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 public class LyfViewModel : ViewModel() {
 
-    val user = User()
+    var user = User()
     var data: LiveData<List<UserEntity>>? = null
 
     fun insert(context: Context, user: User) = GlobalScope.launch {
@@ -25,7 +25,7 @@ public class LyfViewModel : ViewModel() {
         return data
     }
 
-    fun getUser(context: Context, email: String): User {
+    fun getUser(context: Context, email: String): LiveData<UserEntity>? {
         return UserRepository.getUser(context, email)
     }
 }
