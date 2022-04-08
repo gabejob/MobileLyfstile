@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -22,8 +23,7 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view=inflater.inflate(R.layout.fragment_review, container, false)
+        val view = inflater.inflate(R.layout.fragment_review, container, false)
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
 
         createAccountButton = view.findViewById(R.id.create_button)
@@ -34,6 +34,7 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
         setInfoValues(view)
         return view
     }
+
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.create_button -> {
@@ -48,27 +49,21 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
                 }
             }
             R.id.edit_button -> {
-                view?.let {
+                view.let {
                 }
-
             }
         }
     }
-    private fun setInfoValues(view: View) {
-        val user = viewModel!!.user
-//            view.findViewById<ImageView>(R.id.imageView)?.setImageBitmap(dataList?.get(PROFILE_PIC)?.data as Bitmap)
-//        view?.findViewById<EditText>(R.id.first_name_box)?.text = user.firstName as Editable
 
+    private fun setInfoValues(view: View) {
+        val user = viewModel.user
+
+        view.findViewById<ImageView>(R.id.imageView)?.setImageBitmap(BitmapFactory.decodeByteArray(user.pfp, 0,user.pfp.size))
         view.findViewById<EditText>(R.id.first_name_box)?.setText(user.firstName)
         view.findViewById<EditText>(R.id.last_name_box)?.setText(user.lastName)
         view.findViewById<EditText>(R.id.age_box)?.setText(user.age)
         view.findViewById<EditText>(R.id.sex_box)?.setText(user.sex)
         view.findViewById<EditText>(R.id.height_box)?.setText(user.height)
         view.findViewById<EditText>(R.id.weight_box)?.setText(user.weight)
-//        view?.findViewById<EditText>(R.id.last_name_box)?.text = user.lastName as Editable
-//        view?.findViewById<EditText>(R.id.age_box)?.text = user.age as Editable
-//        view?.findViewById<EditText>(R.id.sex_box)?.text = user.sex as Editable
-//        view?.findViewById<EditText>(R.id.height_box)?.text = user.height as Editable
-//        view?.findViewById<EditText>(R.id.weight_box)?.text = user.weight as Editable
     }
 }

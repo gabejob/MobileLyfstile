@@ -15,12 +15,5 @@ class MainActivity : AppCompatActivity() {
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         lyfViewModel = ViewModelProvider(this)[LyfViewModel::class.java]
-        lyfViewModel!!.allUsers(this)?.observe(this){
-            if (it.isNotEmpty()){
-                println(it[0].email)
-            }
-            else
-                print("NOTHING BITCH")
-        }
     }
 }

@@ -18,7 +18,7 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
     private var login: Button? = null
     private var email = ""
     private var password = ""
-    private var userEntity: UserEntity? = null
+    private var userEntity: List<UserEntity> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +39,6 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
         fragtrans.commit()
 
         login = view.findViewById<Button>(R.id.Login_button)
-//        login?.isEnabled = false
 
         val forgot = view.findViewById<Button>(R.id.forgot_pass)
         forgot.setOnClickListener(this)
@@ -47,7 +46,7 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
 
         viewModel.allUsers(requireActivity())!!.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()){
-                userEntity = it.first()
+                userEntity = it
             }
         }
 
@@ -61,7 +60,7 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
                 if (email.isNotBlank() && password.isNotBlank()) {
                     val cred = verifyCredentials(email, password)
                     if (cred) {
-                        view?.let {
+                        view.let {
                             Navigation.findNavController(it)
                                 .navigate(R.id.action_loginScreenFrag_to_homeScreenFrag)
                         }
@@ -82,9 +81,15 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
 
     private fun verifyCredentials(email: String, password: String): Boolean {
         var isVerified = false
-            if (userEntity?.email == email && userEntity?.password == password) {
+        val foundUser = userEntity.find {
+            it.email == email && it.password == password
+        }
+            if (foundUser != null) {
                 login?.isEnabled = true
                 isVerified = true
+                viewModel.getUser(requireContext(), email)!!.observe(viewLifecycleOwner){
+                    viewModel.user = User(it)
+                }
             }
         return isVerified
     }

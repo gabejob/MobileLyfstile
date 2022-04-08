@@ -1,6 +1,5 @@
 package com.example.lyfstile
 
-import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -16,10 +15,9 @@ class User constructor(
     _weight: String, _country: String, _city: String, _pfp: Any
 ) : Parcelable {
 
-
     constructor() : this(
         "", "", "",
-        "", "", "", "", "", "", "", Bitmap.createBitmap(1,1,Bitmap.Config.ARGB_8888)
+        "", "", "", "", "", "", "", ByteArray(0)
     ) {
 
     }
@@ -29,25 +27,25 @@ class User constructor(
     var email: String = _email
     var password: String = _password
     var age: String = _age
+    var sex: String = _sex
     var height: String = _height
     var weight: String = _weight
     var country: String = _country
     var city: String = _city
-    var pfp: Bitmap = _pfp as Bitmap
-    var sex: String = _sex
-
+    var pfp: ByteArray = _pfp as ByteArray
 
     constructor (userEntity: UserEntity) : this() {
         firstName = userEntity.fn.toString()
         lastName = userEntity.ln.toString()
         email = userEntity.email.toString()
         password = userEntity.password.toString()
+        sex = userEntity.sex.toString()
+        age = userEntity.age.toString()
         height = userEntity.height.toString()
         weight = userEntity.weight.toString()
         country = userEntity.country.toString()
         city = userEntity.city.toString()
-        sex = userEntity.sex.toString()
-        age = userEntity.age.toString()
+        pfp = userEntity.pfp
     }
 
     constructor(parcel: Parcel) : this() {
@@ -55,26 +53,25 @@ class User constructor(
         lastName = parcel.readString().toString()
         email = parcel.readString().toString()
         password = parcel.readString().toString()
+        sex = parcel.readString().toString()
+        age = parcel.readString().toString()
         height = parcel.readString().toString()
         weight = parcel.readString().toString()
         country = parcel.readString().toString()
         city = parcel.readString().toString()
-        sex = parcel.readString().toString()
-        age = parcel.readString().toString()
     }
-
 
     override fun writeToParcel(out: Parcel?, flags: Int) {
         out?.writeString(firstName)
         out?.writeString(lastName)
         out?.writeString(email)
         out?.writeString(password)
+        out?.writeString(sex)
+        out?.writeString(age)
         out?.writeString(height)
         out?.writeString(weight)
         out?.writeString(country)
         out?.writeString(city)
-        out?.writeString(sex)
-        out?.writeString(age)
     }
 
     override fun describeContents(): Int {
@@ -90,5 +87,4 @@ class User constructor(
             return arrayOfNulls(size)
         }
     }
-
 }

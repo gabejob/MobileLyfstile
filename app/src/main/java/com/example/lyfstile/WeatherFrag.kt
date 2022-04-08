@@ -1,36 +1,22 @@
 package com.example.lyfstile
 
 import android.annotation.SuppressLint
-import android.location.Location
-import android.location.LocationListener
 import android.os.Bundle
-import android.os.StrictMode
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 
 /**
  * A simple [Fragment] subclass.
  * Use the [WeatherFrag.newInstance] factory method to
  * create an instance of this fragment.
  */
-class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface, LocationListener {
+class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
     lateinit var viewModel: LyfViewModel
-    private var longitude = 0.0
-    private var latitude = 0.0
-    private val appID = "241f90adea0d5886a14c0dcfd83b5187"
-    private val url =
-        "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
-
+    private val weatherRepository = WeatherRepository()
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -49,39 +35,11 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface, LocationListen
         actionbarFragment.bindClickInterface(this)
 
         try {
-            val weather = getWeather()
-
-            view.findViewById<TextView>(R.id.WeatherStatus)?.text =
-                "Today's weather: ${weather.current.weather.first().main}"
-            view.findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
-            view.findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
-                "Feels like: ${weather.current.feels_like} °F"
-            view.findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
-
-            when (weather.current.weather.first().main) {
-                "Clear" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clear)
-                "Rain" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.rain)
-                "Clouds" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
-                "Snow" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.snow)
-                else -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
-            }
+            val weather = weatherRepository.getWeather()
+            setWeather(view, weather)
         } catch (e: Exception) {
-            val weather = getWeatherNoGust()
-
-            view.findViewById<TextView>(R.id.WeatherStatus)?.text =
-                "Today's weather: ${weather.current.weather.first().main}"
-            view.findViewById<TextView>(R.id.Temperature)?.text = "Temperature: ${weather.current.temp} °F"
-            view.findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
-                "Feels like: ${weather.current.feels_like} °F"
-            view.findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
-
-            when (weather.current.weather.first().main) {
-                "Clear" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clear)
-                "Rain" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.rain)
-                "Clouds" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
-                "Snow" -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.snow)
-                else -> view.findViewById<ImageView>(R.id.weather_image).setImageResource(R.drawable.clouds)
-            }
+            val weather = weatherRepository.getWeatherNoGust()
+            setWeatherNoGust(view, weather)
         }
         return view
     }
@@ -115,51 +73,51 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface, LocationListen
         }
     }
 
-    override fun onLocationChanged(location: Location) {
-        latitude = location.latitude
-        longitude = location.longitude
-    }
+    @SuppressLint("SetTextI18n")
+    fun setWeather(view: View, weather: WeatherInfo) {
+        view.findViewById<TextView>(R.id.WeatherStatus)?.text =
+            "Today's weather: ${weather.current.weather.first().main}"
+        view.findViewById<TextView>(R.id.Temperature)?.text =
+            "Temperature: ${weather.current.temp} °F"
+        view.findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
+            "Feels like: ${weather.current.feels_like} °F"
+        view.findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
 
-    private fun getWeather(): WeatherInfo {
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-
-        val mURL = URL(url)
-        with(mURL.openConnection() as HttpURLConnection) {
-            BufferedReader(InputStreamReader(inputStream)).use {
-                val response = StringBuffer()
-
-                var inputLine = it.readLine()
-                while (inputLine != null) {
-                    response.append(inputLine)
-                    inputLine = it.readLine()
-                }
-
-                val mapper = jacksonObjectMapper()
-                val json = response.toString()
-                return mapper.readValue<WeatherInfo>(json)
-            }
+        when (weather.current.weather.first().main) {
+            "Clear" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.clear)
+            "Rain" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.rain)
+            "Clouds" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.clouds)
+            "Snow" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.snow)
+            else -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.clouds)
         }
     }
 
-    private fun getWeatherNoGust(): WeatherInfoNoGust {
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
+    @SuppressLint("SetTextI18n")
+    fun setWeatherNoGust(view: View, weather: WeatherInfoNoGust) {
+        view.findViewById<TextView>(R.id.WeatherStatus)?.text =
+            "Today's weather: ${weather.current.weather.first().main}"
+        view.findViewById<TextView>(R.id.Temperature)?.text =
+            "Temperature: ${weather.current.temp} °F"
+        view.findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
+            "Feels like: ${weather.current.feels_like} °F"
+        view.findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
 
-        val mURL = URL(url)
-        with(mURL.openConnection() as HttpURLConnection) {
-            BufferedReader(InputStreamReader(inputStream)).use {
-                val response = StringBuffer()
-
-                var inputLine = it.readLine()
-                while (inputLine != null) {
-                    response.append(inputLine)
-                    inputLine = it.readLine()
-                }
-                val mapper = jacksonObjectMapper()
-                val json = response.toString()
-                return mapper.readValue<WeatherInfoNoGust>(json)
-            }
+        when (weather.current.weather.first().main) {
+            "Clear" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.clear)
+            "Rain" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.rain)
+            "Clouds" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.clouds)
+            "Snow" -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.snow)
+            else -> view.findViewById<ImageView>(R.id.weather_image)
+                .setImageResource(R.drawable.clouds)
         }
     }
 }
