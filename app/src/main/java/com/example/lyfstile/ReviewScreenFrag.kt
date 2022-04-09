@@ -36,7 +36,7 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
         setInfoValues(view)
         return view
     }
-
+    
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.create_button -> {
