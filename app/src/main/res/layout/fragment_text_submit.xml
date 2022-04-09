@@ -17,6 +17,7 @@
         android:gravity="center"
         android:singleLine="true"
         android:text=""
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        />
 
 </LinearLayout>

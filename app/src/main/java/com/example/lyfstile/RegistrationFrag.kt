@@ -1,5 +1,6 @@
 package com.example.lyfstile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
@@ -18,6 +19,11 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
     private var nextButton: Button? = null
     lateinit var viewModel: LyfViewModel
     private var passwordMatch = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.view?.clearFocus()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +47,10 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
             PASSWORD_CONFIRMED
         )
 
+/*        view.isFocusable = true
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.clearFocus()*/
         fragtrans.commit()
 
         nextButton = view.findViewById<Button>(R.id.next_button)
@@ -48,6 +58,12 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
         nextButton?.isEnabled = false
 
         return view
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        view?.clearFocus()
     }
 
     override fun onClick(p0: View?) {
@@ -89,6 +105,8 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
                 if (viewModel.user.password == data.data.toString()) {
                     passwordMatch = true
                     nextButton?.isEnabled = true
+                }else{
+                    Toast.makeText(view?.context, "Passwords entered do not match!", Toast.LENGTH_SHORT).show()
                 }
             }
         }

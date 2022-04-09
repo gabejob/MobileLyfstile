@@ -14,6 +14,7 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import java.util.*
 import java.util.regex.Pattern
@@ -25,12 +26,11 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-
-class TextSubmitFragment : Fragment(),  OnDateSetListener {
+class TextSubmitFragment : Fragment(), OnDateSetListener {
     lateinit var dataPasser: PassData;
-    var enterTxt : EditText ?= null;
+    var enterTxt: EditText? = null;
     var isValid = false
-    var autoCompleteEnterTxt : AutoCompleteTextView ?= null;
+    var autoCompleteEnterTxt: AutoCompleteTextView? = null;
     var value = ""
 
     //Associate the callback with this Fragment
@@ -39,37 +39,43 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         try {
             dataPasser = parentFragment as PassData
         } catch (e: ClassCastException) {
-         }
+        }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        var view: View ?= null
+        var view: View? = null
         // AutoComplete is created differently, thus we have to check for the fields
-        if(tag == COUNTRY || tag == CITY) {
+        if (tag == COUNTRY || tag == CITY) {
             view = inflater.inflate(R.layout.fragment_auto_complete_textview, container, false)
-            autoCompleteEnterTxt = view?.findViewById(R.id.autoCompleteEnter_box) as AutoCompleteTextView
-            if(value.isNotEmpty()) {
+            autoCompleteEnterTxt =
+                view?.findViewById(R.id.autoCompleteEnter_box) as AutoCompleteTextView
+            if (value.isNotEmpty()) {
                 autoCompleteEnterTxt!!.setText(value)
             }
 
             createAdapter()
 
-        }else{
+        } else {
             view = inflater.inflate(R.layout.fragment_text_submit, container, false)
             enterTxt = view.findViewById(R.id.enter_box) as EditText
-            if(value.isNotEmpty()) {
+            if (value.isNotEmpty()) {
                 enterTxt!!.setText(value)
             }
+
+            enterTxt?.clearFocus()
+/*            val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm!!.hideSoftInputFromWindow(view.windowToken, 0)*/
         }
 
         setContent()
 
         //May look to move this into its own function for readability,
         //Makes keyboard disappear when enter/submit is fixed, still a little buggy
-        if(tag != AGE || tag != COUNTRY) {
+        if (tag != AGE || tag != COUNTRY) {
             enterTxt?.setOnEditorActionListener { view, actionId, keyEvent ->
                 if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent?.keyCode == KEYCODE_ENTER) {
                     passData(enterTxt?.text.toString())
@@ -106,68 +112,84 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         }
     }
 
-    fun requestFocus()
-    {
+    fun requestFocus() {
         enterTxt?.requestFocus()
     }
- /**
- *
- * Method for flow control:
- * for whatever reason, having two different listeners breaks everything,
- * so keep them separate
- *
- * */
-    private fun setContent()
-    {
 
-      when(tag)
-        {
-            AGE ->
-            {
-                enterTxt?.clearFocus()
-                enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showDatePickerDialog() } }
+    /**
+     *
+     * Method for flow control:
+     * for whatever reason, having two different listeners breaks everything,
+     * so keep them separate
+     *
+     * */
+    private fun setContent() {
+
+        when (tag) {
+            AGE -> {
+                enterTxt?.setOnFocusChangeListener { view, b ->
+                    if (b) {
+                        showDatePickerDialog()
+                    }
+                }
                 enterTxt?.hint = "MM/DD/YYYY"
             }
-          COUNTRY ->
-          {
-              autoCompleteEnterTxt?.hint = "US"
-          }
-          CITY ->
-          {
-              autoCompleteEnterTxt?.hint = "Salt Lake City"
-          }
-          WEIGHT->
-          {
-              enterTxt?.clearFocus()
-              enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showNumberPickerDialog(WEIGHT) } }
-              enterTxt?.hint = "xxx lbs, xxxx oz"
-          }
-          HEIGHT->
-          {
-              enterTxt?.clearFocus()
-              enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showNumberPickerDialog(HEIGHT) } }
-              enterTxt?.hint = "xx ft, xx in"
-          }
-          SEX ->
-          {
-              enterTxt?.clearFocus()
-              enterTxt?.setOnFocusChangeListener { view, b -> if(b){ showSexPickerDialog() } }
-              enterTxt?.hint = "Sex"
-          }
+            COUNTRY -> {
+                autoCompleteEnterTxt?.hint = "US"
+            }
+            CITY -> {
+                autoCompleteEnterTxt?.hint = "Salt Lake City"
+            }
+            WEIGHT -> {
+                enterTxt?.setOnFocusChangeListener { view, b ->
+                    if (b) {
+                        showNumberPickerDialog(WEIGHT)
+                    }
+                }
+                enterTxt?.hint = "xxx lbs, xxxx oz"
+            }
+            HEIGHT -> {
+                enterTxt?.setOnFocusChangeListener { view, b ->
+                    if (b) {
+                        showNumberPickerDialog(HEIGHT)
+                    }
+                }
+                enterTxt?.hint = "xx ft, xx in"
+            }
+            SEX -> {
+                enterTxt?.setOnFocusChangeListener { view, b ->
+                    if (b) {
+                        showSexPickerDialog()
+                    }
+                }
+                enterTxt?.hint = "Sex"
+            }
             //Adds email req.
-            EMAIL ->{
+            EMAIL -> {
                 enterTxt?.addTextChangedListener(watcher)
-                enterTxt?.hint = "example@example.com"}
+                enterTxt?.hint = "example@example.com"
+            }
             //Adds password stars
             PASSWORD, PASSWORD_CONFIRMED -> {
                 enterTxt?.addTextChangedListener(watcher)
-                enterTxt?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                enterTxt?.clearFocus()
+                enterTxt?.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
             }
         }
-        enterTxt?.clearFocus()
-    }
 
+/*        view?.isFocusableInTouchMode = true
+        view?.isFocusable = true
+        view?.requestFocus()
+        view?.clearFocus()
+
+        enterTxt?.isFocusableInTouchMode = true
+        enterTxt?.isFocusable = true
+        enterTxt?.requestFocus()
+        enterTxt?.clearFocus()*/
+
+/*        InputMethodManager.get*/
+    }
 
 
     /*
@@ -175,9 +197,8 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         <string>.isValidEmail() -> Returns -> T/F
         matching <***>@<***>.<***> pattern
      */
-    private fun CharSequence?.isValidEmail() : Boolean
-    {
-        if(!isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches())
+    private fun CharSequence?.isValidEmail(): Boolean {
+        if (!isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches())
             return true
         return false
 
@@ -188,29 +209,60 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         <string>.isValidEmail() -> Returns -> T/F
         matching <***>@<***>.<***> pattern
      */
-    private fun CharSequence?.isValidPassword() : Boolean
-    {
+    private fun CharSequence?.isValidPassword(): Boolean {
 
         val PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
         val pat = Pattern.compile(PASSWORD_PATTERN)
-        if(!isNullOrEmpty() && pat.matcher(this).matches())
+        if (!isNullOrEmpty() && pat.matcher(this).matches())
             return true
         return false
 
 
     }
 
+    /**
+     *
+     *
+     * Method to delegate click flow control
+     *
+     *
+     * */
+    /* override fun onClick(view: View?) {
+         when(view?.id) {
+             R.id.enter_box ->
+             {
+                 when(tag) {
+                     AGE ->
+                     {
+                        showDatePickerDialog()
+                     }
+                     WEIGHT ->
+                     {
+                         showNumberPickerDialog(WEIGHT)
+                     }
+                     HEIGHT ->
+                     {
+                         showNumberPickerDialog(HEIGHT)
+                     }
+                     SEX ->
+                     {
+                         showSexPickerDialog()
+                     }
+                 }
+             }
+
+     }
+ }
+ */
     private fun showSexPickerDialog() {
 
         val builder = AlertDialog.Builder(requireContext())
         var checked = 1
-        enterTxt?.setText("Female")
 
         var options = resources.getStringArray(R.array.sex_array) as Array<String>
         builder.setTitle("Choose Sex:")
-            .setSingleChoiceItems(R.array.sex_array,checked,
-                DialogInterface.OnClickListener{
-                        _, which ->
+            .setSingleChoiceItems(R.array.sex_array, checked,
+                DialogInterface.OnClickListener { _, which ->
                     //For some reason this is what I have to do to get this to work?
                     var s = options[which]
                     enterTxt?.setText(s)
@@ -228,12 +280,12 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         builder.show()
     }
 
-    private fun closeKeyboard()
-    {
+    private fun closeKeyboard() {
         var keyboard =
             context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyboard.hideSoftInputFromWindow(enterTxt?.windowToken, 0)
     }
+
     /**
      *
      *
@@ -242,8 +294,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
      *
      *
      * */
-    private fun showNumberPickerDialog(type : String)
-    {
+    private fun showNumberPickerDialog(type: String) {
         val inflater = layoutInflater
         val dialogLayout: View = inflater.inflate(R.layout.fragment_picker, null)
         val pickerOne = dialogLayout.findViewById<NumberPicker>(R.id.number_picker_1)
@@ -253,35 +304,32 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         var textType1 = ""
         var textType2 = ""
 
-        pickerOne.minValue=0
-        pickerOne.maxValue=12
-        pickerOne.value=6
-        pickerTwo.minValue=0
-        pickerTwo.maxValue=12
-        pickerTwo.value=6
+        pickerOne.minValue = 0
+        pickerOne.maxValue = 12
+        pickerOne.value = 6
+        pickerTwo.minValue = 0
+        pickerTwo.maxValue = 12
+        pickerTwo.value = 6
         //Check for the type of text needed to display
         //@todo: add in metric system
-        when(type)
-        {
-            WEIGHT ->
-            {
-                pickerOne.minValue=0
-                pickerOne.maxValue=1000
-                pickerOne.value=150
-                pickerTwo.minValue=0
-                pickerTwo.maxValue=1000
-                pickerTwo.value=0
+        when (type) {
+            WEIGHT -> {
+                pickerOne.minValue = 0
+                pickerOne.maxValue = 1000
+                pickerOne.value = 150
+                pickerTwo.minValue = 0
+                pickerTwo.maxValue = 1000
+                pickerTwo.value = 0
 
-                textOne?.text="Pounds"
-                textTwo?.text="Ounces"
+                textOne?.text = "Pounds"
+                textTwo?.text = "Ounces"
 
                 textType1 = "lbs"
                 textType2 = "oz"
             }
-            HEIGHT ->
-            {
-                textOne?.text="Feet"
-                textTwo?.text="Inches"
+            HEIGHT -> {
+                textOne?.text = "Feet"
+                textTwo?.text = "Inches"
 
                 textType1 = "ft"
                 textType2 = "in"
@@ -299,7 +347,8 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         builder.setPositiveButton(
             "OK"
         ) { _, _ ->
-            val weight = pickerOne.value.toString() + " "+textType1+", " + pickerTwo.value.toString() + " "+textType2
+            val weight =
+                pickerOne.value.toString() + " " + textType1 + ", " + pickerTwo.value.toString() + " " + textType2
             enterTxt?.setText(weight)
             passData(enterTxt?.text.toString())
             enterTxt?.clearFocus()
@@ -325,9 +374,9 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         datePickerDialog.show()
     }
 
-    override fun onDateSet(view: DatePicker?, year : Int, month : Int, day: Int) {
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
 
-        val date = "${month+1}/$day/$year"
+        val date = "${month + 1}/$day/$year"
         enterTxt?.setText(date)
         passData(enterTxt?.text.toString())
         var keyboard =
@@ -352,14 +401,14 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
                         isValid = false
                     }
                 }
-                PASSWORD ->
-                {
+                PASSWORD -> {
                     var pass = enterTxt?.text
                     if (pass.isValidPassword() && pass?.length!! > 0) {
                         //Need to look for some sort of success library here...
                         isValid = true
                     } else {
-                        enterTxt?.error = "Password must be at least 8 digits\nand contain at least on of each:\n-Uppercase letter\n-Special character (!,#,?)\n-Number (0-9)";
+                        enterTxt?.error =
+                            "Password must be at least 8 digits\nand contain at least on of each:\n-Uppercase letter\n-Special character (!,#,?)\n-Number (0-9)";
                         isValid = false
                     }
                 }
@@ -367,10 +416,9 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
         }
     }
 
-    fun passData(text : String)
-    {
-        var data : Data ?= null
-        data = if(text.isEmpty())
+    fun passData(text: String) {
+        var data: Data? = null
+        data = if (text.isEmpty())
             Data(tag.toString(), "Not Provided")
         else
             Data(tag.toString(), text)
@@ -379,6 +427,7 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
             dataPasser?.onDataPass(data)
         }
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -398,8 +447,6 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
                 }
             }
     }
-
-
 
 
 }
