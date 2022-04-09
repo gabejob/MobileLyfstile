@@ -200,44 +200,11 @@ class TextSubmitFragment : Fragment(),  OnDateSetListener {
 
     }
 
- /**
-  *
-  *
-  * Method to delegate click flow control
-  *
-  *
-  * */
-   /* override fun onClick(view: View?) {
-        when(view?.id) {
-            R.id.enter_box ->
-            {
-                when(tag) {
-                    AGE ->
-                    {
-                       showDatePickerDialog()
-                    }
-                    WEIGHT ->
-                    {
-                        showNumberPickerDialog(WEIGHT)
-                    }
-                    HEIGHT ->
-                    {
-                        showNumberPickerDialog(HEIGHT)
-                    }
-                    SEX ->
-                    {
-                        showSexPickerDialog()
-                    }
-                }
-            }
-
-    }
-}
-*/
     private fun showSexPickerDialog() {
 
         val builder = AlertDialog.Builder(requireContext())
         var checked = 1
+        enterTxt?.setText("Female")
 
         var options = resources.getStringArray(R.array.sex_array) as Array<String>
         builder.setTitle("Choose Sex:")

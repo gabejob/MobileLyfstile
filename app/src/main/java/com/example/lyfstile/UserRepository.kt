@@ -17,9 +17,9 @@ class UserRepository public constructor(private val db: DBHandler) {
                 user.firstName,
                 user.lastName,
                 user.age,
+                user.sex,
                 user.height,
                 user.weight,
-                user.sex,
                 user.country,
                 user.city,
                 user.pfp
@@ -34,11 +34,9 @@ class UserRepository public constructor(private val db: DBHandler) {
                 user.firstName,
                 user.lastName,
                 user.age,
-                user.height,
-                user.weight,
                 user.sex,
-                user.country,
-                user.city
+                user.height,
+                user.weight
             )
         }
 

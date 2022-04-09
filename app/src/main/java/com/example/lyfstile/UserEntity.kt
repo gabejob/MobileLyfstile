@@ -24,14 +24,14 @@ data class UserEntity constructor(
     @ColumnInfo(name = "age")
     var age: String?,
 
+    @ColumnInfo(name = "sex")
+    var sex: String?,
+
     @ColumnInfo(name = "height")
     var height: String?,
 
     @ColumnInfo(name = "weight")
     var weight: String?,
-
-    @ColumnInfo(name = "sex")
-    var sex: String?,
 
     @ColumnInfo(name = "country")
     var country: String?,

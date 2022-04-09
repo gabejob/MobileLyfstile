@@ -24,7 +24,11 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
 
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
 
-        val bmgFragment = BMIFragment(viewModel.user)
+        viewModel.getUser(requireActivity(), viewModel.user.email)!!.observe(viewLifecycleOwner){
+            viewModel.user = User(it)
+        }
+
+        val bmgFragment = BMIFragment()
         val actionbarFragment = ActionbarFragment()
 
         val fragtrans = childFragmentManager.beginTransaction()

@@ -14,7 +14,6 @@ import androidx.navigation.Navigation
  * create an instance of this fragment.
  */
 class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
-
     private var dataList = HashMap<String, Data>()
     private var currentScreen = "first_last_name"
     private var tag1 = ""
@@ -32,7 +31,6 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_new_user_info, container, false)
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
 
@@ -44,38 +42,7 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         return view
     }
 
-//@todo
-//    override fun onBackPressed() {
-//        when (currentScreen) {
-//            "first_last_name" -> {
-//                super.onBackPressed()
-//                finish()
-//            }
-//            AGE_SEX_SCREEN -> {
-//                currentScreen = FIRST_LAST_NAME_SCREEN
-//                changeScreen(currentScreen)
-//                tag1 = FIRST_NAME
-//                tag2 = LAST_NAME
-//            }
-//            HEIGHT_WEIGHT_SCREEN -> {
-//                currentScreen = AGE_SEX_SCREEN
-//                changeScreen(currentScreen)
-//                tag1 = AGE
-//                tag2 = SEX
-//            }
-//            COUNTRY_CITY_SCREEN -> {
-//                currentScreen = HEIGHT_WEIGHT_SCREEN
-//                changeScreen(currentScreen)
-//                tag1 = HEIGHT
-//                tag2 = WEIGHT
-//            }
-//        }
-//        fragTrans(tag1, tag2)
-//    }
-
     override fun onClick(view: View?) {
-//        if (dataList?.get(FIRST_NAME)?.equals("") == true)
-//            nextButton?.isEnabled = false
         when (view?.id) {
             //Each time the next button is pressed, change tags and replace text fragments...
             R.id.next_button -> {
@@ -156,14 +123,6 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
             CITY -> viewModel.user.city = data.data.toString()
         }
     }
-//        if (data.data.toString().isEmpty()) {
-//            dataList?.remove(data.sender)
-//            nextButton?.isEnabled = false
-//        } else {
-//            dataList?.set(data.sender, data)
-//            if (dataList!!.size % 2==0) {
-//                nextButton?.isEnabled = true
-//            }
 
 
     /**
@@ -184,10 +143,3 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         }
     }
 }
-
-//private operator fun Any.setValue(
-//    newUserInfoFrag: NewUserInfoFrag,
-//    property: KProperty<*>,
-//    lyfViewModel: LyfViewModel
-//) {
-//}

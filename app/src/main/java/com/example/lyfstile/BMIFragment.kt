@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import kotlin.math.pow
 
 /**
@@ -14,9 +15,10 @@ import kotlin.math.pow
  * Use the [bmiActivity.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BMIFragment(_user: User) : Fragment(), View.OnClickListener {
+class BMIFragment() : Fragment(), View.OnClickListener {
+    lateinit var viewModel: LyfViewModel
+
     private var bmiBox: TextView? = null
-    private val user = _user
 
     private val bmiFactorImperial = 703
     private val bmiFactorMetric = 10000
@@ -41,17 +43,15 @@ class BMIFragment(_user: User) : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
 
-        val height = user.height
-        val weight = user.weight
+        val height = viewModel.user.height
+        val weight = viewModel.user.weight
         if (height != "Not Provided" && weight != "Not Provided") {
             parseBundleData(height, weight)
         }
         val view = inflater.inflate(R.layout.fragment_bmi, container, false)
-        //var goButton = view.findViewById<Button>(R.id.go_button)
 
-        // goButton.setOnClickListener(this)
         bmiBox = view.findViewById<TextView>(R.id.bmi_text)
         update()
 
@@ -158,8 +158,6 @@ class BMIFragment(_user: User) : Fragment(), View.OnClickListener {
             crunchImperialWeight(pounds, ounces),
             crunchImperialHeight(feet, inches), bmiFactorImperial
         )
-
-
 
         bmiBox?.text = getBMIIndicator(newBMI)
     }

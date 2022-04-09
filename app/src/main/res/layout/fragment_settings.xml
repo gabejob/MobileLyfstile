@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,41 +12,27 @@
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
 
-
-        <TextView
-            android:id="@+id/settings_page"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="#0000"
-            android:fontFamily="@font/shippori"
-            android:text="Edit Personal Info"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            tools:ignore="HardcodedText" />
-
         <ImageView
             android:id="@+id/settings_imageView"
-            android:layout_width="121dp"
-            android:layout_height="137dp"
+            android:layout_width="145dp"
+            android:layout_height="188dp"
             android:layout_alignParentStart="true"
-
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="97dp"
-            android:layout_marginEnd="140dp"
-            android:contentDescription="Profile Image"
+            android:layout_marginStart="133dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="132dp"
+            android:contentDescription="Profile Picture"
             app:srcCompat="@mipmap/chad"
             tools:ignore="HardcodedText" />
 
         <LinearLayout
-            android:id="@+id/info_RL_TV"
+            android:id="@+id/settings_info_RL_TV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/settings_imageView"
-            android:baselineAligned="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="DisableBaselineAlignment">
 
             <RelativeLayout
                 android:layout_width="311dp"
@@ -133,92 +118,102 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="311dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2">
+                android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/settings_fn_edit_box"
-                    android:layout_width="252dp"
+                <EditText
+                    android:id="@+id/settings_first_name_box"
+                    android:layout_width="match_parent"
                     android:layout_height="33dp"
-                    android:layout_marginStart="61dp"
                     android:layout_marginTop="35dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@color/white" />
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/settings_ln_edit_box"
-                    android:layout_width="350dp"
+                <EditText
+                    android:id="@+id/settings_last_name_box"
+                    android:layout_width="match_parent"
                     android:layout_height="33dp"
-                    android:layout_below="@+id/settings_fn_edit_box"
-                    android:layout_marginStart="61dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@color/white" />
-
-                <TextView
-                    android:id="@+id/settings_age_edit_box"
-                    android:layout_width="252dp"
-                    android:layout_height="33dp"
-                    android:layout_below="@+id/settings_ln_edit_box"
-                    android:layout_marginStart="61dp"
-                    android:layout_marginTop="31dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@color/white" />
-
-                <TextView
-                    android:id="@+id/settings_sex_edix_box"
-                    android:layout_width="252dp"
-                    android:layout_height="33dp"
-                    android:layout_below="@+id/settings_age_edit_box"
-                    android:layout_marginStart="61dp"
-                    android:layout_marginTop="38dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@color/white" />
-
-                <TextView
-                    android:id="@+id/settings_height_edit_box"
-                    android:layout_width="252dp"
-                    android:layout_height="33dp"
-                    android:layout_below="@+id/settings_sex_edix_box"
-                    android:layout_marginStart="61dp"
+                    android:layout_below="@+id/settings_first_name_box"
                     android:layout_marginTop="35dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@color/white" />
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/settings_weight_edit_box"
-                    android:layout_width="252dp"
+                <EditText
+                    android:id="@+id/settings_age_box"
+                    android:layout_width="match_parent"
                     android:layout_height="33dp"
-                    android:layout_below="@+id/settings_height_edit_box"
-                    android:layout_marginStart="61dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@color/white" />
+                    android:layout_below="@+id/settings_last_name_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/settings_sex_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/settings_age_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/settings_height_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/settings_sex_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/settings_weight_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/settings_height_box"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_corner_text"
+                    android:fontFamily="@font/shippori"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+
             </RelativeLayout>
+
         </LinearLayout>
 
+
         <Button
-            android:id="@+id/settings_save_button"
+            android:id="@+id/settings_cancel"
             android:layout_width="143dp"
             android:layout_height="65dp"
-            android:layout_below="@+id/info_RL_TV"
+            android:layout_below="@+id/settings_info_RL_TV"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="27dp"
             android:layout_marginEnd="240dp"
+            android:enabled="true"
             android:fontFamily="@font/shippori"
-            android:text="Save"
+            android:text="Cancel"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="25sp"
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/settings_cancel_button"
+            android:id="@+id/settings_save"
             android:layout_width="143dp"
             android:layout_height="65dp"
-            android:layout_below="@+id/info_RL_TV"
+            android:layout_below="@+id/settings_info_RL_TV"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="240dp"
@@ -226,21 +221,11 @@
             android:layout_marginTop="27dp"
             android:layout_marginEnd="28dp"
             android:layout_marginRight="10dp"
+            android:enabled="true"
             android:fontFamily="@font/shippori"
-            android:text="Cancel"
+            android:text="Save"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="25sp"
             tools:ignore="HardcodedText" />
-
-
-        <RelativeLayout
-            android:id="@+id/action_bar_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="83dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp" />
-
     </RelativeLayout>
 </FrameLayout>

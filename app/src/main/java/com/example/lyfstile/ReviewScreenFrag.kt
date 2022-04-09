@@ -20,7 +20,8 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
     private lateinit var viewModel: LyfViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_review, container, false)
@@ -31,6 +32,7 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
 
         editButton = view.findViewById(R.id.edit_button)
         editButton?.setOnClickListener(this)
+
         setInfoValues(view)
         return view
     }
@@ -45,11 +47,8 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
                             .navigate(R.id.action_review_to_homeScreenFrag)
                     }
                 } catch (e: Exception) {
-                    throw Exception("Unable to start the camera")
-                }
-            }
-            R.id.edit_button -> {
-                view.let {
+                    Toast.makeText(requireActivity(), "Unable to save account!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -58,7 +57,8 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
     private fun setInfoValues(view: View) {
         val user = viewModel.user
 
-        view.findViewById<ImageView>(R.id.imageView)?.setImageBitmap(BitmapFactory.decodeByteArray(user.pfp, 0,user.pfp.size))
+        view.findViewById<ImageView>(R.id.imageView)
+            ?.setImageBitmap(BitmapFactory.decodeByteArray(user.pfp, 0, user.pfp.size))
         view.findViewById<EditText>(R.id.first_name_box)?.setText(user.firstName)
         view.findViewById<EditText>(R.id.last_name_box)?.setText(user.lastName)
         view.findViewById<EditText>(R.id.age_box)?.setText(user.age)

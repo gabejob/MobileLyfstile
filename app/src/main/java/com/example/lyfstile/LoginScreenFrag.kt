@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import java.lang.Thread.sleep
 
 /**
  * A simple [Fragment] subclass.
@@ -16,6 +17,7 @@ import androidx.navigation.Navigation
 class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
     private lateinit var viewModel: LyfViewModel
     private var login: Button? = null
+    private var forgot: Button? = null
     private var email = ""
     private var password = ""
     private var userEntity: List<UserEntity> = emptyList()
@@ -24,7 +26,6 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login_screen, container, false)
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
 
@@ -38,17 +39,17 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
 
         fragtrans.commit()
 
-        login = view.findViewById<Button>(R.id.Login_button)
-
-        val forgot = view.findViewById<Button>(R.id.forgot_pass)
-        forgot.setOnClickListener(this)
-        login?.setOnClickListener(this)
-
         viewModel.allUsers(requireActivity())!!.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()){
                 userEntity = it
             }
         }
+
+        login = view.findViewById<Button>(R.id.Login_button)
+        forgot = view.findViewById<Button>(R.id.forgot_pass)
+
+        login?.setOnClickListener(this)
+        forgot?.setOnClickListener(this)
 
         return view
     }
@@ -56,9 +57,9 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.Login_button -> {
-                // Make sure everything has been entered/initialized
                 if (email.isNotBlank() && password.isNotBlank()) {
                     val cred = verifyCredentials(email, password)
+                    sleep(1000)
                     if (cred) {
                         view.let {
                             Navigation.findNavController(it)
@@ -87,7 +88,7 @@ class LoginScreenFrag : Fragment(), View.OnClickListener, PassData {
             if (foundUser != null) {
                 login?.isEnabled = true
                 isVerified = true
-                viewModel.getUser(requireContext(), email)!!.observe(viewLifecycleOwner){
+                viewModel.getUser(requireActivity(), email)!!.observe(viewLifecycleOwner){
                     viewModel.user = User(it)
                 }
             }
