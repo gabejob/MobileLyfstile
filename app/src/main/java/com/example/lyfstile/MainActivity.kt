@@ -1,6 +1,7 @@
 package com.example.lyfstile
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -16,4 +17,5 @@ class MainActivity : AppCompatActivity() {
 
         lyfViewModel = ViewModelProvider(this)[LyfViewModel::class.java]
     }
+
 }
