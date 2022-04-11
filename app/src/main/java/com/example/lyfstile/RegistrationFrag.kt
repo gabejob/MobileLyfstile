@@ -47,11 +47,11 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
             PASSWORD_CONFIRMED
         )
 
-/*        view.isFocusable = true
-        view.isFocusableInTouchMode = true
-        view.requestFocus()
-        view.clearFocus()*/
         fragtrans.commit()
+
+        emailEnterFragment.value = viewModel.user.email
+        passwordEnterFragment.value = viewModel.user.password
+        confirmPasswordEnterFragment.value = viewModel.user.password
 
         nextButton = view.findViewById<Button>(R.id.next_button)
         nextButton?.setOnClickListener(this)
@@ -81,7 +81,6 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
         } else {
             Toast.makeText(requireActivity(), "Please enter all forms!", Toast.LENGTH_SHORT).show()
         }
-
 
 //        if (dataList.size == 3) {
 //            if (dataList[PASSWORD]?.data == dataList[PASSWORD_CONFIRMED]?.data) {

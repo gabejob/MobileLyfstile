@@ -46,18 +46,22 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
     private fun enableBackButton() {
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+
                 backButtonEnabled = true
                 val fragMan = parentFragmentManager
                 val childCount = childFragmentManager.backStackEntryCount
 
                 if (childCount == 0) {
+
                     findNavController().popBackStack()
                     backButtonEnabled = false
+
                 } else if (childCount >= 1) {
-                    //fragMan?.popBackStack()
+
                     fragMan.popBackStackImmediate()
                     childFragmentManager.popBackStackImmediate()
                     updateScreenInfo(false)
+
                 }
             }
         })
@@ -168,6 +172,7 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
     override fun onClick(view: View?) {
         if (dataList[FIRST_NAME]?.equals("") == true)
             nextButton?.isEnabled = false
+
         when (view?.id) {
             //Each time the next button is pressed, change tags and replace text fragments...
             R.id.next_button -> {
@@ -220,12 +225,12 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
             HEIGHT_WEIGHT_SCREEN -> {
                 if (direction) {
                     currentScreen = COUNTRY_CITY_SCREEN
-                    tag1 = COUNTRY //Needs to enforce country auto-select
-                    tag2 = CITY //Needs to enforce city auto-select
+                    tag1 = COUNTRY
+                    tag2 = CITY
                 } else {
                     currentScreen = AGE_SEX_SCREEN
-                    tag1 = AGE //Needs to enforce numbers/date selector
-                    tag2 = SEX //Needs to enforce dropdown
+                    tag1 = AGE
+                    tag2 = SEX
                 }
                 changeScreen(currentScreen)
                 nextButton?.isEnabled = true
@@ -275,10 +280,27 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         fragtrans.replace(R.id.fn_enter_box, enterFragment, tag1)
         fragtrans.replace(R.id.ln_enter_box, enterFragment2, tag2)
 
-/*        enterFragment2.fo
-        enterFragment.requestFocus()*/
         view?.clearFocus()
         fragtrans.commit()
+
+        when(tag1) {
+            FIRST_NAME -> {
+                enterFragment.value = viewModel.user.firstName
+                enterFragment2.value = viewModel.user.lastName
+            }
+            AGE -> {
+                enterFragment.value = viewModel.user.age
+                enterFragment2.value = viewModel.user.sex
+            }
+            HEIGHT -> {
+                enterFragment.value = viewModel.user.height
+                enterFragment2.value = viewModel.user.weight
+            }
+            COUNTRY -> {
+                enterFragment.value = viewModel.user.country
+                enterFragment2.value = viewModel.user.city
+            }
+        }
     }
 
     override fun onDataPass(data: Data) {
