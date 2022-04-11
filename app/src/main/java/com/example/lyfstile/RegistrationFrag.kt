@@ -82,18 +82,6 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
             Toast.makeText(requireActivity(), "Please enter all forms!", Toast.LENGTH_SHORT).show()
         }
 
-//        if (dataList.size == 3) {
-//            if (dataList[PASSWORD]?.data == dataList[PASSWORD_CONFIRMED]?.data) {
-//                view?.let {
-//                    Navigation.findNavController(it)
-//                        .navigate(R.id.action_registration_to_new_user_info)
-//                }
-//            } else {
-//                Toast.makeText(requireActivity(), "Passwords do not match!", Toast.LENGTH_SHORT).show()
-//            }
-//        } else {
-//            Toast.makeText(requireActivity(), "Please enter all forms!", Toast.LENGTH_SHORT).show()
-//        }
     }
 
     override fun onDataPass(data: Data) {
@@ -109,14 +97,5 @@ class RegistrationFrag : Fragment(), View.OnClickListener, PassData {
                 }
             }
         }
-//        if (data.data.toString().isEmpty() || data.data == "Not Provided") {
-//            dataList.remove(data.sender)
-//            nextButton?.isEnabled = false
-//        } else {
-//            dataList[data.sender] = data
-//            if (dataList.size == 3) {
-//                nextButton?.isEnabled = true
-//            }
-//        }
     }
 }

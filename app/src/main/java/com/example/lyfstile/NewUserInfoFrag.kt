@@ -74,12 +74,7 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_new_user_info, container, false)
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
-/*        val extras = intent.extras
-        user = extras?.get(USER_DATA) as User
-        currentScreen.value = FIRST_LAST_NAME_SCREEN
-        buildDataList(user!!)*/
 
-        //fragTrans(FIRST_NAME, LAST_NAME)
         nextButton = view?.findViewById<Button>(R.id.next_button)
         nextButton?.setOnClickListener(this)
 
@@ -94,8 +89,6 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
                 screenPrompts[COUNTRY_CITY_SCREEN]?.get(2)
             nextButton?.isEnabled = true
         } else if (currentScreen == FIRST_LAST_NAME_SCREEN) {
-/*            currentScreen == AGE_SEX_SCREEN
-            updateScreenInfo(false)*/
             fragTrans(FIRST_NAME, LAST_NAME)
             nextButton?.isEnabled = false
         }
@@ -106,67 +99,6 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         view.clearFocus()
 
         return view
-    }
-
-    /*    private fun buildDataList(user: User){
-            if(user.firstName.isNullOrEmpty()) {
-                nextButton?.isEnabled = false
-            }else{
-
-                dataList[FIRST_NAME] = (Data(FIRST_NAME,user.firstName))
-                dataList[LAST_NAME] = (Data(LAST_NAME,user.lastName))
-                dataList[COUNTRY] = (Data(COUNTRY,user.country))
-                dataList[CITY] = (Data(CITY,user.city))
-                dataList[AGE] = (Data(AGE,user.age))
-                dataList[SEX] = (Data(SEX,user.sex))
-                dataList[WEIGHT] = (Data(WEIGHT,user.weight))
-                dataList[HEIGHT] = (Data(HEIGHT,user.height))
-
-            }
-
-        }*/
-//@todo
-    fun onBackPressed() {
-/*    val fragTrans = childFragmentManager
-    val count = fragTrans?.backStackEntryCount
-    fragTrans?.popBackStack()*/
-
-        when (currentScreen) {
-            "first_last_name" -> {
-                //super.onBackPressed()
-                //Fragment RegistrationFrag = new RegistrationFrag;
-
-/*                val fragtrans = childFragmentManager.beginTransaction()
-                fragtrans.replace(R.id.new_user_info, RegistrationFrag())
-                fragtrans.commit()
-                val fragTrans = parentFragment
-                val count = fragTrans?.parentFragmentManager?.backStackEntryCount
-                fragTrans?.parentFragmentManager?.popBackStack()
-
-                //fragTrans?.parentFragmentManager?.beginTransaction()?.replace(R.id.new_user_info, RegistrationFrag())?.commit()
-                super.onBackPressed()
-                finish()*/
-            }
-            AGE_SEX_SCREEN -> {
-                currentScreen = FIRST_LAST_NAME_SCREEN
-                changeScreen(currentScreen)
-                tag1 = FIRST_NAME
-                tag2 = LAST_NAME
-            }
-            HEIGHT_WEIGHT_SCREEN -> {
-                currentScreen = AGE_SEX_SCREEN
-                changeScreen(currentScreen)
-                tag1 = AGE
-                tag2 = SEX
-            }
-            COUNTRY_CITY_SCREEN -> {
-                currentScreen = HEIGHT_WEIGHT_SCREEN
-                changeScreen(currentScreen)
-                tag1 = HEIGHT
-                tag2 = WEIGHT
-            }
-        }
-        //fragTrans(tag1, tag2)
     }
 
     override fun onClick(view: View?) {
@@ -323,15 +255,6 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
             CITY -> viewModel.user.city = data.data.toString()
         }
     }
-//        if (data.data.toString().isEmpty()) {
-//            dataList?.remove(data.sender)
-//            nextButton?.isEnabled = false
-//        } else {
-//            dataList?.set(data.sender, data)
-//            if (dataList!!.size % 2==0) {
-//                nextButton?.isEnabled = true
-//            }
-
 
     /**
      *
@@ -351,34 +274,3 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         }
     }
 }
-
-/**
- *
- * All user data needs to be manually inserted into a user object
- *
- *
- */
-/*private fun addToUserProfile() {
-
-    user?.firstName = checkVal(FIRST_NAME)
-    user?.lastName = checkVal(LAST_NAME)
-    user?.birthday = checkVal(AGE)
-    user?.sex = checkVal(SEX)
-    user?.height = checkVal(HEIGHT)
-    user?.weight = checkVal(WEIGHT)
-    user?.country = checkVal(COUNTRY)
-    user?.city = checkVal(CITY)
-}
-
-private fun checkVal(tag : String) : String
-{
-    if(dataList[tag]?.data.isNullOrEmpty())
-        return "Not Provided"
-    return dataList[tag]?.data.toString()
-}*/
-//private operator fun Any.setValue(
-//    newUserInfoFrag: NewUserInfoFrag,
-//    property: KProperty<*>,
-//    lyfViewModel: LyfViewModel
-//) {
-//}
