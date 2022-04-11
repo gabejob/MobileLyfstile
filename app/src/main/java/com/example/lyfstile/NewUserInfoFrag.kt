@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 
 /**
  * A simple [Fragment] subclass.
@@ -47,24 +48,17 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
             override fun handleOnBackPressed() {
                 backButtonEnabled = true
                 val fragMan = parentFragmentManager
-                //val fragtrans = fragMan.beginTransaction()
-                val count = fragMan?.backStackEntryCount
                 val childCount = childFragmentManager.backStackEntryCount
 
                 if (childCount == 0) {
-                    super.setEnabled(false)
-                    fragMan.popBackStack()
-                    childFragmentManager.popBackStack()
-/*                        fragMan.executePendingTransactions()
-                        childFragmentManager.executePendingTransactions()*/
-
+                    findNavController().popBackStack()
                     backButtonEnabled = false
-                }else if(childCount > 1){
+                } else if (childCount >= 1) {
                     //fragMan?.popBackStack()
                     fragMan.popBackStackImmediate()
                     childFragmentManager.popBackStackImmediate()
+                    updateScreenInfo(false)
                 }
-                updateScreenInfo(false)
             }
         })
     }
@@ -85,15 +79,17 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
         nextButton = view?.findViewById<Button>(R.id.next_button)
         nextButton?.setOnClickListener(this)
 
-        if(currentScreen == COUNTRY_CITY_SCREEN){
+        if (currentScreen == COUNTRY_CITY_SCREEN) {
             fragTrans(COUNTRY, CITY)
             val test = screenPrompts[COUNTRY_CITY_SCREEN]?.get(0)
             view?.findViewById<TextView>(R.id.wyn_textView)?.text =
                 test
-            view?.findViewById<TextView>(R.id.fn_textView)?.text = screenPrompts[COUNTRY_CITY_SCREEN]?.get(1)
-            view?.findViewById<TextView>(R.id.ln_textView)?.text = screenPrompts[COUNTRY_CITY_SCREEN]?.get(2)
+            view?.findViewById<TextView>(R.id.fn_textView)?.text =
+                screenPrompts[COUNTRY_CITY_SCREEN]?.get(1)
+            view?.findViewById<TextView>(R.id.ln_textView)?.text =
+                screenPrompts[COUNTRY_CITY_SCREEN]?.get(2)
             nextButton?.isEnabled = true
-        }else if(currentScreen == FIRST_LAST_NAME_SCREEN){
+        } else if (currentScreen == FIRST_LAST_NAME_SCREEN) {
 /*            currentScreen == AGE_SEX_SCREEN
             updateScreenInfo(false)*/
             fragTrans(FIRST_NAME, LAST_NAME)
@@ -170,7 +166,7 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if(dataList[FIRST_NAME]?.equals("") == true)
+        if (dataList[FIRST_NAME]?.equals("") == true)
             nextButton?.isEnabled = false
         when (view?.id) {
             //Each time the next button is pressed, change tags and replace text fragments...
@@ -184,7 +180,7 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
                 if (!backButtonEnabled) {
                     enableBackButton()
                 }
-                if(!updateScreenInfo(true)){
+                if (!updateScreenInfo(true)) {
                     view?.let {
                         Navigation.findNavController(it)
                             .navigate(R.id.action_new_user_info_to_camera)
@@ -201,7 +197,7 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
     private fun updateScreenInfo(direction: Boolean): Boolean {
         when (currentScreen) {
             FIRST_LAST_NAME_SCREEN -> {
-                if(direction) {
+                if (direction) {
                     currentScreen = AGE_SEX_SCREEN
                     changeScreen(currentScreen)
                     tag1 = AGE
@@ -209,11 +205,11 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
                 }
             }
             AGE_SEX_SCREEN -> {
-                if(direction) {
+                if (direction) {
                     currentScreen = HEIGHT_WEIGHT_SCREEN
                     tag1 = HEIGHT
                     tag2 = WEIGHT
-                }else{
+                } else {
                     currentScreen = FIRST_LAST_NAME_SCREEN
                     tag1 = FIRST_NAME
                     tag2 = LAST_NAME
@@ -222,11 +218,11 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
                 nextButton?.isEnabled = true
             }
             HEIGHT_WEIGHT_SCREEN -> {
-                if(direction) {
+                if (direction) {
                     currentScreen = COUNTRY_CITY_SCREEN
                     tag1 = COUNTRY //Needs to enforce country auto-select
                     tag2 = CITY //Needs to enforce city auto-select
-                }else{
+                } else {
                     currentScreen = AGE_SEX_SCREEN
                     tag1 = AGE //Needs to enforce numbers/date selector
                     tag2 = SEX //Needs to enforce dropdown
@@ -235,10 +231,10 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
                 nextButton?.isEnabled = true
             }
             COUNTRY_CITY_SCREEN -> {
-                if(direction) {
+                if (direction) {
                     changeScreen(currentScreen)
                     return false
-                }else{
+                } else {
                     currentScreen = HEIGHT_WEIGHT_SCREEN
                     changeScreen(currentScreen)
                     tag1 = HEIGHT
@@ -258,7 +254,7 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
     private fun fragTrans(tag1: String, tag2: String) {
         val fragtrans = childFragmentManager.beginTransaction()
         val count = childFragmentManager.backStackEntryCount
-        if(tag1 != "first_name") {
+        if (tag1 != "first_name") {
             fragtrans.addToBackStack(tag1)
         }
 
@@ -267,12 +263,12 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
 
         if (dataList[tag1]?.data.toString() != "null") {
             enterFragment.value = dataList[tag1]?.data.toString()
-        }else{
+        } else {
             enterFragment.value = ""
         }
         if (dataList[tag2]?.data.toString() != "null") {
             enterFragment2.value = dataList[tag2]?.data.toString()
-        }else{
+        } else {
             enterFragment2.value = ""
         }
 
