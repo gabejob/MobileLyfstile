@@ -84,7 +84,7 @@ class HealthFrag : Fragment(), View.OnClickListener, ActionbarFragment.ClickInte
         activityCalorieGoalText =  view.findViewById(R.id.calorieGoal)
         activityCurrentGoalText = view.findViewById(R.id.currentGoal)
         activityGoalText = view.findViewById(R.id.activityGoal)
-//        warningText = view.findViewById(R.id.floatingActionButton)
+        warningText = view.findViewById(R.id.floatingActionButton)
         modifyGoals = view.findViewById(R.id.modifyGoalsButton)
         modifyGoals?.setOnClickListener(this)
         warningText?.setOnClickListener(this)
@@ -204,24 +204,27 @@ class HealthFrag : Fragment(), View.OnClickListener, ActionbarFragment.ClickInte
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onClick(view: View?)
     {
+        if(view is RadioButton)
+            onRadioButtonClicked(view)
+
         when(view?.id)
         {
             R.id.modifyGoalsButton ->
             {
                 showModifyGoalsDialog()
             }
-//            R.id.floatingActionButton ->
-//            {
-//                if(isToolTipShown) {
-//                    warningText?.tooltipText = null
-//                    isToolTipShown = false
-//                }
-//                else {
-//                    warningText?.tooltipText = warningTooltipText
-//                    warningText?.performLongClick()
-//                    isToolTipShown=true
-//                }
-//            }
+            R.id.floatingActionButton ->
+            {
+                if(isToolTipShown) {
+                    warningText?.tooltipText = null
+                    isToolTipShown = false
+                }
+                else {
+                    warningText?.tooltipText = warningTooltipText
+                    warningText?.performLongClick()
+                    isToolTipShown=true
+                }
+            }
             R.id.cancel ->{dialog?.hide()}
             R.id.ok ->
             {
@@ -312,7 +315,7 @@ class HealthFrag : Fragment(), View.OnClickListener, ActionbarFragment.ClickInte
     @SuppressLint("InflateParams")
     private fun showModifyGoalsDialog()
     {
-        dialog = Dialog(requireActivity(), R.style.AlertDialogCustom)
+        dialog = Dialog(requireContext(), R.style.AlertDialogCustom)
 
         dialog?.setTitle("Choose Goal:")
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -324,6 +327,22 @@ class HealthFrag : Fragment(), View.OnClickListener, ActionbarFragment.ClickInte
         okButtonDialog?.setOnClickListener(this)
         cancelButtonDialog?.setOnClickListener(this)
 
+        var mw = dialog?.findViewById<RadioButton>(R.id.radio_mw)
+        mw?.setOnClickListener(this)
+        var gw = dialog?.findViewById<RadioButton>(R.id.radio_gw)
+        gw?.setOnClickListener(this)
+        var lw = dialog?.findViewById<RadioButton>(R.id.radio_lw)
+        lw?.setOnClickListener(this)
+        var na = dialog?.findViewById<RadioButton>(R.id.radio_not_active)
+        na?.setOnClickListener(this)
+        var ma = dialog?.findViewById<RadioButton>(R.id.radio_mildly_active)
+        ma?.setOnClickListener(this)
+        var act = dialog?.findViewById<RadioButton>(R.id.radio_active)
+        act?.setOnClickListener(this)
+        var va = dialog?.findViewById<RadioButton>(R.id.radio_very_active)
+        va?.setOnClickListener(this)
+        var ea = dialog?.findViewById<RadioButton>(R.id.radio_extremely_active)
+        ea?.setOnClickListener(this)
         //grab number picker
         numberPicker = dialog?.findViewById(R.id.number_picker_1)
 

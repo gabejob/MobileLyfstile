@@ -13,7 +13,19 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         tools:ignore="UselessParent">
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="344dp"
+            android:clickable="true"
+            android:visibility="gone"
+            app:backgroundTint="@color/white"
+            app:fabSize="mini"
+            app:srcCompat="@drawable/warning_bold" />
         <ImageView
             android:id="@+id/pfp_box"
             android:layout_width="138dp"
