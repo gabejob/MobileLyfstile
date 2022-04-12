@@ -40,6 +40,11 @@ class NewUserInfoFrag : Fragment(), PassData, View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+
+        if(viewModel.user.firstName.isNotBlank() && viewModel.user.lastName.isNotBlank()){
+            nextButton?.isEnabled = true
+        }
+
         view?.clearFocus()
     }
 
