@@ -1,0 +1,21 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lyfstileamplify-dev-115411-authRole",
+      "UnauthRoleArn": "arn:aws:iam::763104665879:role/amplify-lyfstileamplify-dev-115411-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::763104665879:role/amplify-lyfstileamplify-dev-115411-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-lyfstileamplify-dev-115411-deployment",
+      "UnauthRoleName": "amplify-lyfstileamplify-dev-115411-unauthRole",
+      "StackName": "amplify-lyfstileamplify-dev-115411",
+      "StackId": "arn:aws:cloudformation:eu-west-1:763104665879:stack/amplify-lyfstileamplify-dev-115411/e8832350-bc1b-11ec-9cf0-06000d715a55",
+      "AmplifyAppId": "do8dsunvuy3t6"
+    },
+    "categories": {
+      "auth": {
+        "lyfstileamplifyae4230c3": {},
+        "true": {}
+      }
+    }
+  }
+}

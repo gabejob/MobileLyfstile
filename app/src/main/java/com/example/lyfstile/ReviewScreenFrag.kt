@@ -42,6 +42,7 @@ class ReviewScreenFrag : Fragment(), View.OnClickListener {
             R.id.create_button -> {
                 try {
                     viewModel.insert(requireContext(), viewModel.user)
+                    viewModel.uploadFile()
                     view.let {
                         Navigation.findNavController(it)
                             .navigate(R.id.action_review_to_homeScreenFrag)

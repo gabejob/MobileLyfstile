@@ -7,10 +7,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-public class LyfViewModel : ViewModel() {
+public class LyfViewModel : ViewModel(), MainActivity.Backup {
 
     var user = User()
     var data: LiveData<List<UserEntity>>? = null
+    var context : Context ?= null
 
     fun insert(context: Context, user: User) = GlobalScope.launch {
         UserRepository.insert(context, user)
@@ -28,4 +29,18 @@ public class LyfViewModel : ViewModel() {
     fun getUser(context: Context, email: String): LiveData<UserEntity>? {
         return UserRepository.getUser(context, email)
     }
+
+    override fun uploadFile() {
+      var main = context as MainActivity
+        main.uploadFile()
+    }
+
+    override fun downloadDB() {
+        var main = context as MainActivity
+        main.downloadDB()
+    }
+    override fun bind(context: Context) {
+        this.context = context
+    }
+
 }
