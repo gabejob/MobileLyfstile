@@ -1,0 +1,16 @@
+{
+  "resourceName": "AmplifyStorage",
+  "policyUUID": "9d6766ed",
+  "bucketName": "lyfstileamplifystorage",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

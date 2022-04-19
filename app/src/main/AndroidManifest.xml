@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lyfstile">
-
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name=
+                "android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries>
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -35,42 +44,6 @@
             android:value="YOUR_API_KEY" />
 
         <activity
-            android:name=".EntryPoint"
-            android:exported="false" />
-        <activity
-            android:name=".HealthActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MapActivity"
-            android:exported="true" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WeatherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HomeScreen"
-            android:exported="false" />
-        <activity
-            android:name=".LoginExistingAccount"
-            android:exported="false" />
-        <activity
-            android:name=".CameraScreen"
-            android:exported="false" />
-        <activity
-            android:name=".UsernamePassScreen"
-            android:exported="false" />
-        <activity
-            android:name=".NewUserInfoScreen"
-            android:exported="false" />
-        <activity
-            android:name=".ReviewInfoScreen"
-            android:exported="false" />
-        <activity
-            android:name=".EditAllInfoScreen"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -79,6 +52,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.amplifyframework.auth.cognito.activities.HostedUIRedirectActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="myapp" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
