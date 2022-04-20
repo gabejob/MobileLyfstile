@@ -13,6 +13,12 @@ public class LyfViewModel : ViewModel(), MainActivity.Backup {
     var data: LiveData<List<UserEntity>>? = null
     var context : Context ?= null
 
+    fun insertWeather(context: Context, date:String,temp:String) = GlobalScope.launch {
+        WeatherRepo.insert(context, date,temp)
+    }
+    fun getWeather(context: Context, date:String): LiveData<WeatherEntity>? {
+        return WeatherRepo.getWeather(context, date)
+    }
     fun insert(context: Context, user: User) = GlobalScope.launch {
         UserRepository.insert(context, user)
     }

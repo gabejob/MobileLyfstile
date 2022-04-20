@@ -1,8 +1,10 @@
 package com.example.lyfstile
 
+import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.os.StrictMode
+import androidx.lifecycle.LiveData
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.BufferedReader
@@ -10,9 +12,10 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-class WeatherRepository : LocationListener {
+class WeatherRepository  : LocationListener {
     private var longitude = 0.0
     private var latitude = 0.0
+
     private val appID = "241f90adea0d5886a14c0dcfd83b5187"
     private val url =
         "https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts,daily&appid=${appID}&units=imperial"
