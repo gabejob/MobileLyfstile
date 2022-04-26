@@ -39,6 +39,9 @@ data class UserEntity constructor(
     @ColumnInfo(name = "city")
     var city: String?,
 
+/*    @ColumnInfo(name = "steps")
+    var steps: Int,*/
+
     @ColumnInfo(name = "pfp")
     var pfp: ByteArray
 ) {

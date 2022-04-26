@@ -9,6 +9,7 @@
     tools:context=".HomeScreenFrag">
 
     <RelativeLayout
+        android:id="@+id/homescreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
@@ -20,21 +21,13 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp" />
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/account_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="43dp"
-            android:layout_marginTop="233dp"
-            android:layout_marginEnd="29dp"
-            android:fontFamily="@font/segoe"
-            android:text="THIS IS A DUMMY HOMESCREEN"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            tools:ignore="HardcodedText" />
+            android:layout_alignParentEnd="true" />
 
         <ImageView
             android:id="@+id/pfp_box"

@@ -2,6 +2,7 @@ package com.example.lyfstile
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,12 +14,22 @@ public class LyfViewModel : ViewModel(), MainActivity.Backup {
     var data: LiveData<List<UserEntity>>? = null
     var context : Context ?= null
 
-    fun insertWeather(context: Context, date:String,temp:String) = GlobalScope.launch {
+    // temporary until we add steps to the database
+    var steps: MutableLiveData<Int>? = MutableLiveData()
+    fun updateSteps() : MutableLiveData<Int>? {
+        return steps
+    }
+    init{
+        steps?.value = 0
+    }
+
+
+ fun insertWeather(context: Context, date:String,temp:String) = GlobalScope.launch {
         WeatherRepo.insert(context, date,temp)
     }
     fun getWeather(context: Context, date:String): LiveData<WeatherEntity>? {
         return WeatherRepo.getWeather(context, date)
-    }
+
     fun insert(context: Context, user: User) = GlobalScope.launch {
         UserRepository.insert(context, user)
     }

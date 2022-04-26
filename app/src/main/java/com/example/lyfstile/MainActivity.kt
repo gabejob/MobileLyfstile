@@ -2,7 +2,6 @@ package com.example.lyfstile
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -12,18 +11,17 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.nio.channels.FileChannel
 
-class MainActivity : AppCompatActivity(){
+
+class MainActivity : AppCompatActivity() {
     private var lyfViewModel: LyfViewModel? = null
-    interface Backup
-    {
+
+    interface Backup {
         fun bind(context: Context)
         fun downloadDB()
         fun uploadFile()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,22 +49,22 @@ class MainActivity : AppCompatActivity(){
         lyfViewModel = ViewModelProvider(this)[LyfViewModel::class.java]
         lyfViewModel!!.bind(this)
     }
-    fun downloadDB()
-    {
+
+    fun downloadDB() {
         val db = File("/data/data/com.example.lyfstile/databases/user_db")
         Amplify.Storage.downloadFile("db", db,
             { Log.i("MyAmplifyApp", "Successfully downloaded: ${it.file.name}") },
-            { Log.e("MyAmplifyApp",  "Download Failure", it) }
+            { Log.e("MyAmplifyApp", "Download Failure", it) }
         )
         val dbwal = File("/data/data/com.example.lyfstile/databases/user_db-wal")
         Amplify.Storage.downloadFile("dbwal", dbwal,
             { Log.i("MyAmplifyApp", "Successfully downloaded: ${it.file.name}") },
-            { Log.e("MyAmplifyApp",  "Download Failure", it) }
+            { Log.e("MyAmplifyApp", "Download Failure", it) }
         )
         val dbshm = File("/data/data/com.example.lyfstile/databases/user_db-shm")
         Amplify.Storage.downloadFile("dbshm", dbshm,
             { Log.i("MyAmplifyApp", "Successfully downloaded: ${it.file.name}") },
-            { Log.e("MyAmplifyApp",  "Download Failure", it) }
+            { Log.e("MyAmplifyApp", "Download Failure", it) }
         )
 
         val dbw = File("/data/data/com.example.lyfstile/databases/weather_db")
@@ -87,6 +85,7 @@ class MainActivity : AppCompatActivity(){
 
 
     }
+
     fun uploadFile() {
         var pathdb = getDatabasePath("user_db").absolutePath
         var pathdbshm = getDatabasePath("user_db-shm").absolutePath
@@ -120,6 +119,8 @@ class MainActivity : AppCompatActivity(){
         var pathdbshm = getDatabasePath("weather_db-shm").absolutePath
         var pathdbwal = getDatabasePath("weather_db-wal").absolutePath
 
+
+
         var db = File(pathdb)
         var dbshm = File(pathdbshm)
         var dbwal = File(pathdbwal)
@@ -140,5 +141,6 @@ class MainActivity : AppCompatActivity(){
             { Log.e("MyAmplifyApp", "Upload failed", it) }
         )
     }
+
 
 }

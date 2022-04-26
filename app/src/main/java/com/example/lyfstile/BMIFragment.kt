@@ -47,7 +47,7 @@ class BMIFragment() : Fragment(), View.OnClickListener {
 
         val height = viewModel.user.height
         val weight = viewModel.user.weight
-        if (height != "Not Provided" && weight != "Not Provided") {
+        if ( (height != "" && weight != "") && (height != "Not Provided" && weight != "Not Provided")) {
             parseBundleData(height, weight)
         }
         val view = inflater.inflate(R.layout.fragment_bmi, container, false)
