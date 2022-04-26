@@ -8,6 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import java.lang.System.currentTimeMillis
+import java.lang.Thread.sleep
+import java.sql.Date
+import java.sql.Timestamp
+
 
 /**
  * A simple [Fragment] subclass.
@@ -16,6 +21,7 @@ import androidx.navigation.Navigation
  */
 class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
     lateinit var viewModel: LyfViewModel
+    lateinit var weathers : String
     private val weatherRepository = WeatherRepository()
 
     @SuppressLint("SetTextI18n")
@@ -26,7 +32,6 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
         val view = inflater.inflate(R.layout.fragment_weather, container, false)
 
         viewModel = ViewModelProvider(requireActivity())[LyfViewModel::class.java]
-
         val actionbarFragment = ActionbarFragment()
 
         val fragtrans = childFragmentManager.beginTransaction()
@@ -35,8 +40,28 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
         actionbarFragment.bindClickInterface(this)
 
         try {
-            val weather = weatherRepository.getWeather()
-            setWeather(view, weather)
+
+            val stamp = Timestamp(currentTimeMillis())
+            val date = Date(stamp.time)
+
+            sleep(1000)
+            viewModel.getWeather(requireActivity(),date.toString())!!.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    print(it)
+                }
+            }
+
+            if (weathers == null) {
+                val weather = weatherRepository.getWeather()
+                setWeather(view, weather)
+            }
+            else
+            {
+                setWeather(view, WeatherInfo("","","","",Current(date.toString(),
+                    "","",weathers,"","","","","","","","",
+                "",mutableListOf<Weather>())))
+            }
+
         } catch (e: Exception) {
             val weather = weatherRepository.getWeatherNoGust()
             setWeatherNoGust(view, weather)
@@ -82,7 +107,10 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
         view.findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
             "Feels like: ${weather.current.feels_like} °F"
         view.findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
-
+        val stamp = Timestamp(weather.current.dt.toLong())
+        val date = Date(stamp.time)
+        viewModel.insertWeather(requireContext(),date.toString(),weather.current.temp)
+        print(weather.current.dt)
         when (weather.current.weather.first().main) {
             "Clear" -> view.findViewById<ImageView>(R.id.weather_image)
                 .setImageResource(R.drawable.clear)
@@ -95,6 +123,7 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
             else -> view.findViewById<ImageView>(R.id.weather_image)
                 .setImageResource(R.drawable.clouds)
         }
+        viewModel.uploadFile()
     }
 
     @SuppressLint("SetTextI18n")
@@ -106,7 +135,9 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
         view.findViewById<TextView>(R.id.TemperatureFeelsLike)?.text =
             "Feels like: ${weather.current.feels_like} °F"
         view.findViewById<TextView>(R.id.Humidity)?.text = "Humidity: ${weather.current.humidity} %"
-
+        val stamp = Timestamp(weather.current.dt.toLong()*1000)
+        val date = Date(stamp.time)
+        viewModel.insertWeather(requireContext(),date.toString(),weather.current.temp)
         when (weather.current.weather.first().main) {
             "Clear" -> view.findViewById<ImageView>(R.id.weather_image)
                 .setImageResource(R.drawable.clear)
@@ -119,5 +150,6 @@ class WeatherFrag : Fragment(), ActionbarFragment.ClickInterface {
             else -> view.findViewById<ImageView>(R.id.weather_image)
                 .setImageResource(R.drawable.clouds)
         }
+        viewModel.uploadFile()
     }
 }

@@ -67,6 +67,23 @@ class MainActivity : AppCompatActivity() {
             { Log.e("MyAmplifyApp", "Download Failure", it) }
         )
 
+        val dbw = File("/data/data/com.example.lyfstile/databases/weather_db")
+        Amplify.Storage.downloadFile("dbw", dbw,
+            { Log.i("MyAmplifyApp", "Successfully downloaded: ${it.file.name}") },
+            { Log.e("MyAmplifyApp",  "Download Failure", it) }
+        )
+        val dbwwal = File("/data/data/com.example.lyfstile/databases/weather_db-wal")
+        Amplify.Storage.downloadFile("dbwwal", dbwwal,
+            { Log.i("MyAmplifyApp", "Successfully downloaded: ${it.file.name}") },
+            { Log.e("MyAmplifyApp",  "Download Failure", it) }
+        )
+        val dbwshm = File("/data/data/com.example.lyfstile/databases/weather_db-shm")
+        Amplify.Storage.downloadFile("dbwshm", dbwshm,
+            { Log.i("MyAmplifyApp", "Successfully downloaded: ${it.file.name}") },
+            { Log.e("MyAmplifyApp",  "Download Failure", it) }
+        )
+
+
     }
 
     fun uploadFile() {
@@ -90,6 +107,36 @@ class MainActivity : AppCompatActivity() {
         )
         Log.i("MyAmplifyApp", dbwal.readText())
         Amplify.Storage.uploadFile("dbwal", dbwal,
+            { Log.i("MyAmplifyApp", "Successfully uploaded: ${it.key}") },
+            { Log.e("MyAmplifyApp", "Upload failed", it) }
+        )
+        uploadWeather()
+    }
+
+    fun uploadWeather()
+    {
+        var pathdb = getDatabasePath("weather_db").absolutePath
+        var pathdbshm = getDatabasePath("weather_db-shm").absolutePath
+        var pathdbwal = getDatabasePath("weather_db-wal").absolutePath
+
+
+
+        var db = File(pathdb)
+        var dbshm = File(pathdbshm)
+        var dbwal = File(pathdbwal)
+
+        Log.i("MyAmplifyApp", db.readText())
+        Amplify.Storage.uploadFile("dbw", db,
+            { Log.i("MyAmplifyApp", "Successfully uploaded: ${it.key}") },
+            { Log.e("MyAmplifyApp", "Upload failed", it) }
+        )
+        Log.i("MyAmplifyApp", dbshm.readText())
+        Amplify.Storage.uploadFile("dbwshm", dbshm,
+            { Log.i("MyAmplifyApp", "Successfully uploaded: ${it.key}") },
+            { Log.e("MyAmplifyApp", "Upload failed", it) }
+        )
+        Log.i("MyAmplifyApp", dbwal.readText())
+        Amplify.Storage.uploadFile("dbwwal", dbwal,
             { Log.i("MyAmplifyApp", "Successfully uploaded: ${it.key}") },
             { Log.e("MyAmplifyApp", "Upload failed", it) }
         )

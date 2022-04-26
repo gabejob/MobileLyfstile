@@ -6,24 +6,24 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import kotlinx.coroutines.runBlocking
 
-@Database(entities = [UserEntity::class], version = 1, exportSchema = false)
-abstract class DBHandler : RoomDatabase() {
+@Database(entities = [WeatherEntity::class], version = 1, exportSchema = false)
+abstract class WeatherDBHandler : RoomDatabase() {
 
-    abstract fun dao(): UserDao
+    abstract fun dao(): WeatherDao
 
     companion object
     {
         @Volatile
-        private var instance: DBHandler?= null
+        private var instance: WeatherDBHandler?= null
 
-        fun getDatabaseClient(context: Context) : DBHandler {
+        fun getDatabaseClient(context: Context) : WeatherDBHandler {
 
             if (instance != null) return instance!!
 
             synchronized(this) {
 
                 instance = Room
-                    .databaseBuilder(context, DBHandler::class.java, "user_db")
+                    .databaseBuilder(context, WeatherDBHandler::class.java, "weather_db")
                     .fallbackToDestructiveMigration()
                     .build()
                 return instance!!
@@ -31,7 +31,6 @@ abstract class DBHandler : RoomDatabase() {
         }
 
     }
-
 }
 
 
