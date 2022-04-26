@@ -22,6 +22,7 @@ class UserRepository public constructor(private val db: DBHandler) {
                 user.weight,
                 user.country,
                 user.city,
+                //user.steps,
                 user.pfp
             )
             db!!.dao().insert(insert)
@@ -37,6 +38,7 @@ class UserRepository public constructor(private val db: DBHandler) {
                 user.sex,
                 user.height,
                 user.weight
+                //, user.steps
             )
         }
 

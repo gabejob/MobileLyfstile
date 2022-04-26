@@ -6,6 +6,7 @@ import android.hardware.*
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
+import androidx.compose.ui.res.fontResource
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -28,6 +29,7 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
     private var now_x: Double = 0.0
     private var now_y: Double = 0.0
     private var now_z: Double = 0.0
+    private var steps = 0
     private var mNotFirstTime = false
 
     override fun onCreateView(
@@ -43,11 +45,18 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
             viewModel.user = User(it)
         }
 
+
         val bmgFragment = BMIFragment()
         val actionbarFragment = ActionbarFragment()
+        val stepsFragment = StepsFragment()
+
+        viewModel.steps?.observe(viewLifecycleOwner){ steps ->
+            stepsFragment.stepsBox?.text = steps.toString() + " Steps" //viewModel.steps?.value.toString()
+        }
 
         val fragtrans = childFragmentManager.beginTransaction()
         fragtrans.replace(R.id.bmi_frag, bmgFragment, BMI)
+        fragtrans.replace(R.id.account_text, stepsFragment, "Steps")
         fragtrans.replace(R.id.action_bar_fragment, actionbarFragment, ACTION_BAR)
         fragtrans.commit()
         actionbarFragment.bindClickInterface(this)
@@ -89,6 +98,8 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
 
                     // Start step counter
                     val rnd = Random()
+                    viewModel.steps?.value = viewModel.steps?.value?.plus(1)
+                    //steps = rnd.nextInt()
                     print("***********************$rnd***********************")
                 }
             }

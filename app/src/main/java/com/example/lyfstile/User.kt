@@ -12,12 +12,16 @@ import android.os.Parcelable
 class User constructor(
     _firstname: String, _lastname: String, _email: String,
     _password: String, _age: String, _sex: String, _height: String,
-    _weight: String, _country: String, _city: String, _pfp: Any
+    _weight: String, _country: String, _city: String,
+    //_steps: Int,
+    _pfp: Any
 ) : Parcelable {
 
     constructor() : this(
         "", "", "",
-        "", "", "", "", "", "", "", ByteArray(0)
+        "", "", "", "", "", "", "",
+        //0,
+        ByteArray(0)
     ) {
 
     }
@@ -32,6 +36,7 @@ class User constructor(
     var weight: String = _weight
     var country: String = _country
     var city: String = _city
+    //var steps: Int = _steps
     var pfp: ByteArray = _pfp as ByteArray
 
     constructor (userEntity: UserEntity) : this() {
@@ -45,6 +50,7 @@ class User constructor(
         weight = userEntity.weight.toString()
         country = userEntity.country.toString()
         city = userEntity.city.toString()
+        //steps = userEntity.steps
         pfp = userEntity.pfp
     }
 
@@ -59,6 +65,7 @@ class User constructor(
         weight = parcel.readString().toString()
         country = parcel.readString().toString()
         city = parcel.readString().toString()
+        //steps = parcel.readInt()
     }
 
     override fun writeToParcel(out: Parcel?, flags: Int) {
@@ -72,6 +79,7 @@ class User constructor(
         out?.writeString(weight)
         out?.writeString(country)
         out?.writeString(city)
+        //out?.writeInt(steps)
     }
 
     override fun describeContents(): Int {
