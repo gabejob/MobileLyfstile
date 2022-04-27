@@ -29,35 +29,50 @@ public class LyfViewModel : ViewModel(), MainActivity.Backup {
     }
     fun getWeather(context: Context, date:String): LiveData<WeatherEntity>? {
         return WeatherRepo.getWeather(context, date)
-
-    fun insert(context: Context, user: User) = GlobalScope.launch {
-        UserRepository.insert(context, user)
     }
 
-    fun update(context: Context, user: User) = GlobalScope.launch {
-        UserRepository.update(context, user)
+    fun insertSteps(context: Context,email: String, steps: String, dX: String, dY: String, dZ: String) = GlobalScope.launch {
+        UserRepository.insertSteps(context,email, steps, dX, dY, dZ)
     }
 
-    fun allUsers(context: Context): LiveData<List<UserEntity>>? {
-        data = UserRepository.allUsers(context)
-        return data
+    fun updateSteps(context: Context,email: String, steps: String, dX: String, dY: String, dZ: String) = GlobalScope.launch {
+        UserRepository.updateSteps(context,email, steps, dX, dY, dZ)
+    }
+    fun getSteps(context: Context,email: String): LiveData<StepsEntity>? {
+        return UserRepository.getSteps(context, email)
     }
 
-    fun getUser(context: Context, email: String): LiveData<UserEntity>? {
-        return UserRepository.getUser(context, email)
+
+
+        fun insert(context: Context, user: User) = GlobalScope.launch {
+            UserRepository.insert(context, user)
+        }
+
+        fun update(context: Context, user: User) = GlobalScope.launch {
+            UserRepository.update(context, user)
+        }
+
+        fun allUsers(context: Context): LiveData<List<UserEntity>>? {
+            data = UserRepository.allUsers(context)
+            return data
+        }
+
+        fun getUser(context: Context, email: String): LiveData<UserEntity>? {
+            return UserRepository.getUser(context, email)
+        }
+
+        override fun uploadFile() {
+            var main = context as MainActivity
+            main.uploadFile()
+        }
+
+        override fun downloadDB() {
+            var main = context as MainActivity
+            main.downloadDB()
+        }
+
+        override fun bind(context: Context) {
+            this.context = context
+        }
     }
 
-    override fun uploadFile() {
-      var main = context as MainActivity
-        main.uploadFile()
-    }
-
-    override fun downloadDB() {
-        var main = context as MainActivity
-        main.downloadDB()
-    }
-    override fun bind(context: Context) {
-        this.context = context
-    }
-
-}

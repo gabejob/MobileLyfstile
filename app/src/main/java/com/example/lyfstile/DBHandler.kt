@@ -6,11 +6,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import kotlinx.coroutines.runBlocking
 
-@Database(entities = [UserEntity::class], version = 1, exportSchema = false)
+@Database(entities = [UserEntity::class,StepsEntity::class], version = 2, exportSchema = false)
 abstract class DBHandler : RoomDatabase() {
 
     abstract fun dao(): UserDao
-
+    abstract fun daoSteps() : StepsDao
     companion object
     {
         @Volatile

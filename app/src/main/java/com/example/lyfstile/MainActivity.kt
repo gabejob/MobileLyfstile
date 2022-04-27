@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         uploadWeather()
     }
 
-    fun uploadWeather()
+    private fun uploadWeather()
     {
         var pathdb = getDatabasePath("weather_db").absolutePath
         var pathdbshm = getDatabasePath("weather_db-shm").absolutePath
