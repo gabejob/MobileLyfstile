@@ -12,10 +12,7 @@ interface UserDao {
         "UPDATE user_table SET firstname=:firstname, lastname= :lastname, age = :age, sex = :sex," +
                 " height = :height, weight = :weight WHERE email = :email"
     )
-/*    @Query(
-        "UPDATE user_table SET firstname=:firstname, lastname= :lastname, age = :age, sex = :sex," +
-                " height = :height, weight = :weight, steps = :steps WHERE email = :email"
-    )*/
+
     fun updateUser(
         email: String,
         firstname: String,

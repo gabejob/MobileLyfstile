@@ -7,8 +7,23 @@ class UserRepository public constructor(private val db: DBHandler) {
     companion object {
         private var db: DBHandler? = null
         var data: LiveData<List<UserEntity>>? = null
+        var stepsData : LiveData<List<StepsEntity>>? = null
 
-        fun insert(context: Context, user: User) {
+        fun insertSteps(context: Context,email: String, steps: String, dX: String, dY: String, dZ: String) {
+            db = initializeDB(context)
+            db!!.daoSteps().insert(StepsEntity(email,steps,dX, dY, dZ))
+        }
+
+        fun updateSteps(context: Context,email: String, steps: String, dX: String, dY: String, dZ: String) {
+            db = initializeDB(context)
+            db!!.daoSteps().updateSteps(email,steps,dX, dY, dZ)
+        }
+        fun getSteps(context: Context, email: String): LiveData<StepsEntity>? {
+            db = initializeDB(context)
+            return db?.daoSteps()?.getSteps(email)
+        }
+
+            fun insert(context: Context, user: User) {
             db = initializeDB(context)
 
             val insert = UserEntity(

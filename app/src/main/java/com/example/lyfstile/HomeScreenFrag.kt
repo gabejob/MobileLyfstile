@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.ImageView
 import androidx.compose.ui.res.fontResource
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import java.util.*
@@ -46,12 +47,21 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
         }
 
 
+
+
         val bmgFragment = BMIFragment()
         val actionbarFragment = ActionbarFragment()
         val stepsFragment = StepsFragment()
 
         viewModel.steps?.observe(viewLifecycleOwner){ steps ->
-            stepsFragment.stepsBox?.text = steps.toString() + " Steps" //viewModel.steps?.value.toString()
+            viewModel.getSteps(requireActivity(), viewModel.user.email)!!.observe(viewLifecycleOwner) {
+                if(it != null) {
+                    stepsFragment.stepsBox?.text =
+                        it.steps.toString() + " Steps"// steps =  it.steps.toInt()
+                    viewModel.steps = MutableLiveData(it.steps.toInt())
+                }
+            }
+            //viewModel.steps?.value.toString()
         }
 
         val fragtrans = childFragmentManager.beginTransaction()
@@ -100,6 +110,9 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
                     val rnd = Random()
                     viewModel.steps?.value = viewModel.steps?.value?.plus(1)
                     //steps = rnd.nextInt()
+                    var currUser = viewModel.user
+                    var currSteps = viewModel.steps?.value
+                    viewModel.insertSteps(requireContext(),currUser.email, currSteps.toString(),dx.toString(),dy.toString(),dz.toString())
                     print("***********************$rnd***********************")
                 }
             }
@@ -128,6 +141,7 @@ class HomeScreenFrag : Fragment(), ActionbarFragment.ClickInterface {
     }
 
     override fun actionButtonClicked(id: Int) {
+        viewModel.uploadFile()
         when (id) {
             R.id.health -> {
                 view?.let {
